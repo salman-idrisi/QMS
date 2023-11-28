@@ -1,0 +1,23 @@
+﻿@model clover.qms.model.Domain
+
+@{
+    ViewBag.Title = "DomainDetails";
+    Layout = null;
+}
+
+<h2>Domain Details</h2>
+
+<div>
+    <h4>Domain</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.domainname) :  @Html.DisplayFor(model => model.domainname)
+        </dt>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.domainId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

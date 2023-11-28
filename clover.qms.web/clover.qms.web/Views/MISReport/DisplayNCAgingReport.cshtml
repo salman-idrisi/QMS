@@ -1,0 +1,269 @@
+﻿@model clover.qms.model.PCRViewModel
+@{
+    Layout = null;
+}
+<style>
+    body {
+        margin-top: 70PX;
+    }
+
+    .cell-border {
+        border: 1px solid;
+    }
+
+    table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+        border-top: 1px solid #080707;
+        border-right: 1px solid #080707;
+    }
+
+    table.dataTable.cell-border tbody tr th:first-child, table.dataTable.cell-border tbody tr td:first-child {
+        border-left: 1px solid #080707;
+    }
+
+    .table > thead > tr > th {
+        border-bottom: 1px solid #080707;
+        border-collapse: collapse
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        /*height: 30px !important;*/
+        opacity: 1 !important;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 12%;
+    }
+
+    .modal-content {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 65%;
+        width: 900px;
+    }
+
+    .div2 {
+        margin-top: 5px;
+    }
+
+    table.dataTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    .table > thead > tr > th {
+        vertical-align: top;
+    }
+</style>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <title>DisplayNCAgingReport</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            var Report = Model.listpcrreport.Count;
+
+            if (Report > 0)
+            {
+                // Model.listNCAging = ViewBag.ncaging;
+                Model.listusers = ViewBag.user;
+                <div class="div1">
+                    <h3 style="text-align:center;color:darkred">NC Aging Report</h3>
+                </div>
+                <div class="form-horizontal" align="center">
+
+
+
+                    <table id="tblReport" class="table cell-border">
+                        <tr><td colspan="18">Date:@ViewBag.startDate  to @ViewBag.endDate</td></tr>
+
+
+                        <tr>
+                            <th style="background-color:#D3D3D3">Sr.No.</th>
+                            <th style="background-color:#D3D3D3">Account Name</th>
+                            <th style="background-color:#D3D3D3">Project Name</th>
+                            <th style="background-color:#D3D3D3">Audit Finding</th>
+                            <th style="background-color:#D3D3D3">Process Area</th>
+                            <th style="background-color:#D3D3D3">Auditor</th>
+                            <th style="background-color:#D3D3D3">ISO 9001 Clause</th>
+                            <th style="background-color:#D3D3D3">ISO 27001 Clause</th>
+                            <th style="background-color:#D3D3D3">Classification</th>
+                            <th style="background-color:#D3D3D3">Responsibility</th>
+                            <th style="background-color:#D3D3D3">Planned Closure Date</th>
+                            <th style="background-color:#D3D3D3">PCR Done On</th>
+                            <th style="background-color:#D3D3D3">Actual Closure Date</th>
+                            <th style="background-color:#D3D3D3">Project Manager</th>
+                            <th style="background-color:#D3D3D3">Deliver Manager</th>
+                            <th style="background-color:#D3D3D3">NC Aging</th>
+                            <th style="background-color:#D3D3D3">Status</th>
+                            <th style="background-color:#D3D3D3">Comments</th>
+
+                        </tr>
+
+                        @{ var i = 0;
+                            var sr = 1;
+                            var a = 0;
+                            var b = 0;
+
+                            foreach (var report in Model.listpcrreport)
+                            {
+
+                                <tr>
+
+                                    @Html.HiddenFor(model => model.listNCAging[i].reportID, new { Value = report.reportID })
+
+                                    <td class="Id">@sr</td>
+                                    @foreach (var projectMaster in Model.listProjectMaster)
+                                    {
+
+                                        foreach (var schedule in Model.listPcrSchedule)
+                                        {
+
+                                            <td class="AccountName">@Model.listProjectMaster[a].AccountName</td>
+                                            <td class="ProjectName">@Model.listProjectMaster[a].ProjectName</td>
+                                            <td class="Observation">@report.AuditFindind</td>
+                                            foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                                            {
+                                                <td class="Area">@area.parameterName</td>
+                                                break;
+                                            }
+
+                                            foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == Model.listPcrSchedule[b].AuditorId))
+                                            {
+                                                foreach (var user in Model.listusers.Where(x => x.UserName == auditor.EmpID))
+                                                {
+                                                    string name = @user.FirstName + " " + @user.LastName;
+                                                    <td class="Auditor">@name</td>
+                                                    break;
+                                                }
+                                                break;
+                                            }
+                                            <td class="ISO9001Closure">@report.ISO9001Closure</td>
+                                            <td class="ISO27001Closure">@report.ISO27001Closure</td>
+                                            foreach (var classification in Model.listclassification.Where(x => x.classificationID == report.classificationId))
+                                            {
+                                                <td class="classificationName">@classification.classificationName</td>
+                                                break;
+                                            }
+                                            foreach (var user in Model.listusers.Where(x => x.UserName == report.responsibility))
+                                            {
+                                                string name = @user.FirstName + " " + @user.LastName;
+                                                <td class="responsibility">@name</td>
+                                                break;
+                                            }
+                                            <td class="PlannedClosureDate">@report.PlannedClosureDate.ToLongDateString()</td>
+                                            <td class="PCRDone">@Model.listPcrSchedule[b].ActualDate.Value.ToLongDateString()</td>
+                                            string closeddate = report.ClosedDate != null ? report.ClosedDate.Value.ToLongDateString() : null;
+                                            <td class="ClosedDate">@closeddate</td>
+
+                                            foreach (var user in Model.listusers.Where(x => x.UserName == Model.listProjectMaster[a].managerName))
+                                            {
+                                                string name = @user.FirstName + " " + @user.LastName;
+                                                <td class="ProjectManager">@name</td>
+                                                break;
+                                            }
+
+                                            <td class="DeliveryManager">@Model.listProjectMaster[a].deliverymanagerName</td>
+
+
+                                            string date = ((report.ClosedDate != null ? report.ClosedDate : Model.listPcrSchedule[b].ActualDate) - Model.listPcrSchedule[b].ActualDate).Value.Days.ToString();
+                                            <td class="DateDifference">@date</td>
+                                            foreach (var status in Model.listschedulestatus.Where(x => x.scheduleStatusID == report.statusID))
+                                            {
+                                                <td class="Status">@status.scheduleStatusName</td>
+                                                break;
+                                            }
+                                            //foreach (var ncaging in ViewBag.ncaging)
+                                            //{
+
+                                            <td>
+                                                @Html.EditorFor(model => model.listNCAging[i].Comments, new
+                                                {
+                                                    htmlAttributes = new
+                                                    {
+                                                        @class = "form-control",
+                                                        autocomplete = "off",
+                                                        id = "comment"@*, Value = ncaging.Comments*@}
+})
+                                            </td>
+                                            //}
+                                            b++;
+                                            break;
+
+                                        }
+                                        a++;
+                                        break;
+
+                                    }
+
+
+                                </tr>
+                                i++;
+                                sr++;
+                            }
+
+                        }
+                    </table>
+                    <div class="div2">
+                        @*<a href="#" class="btn btn-warning" id="btnExport">Export Excel</a>*@
+                        <input type="submit" value="Submit" formaction="@Url.Action("InsertNCAging", "MISReport")" class="btn btn-success" />
+                        <a href="/MISReport/MISReportIndex/" class="btn btn-success" id="btnGoBack" @*onclick=Show();*@>New Report</a>
+                    </div>
+
+                </div>
+            }
+
+            else
+            { <h2>No data found</h2>
+                <br />
+                <div class="div2">
+                    <a href="/MISReport/MISReportIndex/" class="btn btn-success" id="btnGoBack" @*onclick=Show();*@>New Report</a>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/table2excel.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblReport").DataTable({ sDom: 'lrtip', "lengthChange": false })
+    });
+    $(function () {
+        $("#btnExport").click(function () {
+            $("#tblReport").table2excel({
+                filename: "NC-Aging-Report.xls",
+                exclude_inputs: false
+            });
+        });
+    });
+    //$(function () {
+    //    $("#btnGoBack").click(function () {
+    //        window.history.back();
+    //    });
+    //});
+
+</script>

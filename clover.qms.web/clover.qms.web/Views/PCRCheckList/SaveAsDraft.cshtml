@@ -1,0 +1,344 @@
+﻿
+@model clover.qms.model.PCRViewModel
+@*@{
+        Layout = null;
+    }*@
+
+<!DOCTYPE html>
+<style>
+    body {
+        margin-top: 50px;
+    }
+
+    .div2 {
+        margin-top: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    .modal-header {
+        background-color: #83CB1E;
+    }
+
+    .container .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .modal-content {
+        width: 1200px;
+        vertical-align: middle;
+        margin-top: 10%;
+        margin-left: 12%;
+    }
+
+    .error {
+        color: red;
+    }
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        /*background-color: #FF0000;*/
+    }
+
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="@(Url.Content("~/Scripts/jquery-1.10.2.min.js"))"></script>
+    <script src="@(Url.Content("~/Scripts/jquery.validate.min.js"))"></script>
+    <script src="@(Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js"))"></script>
+</head>
+<body style="margin-top:50px">
+    @*<div class="modal-content>*@
+    @using (Html.BeginForm("SaveAsDraft", "SaveAsDraft", FormMethod.Post, new { name = "myForm" }))
+    {
+        Model.listquestionDump = ViewBag.question;
+        Model.listcompliance = ViewBag.compliance;
+        <div>
+            <h3 style="color:darkred" align="center">PCR Checklist</h3>
+
+        </div>
+        <div class="form-horizontal" align="center">
+            <table id="=tbl" border="1">
+
+
+                @{ var i = 0; var count = 1; var id = 0; var rows = 0; string divId = null; var a = 0; var area = 0;
+
+                    foreach (var PcrCheckList in Model.listPcrCheckList/*.Where(x => x.flag == 1)*/)
+                    {
+                        //area = (int)@PcrCheckList.areaID;
+                        if (id != @PcrCheckList.areaID)
+                        {
+
+                            foreach (var item in Model.listparameter.Where(x => x.parameterID == PcrCheckList.areaID))
+                            {
+                                rows = 0;
+                                divId = item.parameterName;
+                                divId = divId.Replace(" ", "");
+
+                                <tr :center>
+                                    <th colspan="5" style="background-color:#ADD8E6; text-align:center">
+                                        Area:@item.parameterName
+
+
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:#D3D3D3;text-align:center">Sr.No</th>
+                                    <th style="background-color:#D3D3D3;text-align:center">Description</th>
+                                    <th style="background-color:#D3D3D3;text-align:center;width:100px">Y/N/NA</th>
+                                    <th style="background-color:#D3D3D3;text-align:center">Observation</th>
+                                    <th style="background-color:#D3D3D3;text-align:center">%age Compliance</th>
+
+
+                                </tr>
+                                id = (int)@PcrCheckList.areaID;
+                            }
+
+                        }
+                        if (i < Model.listPcrCheckList.Count)
+                        {
+                            foreach (var item in Model.listparameter.Where(x => x.parameterID == PcrCheckList.areaID))
+                            {
+                                var TotalQuestions = Model.listquestionDump.Where(x => x.parameterID == PcrCheckList.areaID);
+                                //var area = (int)PcrCheckList.areaID;
+                                int rowsCount = TotalQuestions.Count();
+
+                                foreach (var item1 in Model.listquestion.Where(x => x.questionID == PcrCheckList.questionID))
+                                {
+                                    //var TotalQuestions = Model.listquestion.Where(x => x.parameterID == item.parameterID);
+                                    //int rowsCount = TotalQuestions.Count();
+
+                                    rows++;
+                                    <tr>
+
+                                        @Html.HiddenFor(model => model.listPcrCheckList[i].scheduleID, new { Value = PcrCheckList.scheduleID })
+
+
+                                        @Html.HiddenFor(model => model.listPcrCheckList[i].areaID, new { Value = PcrCheckList.areaID })
+                                        <td>@count</td>
+                                        @Html.HiddenFor(model => model.listPcrCheckList[i].SaveDraftId, new { Value = PcrCheckList.SaveDraftId })
+                                        <td style="text-align:left;padding-left:5px">
+                                            @item1.description
+                                            @Html.HiddenFor(model => model.listPcrCheckList[i].questionID, new { Value = item1.questionID })
+
+                                        </td>
+                                        <td>
+                                            <div>
+                                                @Html.DropDownListFor(m => m.listPcrCheckList[i].statusID, new SelectList(ViewBag.status, "statusID", "statusName", @PcrCheckList.statusID), "select", new { @id = @divId, required = "required" })
+                                                @Html.ValidationMessageFor(m => m.listPcrCheckList[i].statusID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @Html.EditorFor(model => model.listPcrCheckList[i].observation, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", required = "required" } })
+                                            @Html.ValidationMessageFor(model => model.listPcrCheckList[i].observation, "", new { @class = "text-danger" })
+                                        </td>
+
+                                        @foreach (var Compliance in Model.listcompliance)
+                                        {
+                                            //ViewBag.area = (int)@PcrCheckList.areaID;
+                                            if (area != @PcrCheckList.areaID)
+                                            {
+                                                if (@rows == 1)
+                                                {
+                                                    if (Model.listcompliance[a].compliance.Contains("NA"))
+
+                                                    {
+                                                        <td rowspan="@(rowsCount)" class="@(divId)">
+                                                            @Model.listcompliance[a].compliance
+                                                        </td>
+                                                    }
+                                                    else if (Convert.ToDouble(Model.listcompliance[a].compliance) >= 70)
+                                                    {
+                                                        <td style="background-color:#83CB1E" rowspan="@(rowsCount)" class="@(divId)">
+                                                            @Model.listcompliance[a].compliance
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="background-color:red" rowspan="@(rowsCount)" class="@(divId)">
+                                                            @Model.listcompliance[a].compliance
+                                                        </td>
+                                                    }
+                                                    @*<td rowspan="@(rowsCount)" class="@(divId)">
+                                                        </td>*@
+                                                    break;
+
+                                                }
+                                                area = (int)@PcrCheckList.areaID;
+                                                a++;
+                                            }
+
+                                            break;
+                                        }
+
+                                    </tr>
+                                    break;
+                                }
+
+                                break;
+                            }
+
+                            i++;
+                            count++;
+                        }
+                    }
+                }
+
+            </table>
+            <div class="div2">
+                <input type="submit" value="Save" formaction="@Url.Action("SaveAsDraft","PCRCheckList")" formnovalidate="formnovalidate" class="btn btn-info" />
+                @*<input type="submit" value="Check Calculation" formaction="@Url.Action("PCRCheckListCalculation")" formnovalidate="formnovalidate" class="btn btn-success" />*@
+                <input type="submit" value="Submit" formaction="@Url.Action("SubmitChecklist")"  class="btn btn-success" />
+                <input type="submit" value="Cancel" formaction="@Url.Action("AuditorDashboard","PCRCheckList")" formnovalidate="formnovalidate" class="btn btn-danger" />
+            </div>
+        </div>
+
+    }
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/CheckBox.js"></script>
+    @*</div>*@
+</body>
+</html>
+@*<script type="text/javascript">
+    //$(document).ready(function () {
+    //    var ddlArray = [];
+    //    $('select').each(function () {
+    //        ddlArray.push(this.value);
+    //        i = $(this).index('select');
+    //        var ddlId = $(this).attr("id");
+    //        alert(ddlArray);
+    //        alert(i);
+    //        alert(ddlId);
+    //    }); 
+    //    var dynamicVariable = {};
+    //    var arrayIds = [];
+    //    var arrayIndex = [];
+    //    var i;
+    //    var total = 0;
+    //    var newArray = [];
+
+    //    $('select').change(function () {
+    //        i = $(this).index('select');
+    //        var arraySelectedIds = [];
+    //        var ddlId = $(this).attr("id");
+
+    //        $("select").each(function () {
+    //            arraySelectedIds.push($(this).val());
+    //        });
+
+    //        if ($.inArray(i, arrayIndex) >= 0) {
+    //            var PreviousValue = newArray[i];
+    //            if (arraySelectedIds[i] == 1) {
+    //                if (PreviousValue == 3) {
+    //                    dynamicVariable[ddlId + "_Yes"]++;
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                    dynamicVariable[ddlId + "_No"] = 0;
+    //                }
+    //                else {
+    //                    dynamicVariable[ddlId + "_Yes"]++;
+    //                    dynamicVariable[ddlId + "_No"]--;
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                }
+    //            }
+    //            else if (arraySelectedIds[i] == 2) {
+    //                if (PreviousValue == 3) {
+    //                    dynamicVariable[ddlId + "_No"]++;
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                    dynamicVariable[ddlId + "_Yes"] = 0;
+    //                }
+    //                else {
+    //                    dynamicVariable[ddlId + "_No"]++;
+    //                    dynamicVariable[ddlId + "_Yes"]--;
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+
+    //                }
+
+    //            }
+
+    //            else if (arraySelectedIds[i] == 3) {
+    //                if (PreviousValue == 1) {
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                    dynamicVariable[ddlId + "_Yes"]--;
+    //                }
+    //                else if (PreviousValue == 2) {
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                    dynamicVariable[ddlId + "_No"]--;
+    //                }
+    //            }
+    //        }
+    //        else {
+    //            arrayIndex.push(i);
+    //            if ($.inArray(ddlId, arrayIds) >= 0) {
+    //                if (arraySelectedIds[i] == 1) {
+    //                    dynamicVariable[ddlId + "_Yes"]++;
+    //                }
+    //                else if (arraySelectedIds[i] == 2) {
+    //                    dynamicVariable[ddlId + "_No"]++;
+    //                }
+    //                else if (arraySelectedIds[i] == 3) {
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                }
+    //            }
+    //            else {
+    //                arrayIds.push(ddlId);
+    //                if (arraySelectedIds[i] == 1) {
+    //                    dynamicVariable[ddlId + "_Yes"] = 1;
+    //                    dynamicVariable[ddlId + "_No"] = 0;
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                }
+    //                else if (arraySelectedIds[i] == 2) {
+    //                    dynamicVariable[ddlId + "_No"] = 1;
+    //                    dynamicVariable[ddlId + "_Yes"] = 0;
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                }
+    //                else if (arraySelectedIds[i] == 3) {
+    //                    dynamicVariable[ddlId + "_NA"] = 0;
+    //                    dynamicVariable[ddlId + "_No"] = 0;
+    //                    dynamicVariable[ddlId + "_Yes"] = 0;
+    //                }
+    //            }
+    //        }
+    //        total = dynamicVariable[ddlId + "_Yes"] / (dynamicVariable[ddlId + "_Yes"] + dynamicVariable[ddlId + "_No"] + dynamicVariable[ddlId + "_NA"]) * 100;
+    //        if (total >= 75) {
+    //            $('.' + ddlId).html(total.toFixed(2) + '%');
+    //            $('.' + ddlId).css('background-color', '#00b300');
+    //        }
+    //        else if (total < 75) {
+    //            $('.' + ddlId).html(total.toFixed(2) + '%');
+    //            $('.' + ddlId).css('background-color', '#ff3333');
+    //        }
+    //        else {
+    //            $('.' + ddlId).html('NA');
+    //            $('.' + ddlId).css('background-color', '#FFFFFF');
+    //        }
+    //        newArray = arraySelectedIds.slice();
+    //    });
+    //});
+
+    
+    </script>*@

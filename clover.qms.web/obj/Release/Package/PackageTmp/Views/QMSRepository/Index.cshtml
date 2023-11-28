@@ -1,0 +1,484 @@
+﻿@model clover.qms.model.Users
+@using clover.qms.web.Models;
+@{
+    //Layout = "~/views/shared/_Layout.cshtml";
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from themes.fuznet.com/rondhon/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Nov 2020 20:16:16 GMT -->
+<head>
+
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>Quality Management Sytem</title>
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="@Url.ContentAbsUrl("~/assets/images/favicons.ico")">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/bootstrap.min.css")">
+
+    <!--====== Fontawesome css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/all.css")">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/magnific-popup.css")">
+
+    <!--====== nice select css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/nice-select.css")">
+
+    <!--====== odometer css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/odometer.min.css")">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/slick.css")">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/default.css")">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="@Url.ContentAbsUrl("~/assets/css/style.css")">
+
+    <style>
+
+        .form-control {
+            height: 40px;
+            box-shadow: none;
+            color: #969fa4;
+        }
+
+            .form-control:focus {
+                border-color: #5cb85c;
+            }
+
+        .form-control, .btn {
+            border-radius: 3px;
+        }
+
+        .signup-form {
+            width: auto;
+            margin: 0 auto;
+            padding: 10px 0px 30px 0px;
+            font-size: 15px;
+        }
+
+            .signup-form h2 {
+                color: #636363;
+                margin: 0 0 15px;
+                position: relative;
+                text-align: center;
+            }
+
+                .signup-form h2:before, .signup-form h2:after {
+                    content: "";
+                    height: 2px;
+                    width: 30%;
+                    background: #d4d4d4;
+                    position: absolute;
+                    top: 50%;
+                    z-index: 2;
+                }
+
+                .signup-form h2:before {
+                    left: 0;
+                }
+
+                .signup-form h2:after {
+                    right: 0;
+                }
+
+        .field-validation-error {
+            color: #ff0000;
+        }
+
+        .signup-form .hint-text {
+            color: #999;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .signup-form form {
+            color: #999;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            background: #f2f3f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        .signup-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .signup-form input[type="checkbox"] {
+            margin-top: 3px;
+        }
+
+        .signup-form .btn {
+            font-size: 16px;
+            font-weight: bold;
+            min-width: 140px;
+            outline: none !important;
+        }
+
+        .signup-form .row div:first-child {
+            padding-right: 10px;
+        }
+
+        .signup-form .row div:last-child {
+            padding-left: 10px;
+        }
+
+        .signup-form a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+            .signup-form a:hover {
+                text-decoration: none;
+            }
+
+        .signup-form form a {
+            color: #5cb85c;
+            text-decoration: none;
+        }
+
+            .signup-form form a:hover {
+                text-decoration: underline;
+            }
+    </style>
+
+
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-indicators {
+            bottom: -50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--====== PRELOADER PART START ======-->
+
+    <div class="preloader">
+        <div class="loader">
+            <div class="ytp-spinner">
+                <div class="ytp-spinner-container">
+                    <div class="ytp-spinner-rotator">
+                        <div class="ytp-spinner-left">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                        <div class="ytp-spinner-right">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--====== PRELOADER PART ENDS ======-->
+    <!--====== HEADER PART START ======-->
+
+    <header class="header-area">
+        <div class="header-nav header_bg">
+            <div class="container custom-container">
+                <div class="row">
+
+
+                    <div class="col-lg-12">
+                        <div class="navigation">
+                            <nav class="navbar navbar-expand-lg navbar-light ">
+                                <div class="float-left w-50"><a class="navbar-brand" href="#"><img src="@Url.ContentAbsUrl("~/assets/images/Clover_Logo.gif")" alt=""></a> </div>
+                                <div class="float-right w-50 text-right"><a class="navbar-brand" href="#"><img src="@Url.ContentAbsUrl("~/assets/images/Qms_logo.gif")" alt=""></a></div>
+                            </nav>
+                        </div> <!-- navigation -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--====== HEADER PART ENDS ======-->
+    <!--====== BANNER PART START ======-->
+
+    <section class="banner-area bg_cover d-flex align-items-center parallaxie" style="background-image:url(../assets/images/banner-bg.jpg);">
+
+        <div class="container">
+            <div class="row" style="color: #fff;margin-top:150px;">
+
+                <div class="col-md-8">
+
+                    <div id="demo" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div style="font-size:25px; font-weight:bold;">Dear Cloverites,</div>
+                                <br>
+                                <div style="font-size:15px;">Please find below Quality Policy for Clover Infotech.</div>
+                                <br>
+                                <div style="font-size:15px; font-weight:bold;">We are committed to deliver industry-relevant client services that exceed the changing needs of the clients worldwide.</div>
+                                <br>
+                                <div style="font-size:20px; font-weight:normal; text-decoration:underline;">We are committed to provide the highest quality services to clients by:</div>
+                                <br>
+                                <ul style="list-style-type:square; margin-left:33px;">
+
+                                    <li>Exceeding client's expectations for service performance and quality</li>
+                                    <li>Improving our objectives and processess through continuous reviews</li>
+                                    <li>Meeting the requirements of International Quality Standards</li>
+                                    <li>Engaging employees, ensuring they are aware of and trained in fulfilling client expectations</li>
+                                    <li>Ensuring our work is error free and of excellent quality</li>
+                                    <li>Focusing on continuous learning and improvement by upgrading our knowledge, investing in learning & development</li>
+                                    <li>Committing to the continual improvement of the Quality Management System</li>
+                                    <li>Providing a safe and healthy environment for operations</li>
+
+                                </ul>
+
+                            </div>
+                            <div class="carousel-item">
+
+                                <div style="font-size:25px; font-weight:bold;">Dear Cloverites,</div>
+                                <br>
+                                <div style="font-size:15px;">Please find below the Clover Information Security Policy for Clover Infotech.</div>
+                                <br>
+                                <div style="font-size:20px; font-weight:normal; text-decoration:underline;">Clover Information Security Policy:</div>
+                                <br>
+                                <div style="font-size:15px;">To protect your assets from all threats, whether intenal or external, deliberate or accidental, CIPL will take measures to ensure that:</div>
+                                <br>
+                                <ul style="list-style-type:square; margin-left:33px;">
+                                    <li>Information will be protected against unauthorized access</li>
+                                    <li>Confidentiality of Information is assured</li>
+                                    <li>Integrity of Information is maintained</li>
+                                    <li>Availability of information and information system will be met</li>
+                                    <li>Regulatory and legislative requirements will be met</li>
+                                    <li>Business Continuity plans will be produced, maintained and tested</li>
+                                    <li>Necessary training will be offered to maintain Information Security</li>
+                                    <li>Incident management process will be practiced to keep damage to minimum and to prevent the recurrence of th same</li>
+                                    <li>Internal policies and procedures will be reviewed periodically for continuous improvement</li>
+                                    <li>User Guidelines stating the Do's and Don'ts related to usage of internet, email, computer system and measure taken for data protection</li>
+                                    <li>All Employees, Senior management to L1 level employee, will be responsible for implementing and adhering to information security policies within their scope of deliverables</li>
+                                </ul>
+                            </div>
+                            @*<div class="carousel-item">
+
+                                    <div style="font-size:25px; font-weight:bold;">We are committed to deliver industry-relevant client services that exceed the changing needs of the clients worldwide.</div>
+                                    <br>
+                                    <div style="font-size:20px; font-weight:normal; text-decoration:underline;">We are committed to provide the highest quality services to clients by:</div>
+                                    <br>
+                                    <ul style="list-style-type:square; margin-left:33px;">
+
+                                        <li>Exceed client's expectations for service performance and quality</li>
+                                        <li>Improving our objectives and processess through continuous reviews</li>
+                                        <li>Meeting the requirements of International Quality Standards</li>
+                                        <li>Engaging employees, ensuring they are aware of and trained in fulfilling client expectations</li>
+                                        <li>Ensuring our work is error free and of excellent quality</li>
+                                        <li>Focusing on continuous learning and improvement of the quality management system</li>
+
+                                    </ul>
+                                </div>*@
+                        </div>
+                        <!--<a class="carousel-control-prev" href="#demo" data-slide="prev">
+                          <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                          <span class="carousel-control-next-icon"></span>
+                        </a>-->
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="signup-form">
+                        @*<form action="/User/actions/confirmation.php" method="post">*@
+                        @using (Html.BeginForm("Login", "User", FormMethod.Post@*, new { @class = "form-inline" }*@))
+{
+@Html.AntiForgeryToken()
+
+<div style="background:#114a85 !important; font-weight:bold; color:#fff;  padding:13px; border-radius: 50px; text-align:center;">
+    <div class="panel-title"><span class="glyphicon glyphicon-user"></span> &nbsp;User Login</div>
+
+</div>
+<br>
+
+<div class="form-group">
+    <div style="margin-bottom: 10px; width:100%;" class="input-group">
+        <!--<span style="font-weight:bold; font-size:13px;">User ID</span>-->
+        @*<input type="text" placeholder="User ID" style="width:100%;  border-radius:50px; height: 45px; background: #f7f7f7;" class="form-control" />*@
+        @Html.TextBoxFor(model => model.UserName, new { autocomplete = "off", @class = "form-control", @style = "width:100%;  border-radius:50px; height: 45px; background: #f7f7f7;", placeholder = "Username", maxlength = 10, onkeypress = "return RestrictSpace()", id = "Username" })
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error" })
+    </div>
+</div>
+<div class="form-group">
+    <div style="margin-bottom: 10px; width:100%;" class="input-group">
+        <!--<span style="font-weight:bold; font-size:13px;">User ID</span>-->
+        @*<input type="password" placeholder="Password" style="width:100%;  border-radius:50px; height: 45px; background: #f7f7f7;" class="form-control" />*@
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", @style = "width:100%;  border-radius:50px; height: 45px; background: #f7f7f7;", placeholder = "Password", maxlength = 20, autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="form-check-label"> @Html.ActionLink("Forgot Password?", "ForgotPassword", "ForgotPassword")</label>
+</div>
+<div class="form-group">
+    <center>
+        <input type="submit" class="btn btn-success" style="border-radius: 50px; font-weight:bold; background:#81CB32 !important; border:none; padding:10px 40px;" value="Login" />
+        @Html.ActionLink("New User", "AddNewUser", "user", null, new { @class = "btn btn-success", @style = "border-radius: 50px; font-weight:bold;color:white; background:#81CB32 !important; border:none; padding:10px 40px;" })
+
+    </center>
+</div>
+@*</form>*@
+if (TempData["massage"] != null)
+{
+    <script type="text/javascript">
+                                window.onload = function () {
+                                    alert("@TempData["massage"]");
+                                    $(document).ready(function () {
+                                        document.getElementById("Username").value = "";
+                                    });
+                                };
+    </script>
+}
+
+if (TempData["msg1"] != null)
+{
+    <script type="text/javascript">
+                                window.onload = function () {
+                                    alert("@TempData["msg1"]");
+                                };
+    </script>
+}
+}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!--====== BANNER PART ENDS ======-->
+    <!--====== HOW IT WORK PART START ======-->
+    <!--====== HOW IT WORK PART ENDS ======-->
+    <!--====== CATEGORY PART START ======-->
+    <!--====== CATEGORY PART ENDS ======-->
+    <!--====== FUN FACTS PART START ======-->
+    <!--====== FUN FACTS PART ENDS ======-->
+    <!--====== FOOD MENU PART START ======-->
+    <!--====== FOOD MENU PART ENDS ======-->
+    <!--====== DOWNLOAD PART START ======-->
+    <!--====== DOWNLOAD PART ENDS ======-->
+    <!--====== CLIENT PART START ======-->
+    <!--====== CLIENT PART ENDS ======-->
+    <!--====== BLOG PART START ======-->
+    <!--====== BLOG PART ENDS ======-->
+    <!--====== FOOTER PART START ======-->
+
+    <footer class="footer-area bg_cover">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+
+
+
+                    <div class="text-center">© Clover Infotech Private Limited. All rights reserved @DateTime.Now.Year.ToString()</div>
+
+                    <br>
+
+
+                    <!--<div class="col-lg-12">
+                        <div class="footer-copyright d-block d-sm-flex justify-content-between align-items-center">
+                            <p>© Clover Infotech Private Limited. All rights reserved.</p>
+
+                            <p class="push-left"><a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+
+                        </p>
+                        </div>-->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--====== FOOTER PART ENDS ======-->
+    <!--====== GO TO TOP PART START ======-->
+
+    <div class="go-top-area">
+        <div class="go-top-wrap">
+            <div class="go-top-btn-wrap">
+                <div class="go-top go-top-btn">
+                    <i class="fa fa-angle-double-up"></i>
+                    <i class="fa fa-angle-double-up"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--====== GO TO TOP PART ENDS ======-->
+    <!--====== jquery js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/vendor/modernizr-3.6.0.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/assets/js/vendor/jquery-3.5.1.min.js")"></script>
+
+    <!--====== Bootstrap js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/bootstrap.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/assets/js/popper.min.js")"></script>
+
+    <!--====== Slick js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/slick.min.js")"></script>
+
+    <!--====== Isotope js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/isotope.pkgd.min.js")"></script>
+
+    <!--====== Images Loaded js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/imagesloaded.pkgd.min.js")"></script>
+
+    <!--====== parallaxie js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/parallaxie.js")"></script>
+
+    <!--====== nice select js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/jquery.nice-select.min.js")"></script>
+
+    <!--====== odometer js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/odometer.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/assets/js/jquery.appear.min.js")"></script>
+
+    <!--====== Magnific Popup js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/jquery.magnific-popup.min.js")"></script>
+
+    <!--====== Main js ======-->
+    <script src="@Url.ContentAbsUrl("~/assets/js/main.js")"></script>
+
+</body>
+
+
+<!-- Mirrored from themes.fuznet.com/rondhon/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Nov 2020 20:17:40 GMT -->
+</html>
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    function RestrictSpace() {
+        if (event.keyCode == 32) {
+            event.returnValue = false;
+            return false;
+        }
+    }
+</script>

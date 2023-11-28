@@ -1,0 +1,73 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    // Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MISReportIndex</title>
+</head>
+<body style="margin-top:70PX" ;>
+    @using (Html.BeginForm("MISReport", "MISReport", FormMethod.Get))
+    {
+
+        <div>
+            <div class="row">
+                <div class="col-sm-12 " @*btn btn-success*@>
+                    <h3 style="text-align:center;color:darkred">Overall MIS Report</h3>
+                </div>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="col-sm-2 text-lg-left"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="startDate" id="dateStart" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+
+                @Html.ValidationMessage("startdate", "", new { @style = "color:red" })
+            </div>
+            <div class="col-sm-2"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+            <div class="col-sm-3">
+                <input class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="endDate" id="dateEnd" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+
+                @Html.ValidationMessage("enddate", "", new { @style = "color:red" })
+                <div><p id="validationDate" /></div>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Overall report" onclick="ValidateEndDate()" class="btn btn-primary form-control" />
+            </div>
+        </div>
+
+    }
+   
+</body>
+</html>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/CheckBox.js"></script>
+<script>
+    function ValidateEndDate() {
+        var startDate = $("#dateStart").val();
+        var endDate = $("#dateEnd").val();
+      
+        if (startDate != '' && endDate != '') {
+            if (Date.parse(startDate) > Date.parse(endDate)) {
+                $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                $("#dateEnd").val('');
+
+            }
+        }
+        return false;
+    };
+
+</script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

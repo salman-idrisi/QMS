@@ -1,0 +1,111 @@
+﻿@model IEnumerable<clover.qms.model.Qms>
+@using clover.qms.web.Models;
+@{
+
+    Layout = null;
+}
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 90% !important;
+            border: none;
+        }
+    </style>
+
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+
+
+</head>
+<body>
+    <h3 style="text-align:center;color:#00239B;font-size:20px">@ViewBag.title</h3>
+    <div class="fresh-table toolbar-color-green">
+        <table id="fresh-table" class="table">
+            <thead>
+
+                <tr bgcolor='#D3D3D3'>
+                    <th data-field="SrNo">Sr.No.</th>
+                    <th data-field="ID">ID</th>
+                    <th data-field="Name">Name</th>
+                    <th data-field="Version">Version No.</th>
+                    <th data-field="Artifact">Artifact</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                                <tr>
+
+                                    <td>@srNo</td>
+
+                                    <td>@item.DocumentID</td>
+                                   
+                                    <td><a href="@Url.Action("DownloadFile", "QMSRepository", new { fileName = @item.DocumentID+"_"+item.DocumentName, path = @item.FilePath })"><p style="text-align:left;font-size:12px">@item.DocumentName</p></a></td> @*added by priyanka 31102022. added document name for downloading file*@
+                                    <td>@item.VersionNo</td>
+                                    @if (item.Artifact == "")
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a href="@Url.Action("DownloadFile", "QMSRepository" , new {fileName=@item.DocumentID+"_"+item.DocumentName,path=@item.Artifact})"><span class="glyphicon glyphicon-list-alt"></span></a></td> @*added by priyanka 31102022. added document name for downloading file*@
+
+                                    }
+                                </tr>
+                        srNo++;
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</body>     
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 25,
+                pageList: [25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+        });
+    });
+</script>

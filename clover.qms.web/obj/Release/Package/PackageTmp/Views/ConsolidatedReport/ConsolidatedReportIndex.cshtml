@@ -1,0 +1,130 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models
+<style>
+    .mt-20 {
+        margin-top: 20px;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm())
+        {@Html.AntiForgeryToken()
+
+        <div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 style="text-align:center;color:#00239B">Audit Findings</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col-sm-3"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="startdate" id="dateStart" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+                <div><p id="validationDate1" /></div>
+            </div>
+            <div class="col-sm-3"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+            <div class="col-sm-3">
+                <input class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="enddate" id="dateEnd" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+
+                <div><p id="validationDate" /></div>
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col-sm-3"> <p style="color:darkblue;font-size:18px">Classification:</p></div>
+            <div class="col-sm-9">
+                @foreach (var classification in Model.listclassification)
+                {
+                    string a = "  ";
+                    <input class="check-box" id="childHeader" name="childHeader" type="checkbox" value="@classification.classificationID" />
+                    @classification.classificationName
+                    @a
+                }
+            </div>
+        </div>
+        <div class="row mt-20">
+            <div class="col-sm-3"><p style="color:darkblue;font-size:18px">Status:</p></div>
+            <div class="col-sm-9">
+                @foreach (var status in Model.listschedulestatus)
+                {
+                    string a = "  ";
+                    <input class="check-box" id="childHeader1" name="childHeader1" type="checkbox" value="@status.scheduleStatusID" />
+                    @status.scheduleStatusName
+                    @a
+                }
+
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <center>
+                    @*<input type="submit" value="Findings" onclick="ValidateEndDate()" class="btn btn-success form-control" />*@
+                    <input type="button" data-url="@Url.Action("ConsolidatedReportIndex", "ConsolidatedReport")" class="btn btn-success" id="Submit" readonly="readonly" value="Fetch Report" />
+                </center>
+            </div>
+        </div>
+    }
+        <br>
+        <div id="divPartialView" class="row"></div>
+    </div>
+</body>
+</html>
+@*<script src="@Url.ContentAbsUrl("~/Scripts/ConsolidatedReport.js")"></script>*@
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+
+<script>
+    $('#Submit').on('click', function () {
+        var startDate = $("#dateStart").val();
+        var endDate = $("#dateEnd").val();
+        var classification = new Array();
+        var status = new Array();
+        if (startDate == '' || endDate=='') {
+            $('#validationDate1').html('<font color="Red">The start date required</font>');
+            $('#validationDate').html('<font color="Red">The end date required</font>');
+        }
+        else if (startDate != '' && endDate != '') {
+            $('#validationDate1').html('');
+            $('#validationDate').html('');
+            if (Date.parse(startDate) > Date.parse(endDate)) {
+                $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                $("#dateEnd").val('');
+            }
+            else {
+
+                $("input[name='childHeader']:checked").each(function () {
+                    classification.push($(this).attr("value"));
+                });
+                $("input[name='childHeader1']:checked").each(function () {
+                    status.push($(this).attr("value"));
+                });
+                var url = '@Url.Content("~/")' + "ConsolidatedReport/ConsolidatedReportIndex";
+                var url = $(this).data('url');
+                var obj = {
+                    startdate:startDate,
+                    enddate:endDate,
+                    classificationID:classification,
+                    statusID:status
+                };
+                var url = $(this).data('url');
+                $.ajax({
+                    url: url,
+                    contentType: 'application/json; charset=utf-8',
+                    type: "POST",
+                    data: JSON.stringify(obj),
+                    cache: false,
+                    success: function (data) {
+                        $("#divPartialView").html(data.view);
+                    },
+                    error: function (ts) { alert(ts.responseText) }
+                });
+            }
+        }
+
+    })
+</script>
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "EmailTrigger";
+    Layout = null;
+}
+<style>
+    .modal-title {
+        font-size: 20px !important;
+    }
+</style>
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+@{ string[] Emails = ViewBag.AllEmailIds;
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header head_p">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Confirmation</h3>
+                </div>
+                <div class="modal-body">
+                    <div style="margin:0 auto; text-align:center;">
+                        @if (ViewBag.AllEmailIds != null)
+                        {
+                            <p>Emails Trigger Successfully....</p>
+                            <p>Clover quality got @Emails.Length mails and following email ids trigger mail.</p>
+
+                            foreach (var item in Emails)
+                            {
+                                <p>@item</p>
+                            }
+                        }
+                        else
+                        { <p>@ViewBag.msg</p>}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="@Url.Action("AuditeeDashboard","AuditeeDashboard")" class="btn btn-success">OK</a>
+                </div>
+            </div>
+
+        </div>
+    </div>}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#myModal").modal('show');
+    });
+</script>

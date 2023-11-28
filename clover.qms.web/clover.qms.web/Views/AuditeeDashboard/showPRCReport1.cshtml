@@ -1,0 +1,289 @@
+﻿@model clover.qms.model.PCRViewModel
+@*@{
+        Layout = null;
+    }*@
+<style>
+    body {
+        margin-top: 70PX;
+    }
+
+    .cell-border {
+        border: 1px solid;
+    }
+
+    table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+        border-top: 1px solid #080707;
+        border-right: 1px solid #080707;
+    }
+
+    table.dataTable.cell-border tbody tr th:first-child, table.dataTable.cell-border tbody tr td:first-child {
+        border-left: 1px solid #080707;
+    }
+
+    .table > thead > tr > th {
+        border-bottom: 1px solid #080707;
+        border-collapse: collapse
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        /*height: 30px !important;*/
+        opacity: 1 !important;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 12%;
+    }
+
+    .modal-content {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 65%;
+        width: 900px;
+    }
+
+    .div2 {
+        margin-top: 5px;
+    }
+
+    table.dataTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    .table > thead > tr > th {
+        vertical-align: top;
+    }
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        /*background-color: #FF0000;*/
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #ff0000;
+        text-align:left;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>showPRCReport</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    @using (Html.BeginForm(@*new {@class= "needs-validation"}*@))
+    {
+        Model.listclassification = ViewBag.classification;
+        Model.listschedulestatus = ViewBag.schedulestatus;
+        Model.listparameter = ViewBag.parameter;
+        Model.listusers = ViewBag.user;
+        <div class="div1">
+            <h3 style="text-align:center;color:darkred">PCR Report</h3>
+        </div>
+        <div class="form-horizontal" align="center">
+        
+            <table id="Table" class="table cell-border">
+                <thead>
+
+                    <tr bgcolor='#D3D3D3' height="30">
+                        <th>Audit Finding</th>
+                        <th style="width:100px">Process Area</th>
+                        <th>ISO 9001 Clause</th>
+                        <th>ISO 27001 Clause</th>
+                        <th>Document Referred</th>
+                        <th style="width:100px">Classification</th>
+                        <th>Responsibility</th>
+                        <th style="width:100px">Planned Closure Date</th>
+                        <th style="width:100px">Actual Closure Date</th>
+                        <th>Correction Done</th>
+                        <th>Root Cause Analysis</th>
+                        <th>Planned Corrective Action</th>
+                        <th style="width:100px">Status</th>
+                    </tr>
+                </thead>
+                @{ var i = 0;
+                    string value = "-";
+                    foreach (var report in Model.listpcrreport)
+                    {
+
+                        <tr>
+                            @Html.HiddenFor(model => model.listpcrreport[i].reportID, new { Value = @report.reportID })
+                            @Html.HiddenFor(model => model.listpcrreport[i].scheduleID, new { Value = @report.scheduleID })
+                            <td> @Html.EditorFor(model => model.listpcrreport[i].AuditFindind, new { htmlAttributes = new { @class = "form-control", Value = report.AuditFindind, autocomplete = "off", @readonly = "readonly" } })</td>
+                            @foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                            {
+                                <td>
+                                    @Html.HiddenFor(model => model.listpcrreport[i].parameterID, new { Value = report.parameterID })
+                                    @Html.EditorFor(model => model.area, new { htmlAttributes = new { @class = "form-control", Value = area.parameterName, autocomplete = "off", @readonly = "readonly" } })
+                                </td>
+                                break;
+                            }
+                            <td> @Html.EditorFor(model => model.listpcrreport[i].ISO9001Closure, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Values = report.ISO9001Closure, @readonly = "readonly" } })</td>
+                            <td>@Html.EditorFor(model => model.listpcrreport[i].ISO27001Closure, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Values = report.ISO27001Closure, @readonly = "readonly" } })</td>
+                            <td>@Html.EditorFor(model => model.listpcrreport[i].DocumentReferred, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Values = report.DocumentReferred, @readonly = "readonly" } })</td>
+                            @foreach (var classification in Model.listclassification.Where(x => x.classificationID == report.classificationId))
+                            {
+                                <td>
+                                    @Html.HiddenFor(model => model.listpcrreport[i].classificationId, new { Value = report.classificationId })
+                                    @classification.classificationName
+                                </td>
+                                break;
+                            }
+                            @foreach (var item in Model.listusers.Where(x => x.UserName == report.responsibility))
+                            {
+                                string name = @item.FirstName + " " + @item.LastName;
+                                <td>
+                                    @Html.HiddenFor(model => model.listpcrreport[i].responsibility, new { Value = report.responsibility })
+
+                                    @name
+                                </td>
+                            }
+                            <td> @Html.EditorFor(model => model.listpcrreport[i].PlannedClosureDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Values = report.PlannedClosureDate.ToString("dd/MMM/yyyy"), @readonly = "readonly" } })</td>
+                            <td>@Html.EditorFor(model => model.listpcrreport[i].PlannedClosureDate, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Values = report.ActualClosureDate.ToString("dd/MMM/yyyy"), @readonly = "readonly" } })</td>
+                            @if (report.responsibility.Contains(ViewBag.name))
+                            {
+                                if (report.CorrectionDone == "-")
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].CorrectionDone, new { htmlAttributes = new { @class = "form-control", Value = "", autocomplete = "off" } })
+                                        @*@Html.ValidationMessageFor(model => model.listpcrreport[i].CorrectionDone, "", new { @class = "text-danger" })*@
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].CorrectionDone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Value = report.CorrectionDone } })
+                                        @*@Html.ValidationMessageFor(model => model.listpcrreport[i].CorrectionDone, "", new { @class = "text-danger" })*@
+                                    </td>
+                                }
+                                if (report.RootCauseAnanlysis == "-")
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].RootCauseAnanlysis, new { htmlAttributes = new { @class = "form-control", Value = "", autocomplete = "off" } })
+                                        @*@Html.ValidationMessageFor(model => model.listpcrreport[i].RootCauseAnanlysis, "", new { @class = "text-danger" })*@
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].RootCauseAnanlysis, new { htmlAttributes = new { @class = "form-control", Value = report.RootCauseAnanlysis, autocomplete = "off" } })
+                                        @*@Html.ValidationMessageFor(model => model.listpcrreport[i].RootCauseAnanlysis, "", new { @class = "text-danger" })*@
+                                    </td>
+                                }
+                                if (report.PlannedCorrectionAction == "-")
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].PlannedCorrectionAction, new { htmlAttributes = new { @class = "form-control", Value = "", autocomplete = "off" } })
+                                        @*@Html.ValidationMessageFor(model => model.listpcrreport[i].PlannedCorrectionAction, "", new { @class = "text-danger" })*@
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].PlannedCorrectionAction, new { htmlAttributes = new { @class = "form-control", Values = report.PlannedCorrectionAction, autocomplete = "off" } })
+                                        @*@Html.ValidationMessageFor(model => model.listpcrreport[i].PlannedCorrectionAction, "", new { @class = "text-danger" })*@
+                                    </td>
+                                }
+                            }
+                            else
+                            {
+                                if (report.CorrectionDone == "")
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].CorrectionDone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Value = value, @readonly = "readonly" } })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].CorrectionDone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Value = report.CorrectionDone, @readonly = "readonly" } })
+                                    </td>
+                                }
+                                if (report.RootCauseAnanlysis == "")
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].RootCauseAnanlysis, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Value = value, @readonly = "readonly" } })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].RootCauseAnanlysis, new { htmlAttributes = new { @class = "form-control", Value = report.RootCauseAnanlysis, autocomplete = "off", @readonly = "readonly" } })
+                                    </td>
+                                }
+                                if (report.PlannedCorrectionAction == "")
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].PlannedCorrectionAction, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Value = value, @readonly = "readonly" } })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.EditorFor(model => model.listpcrreport[i].PlannedCorrectionAction, new { htmlAttributes = new { @class = "form-control", Values = report.PlannedCorrectionAction, autocomplete = "off", @readonly = "readonly" } })
+                                    </td>
+                                }
+                                @*<td> @Html.EditorFor(model => model.listpcrreport[i].CorrectionDone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", Value = report.CorrectionDone, @readonly = "readonly" } })</td>
+                                    <td> @Html.EditorFor(model => model.listpcrreport[i].RootCauseAnanlysis, new { htmlAttributes = new { @class = "form-control", Value = report.RootCauseAnanlysis, autocomplete = "off", @readonly = "readonly" } })</td>
+                                    <td> @Html.EditorFor(model => model.listpcrreport[i].PlannedCorrectionAction, new { htmlAttributes = new { @class = "form-control", Values = report.PlannedCorrectionAction, autocomplete = "off", @readonly = "readonly" } })</td>*@
+                            }
+                            @foreach (var status in Model.listschedulestatus.Where(x => x.scheduleStatusID == report.statusID))
+                            {
+                                <td>
+                                    @Html.HiddenFor(model => model.listpcrreport[i].statusID, new { Value = report.statusID })
+                                    @status.scheduleStatusName
+                                </td>
+                                break;
+                            }
+
+                        </tr>
+                        i++;
+
+                    }
+                }
+            </table>
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            <div class="div2">
+                <input type="submit" value="Submit" formaction="showPRCReport" class="btn btn-success" />
+                <input type="submit" value="Resubmit" formaction="ResendReport" class="btn btn-success" />
+                <a href="/AuditeeDashboard/AuditeeDashboard/" class="btn btn-danger" id="btnGoBack" @*onclick=Show();*@>Cancel</a>
+            </div>
+        </div>
+    }
+</body>
+</html>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $("#Table").DataTable({ sDom: 'lrtip', "lengthChange": false })
+    });
+</script>

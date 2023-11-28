@@ -1,0 +1,145 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("showComliance", "PCRCheckList", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            Model.listparameter = ViewBag.parameter;
+            Model.listcompliance = ViewBag.compliance;
+            Double overall = 0;
+            Double overallcompliance;
+            <div>
+                <h3 style="text-align:center;color:#00239B">Compliance</h3>
+            </div>
+
+            <div class="form-horizontal table-responsive" align="center">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    @foreach (var item in Model.listcompliance)
+                                    {
+                                        int NA = Model.listcompliance.Where(x => x.compliance == "NA").Count();
+                                        int count = Model.listcompliance.Count;
+                                        int exactcount = count - NA;
+                                        if (item.compliance != "NA")
+
+                                        {
+                                            double compliance = Convert.ToDouble(item.compliance);
+                                            overall += compliance;
+
+                                        }
+                                        overallcompliance = overall / exactcount;
+                                        ViewBag.result = overallcompliance;
+                                    }
+
+                                    @if (ViewBag.total == "NA")
+
+                                    {
+
+                                        <th style="background-color:#D3D3D3">Overall Process Compliance</th>
+                                        <td>
+                                            @ViewBag.total
+                                        </td>
+                                    }
+                                    else if (ViewBag.result >= 70)
+                                    {
+                                        double dc = Convert.ToDouble(ViewBag.result);
+                                        <th style="background-color:#D3D3D3">Overall Process Compliance</th>
+                                        <td style="background-color:#83CB1E">
+
+                                            @Math.Round((Double)dc, 2)
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        double dc = Convert.ToDouble(ViewBag.result);
+                                        <th style="background-color:#D3D3D3">Overall Process Compliance</th>
+                                        <td style="background-color:red">
+                                            @Math.Round((Double)dc, 2)
+                                        </td>
+                                    }
+                                </tr>
+
+
+                            </table>
+
+                            <table class="table table-bordered table-hover">
+                                <thead>
+
+                                    <tr>
+                                        <th style="background-color:#D3D3D3">Parameters</th>
+                                        <th style="background-color:#D3D3D3">Compliance</th>
+                                    </tr>
+                                </thead>
+
+                                @foreach (var item in Model.listcompliance)
+                                {
+                            <tr>
+
+                                @foreach (var item1 in Model.listparameter.Where(x => x.parameterID == item.parameterID))
+                                {
+                                    <td>
+                                        @item1.parameterName
+                                    </td>
+                                }
+                                @if (item.compliance.Contains("NA"))
+
+                                {
+                                    <td>
+                                        @item.compliance
+                                    </td>
+                                }
+                                else if (Convert.ToDouble(item.compliance) >= 70)
+                                {
+                                    double compliance = Convert.ToDouble(item.compliance);
+                                    <td style="background-color:#83CB1E">
+                                        @Math.Round((Double)compliance, 2)
+                                    </td>
+                                }
+                                else
+                                {
+                                    double compliance = Convert.ToDouble(item.compliance);
+                                    <td style="background-color:red">
+                                        @Math.Round((Double)compliance, 2)
+                                    </td>
+                                }
+                            </tr>
+
+                                }
+                            </table>
+                        </td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>
+
+                            <img src="@Url.Action("CharterColumn")" alt="Chart" />
+                        </td>
+                </table>
+            </div>
+            <ul class="set_btn">
+                <li>
+                    @Html.ActionLink("Create Audit Report", "PCRReport", "PCRCheckList", null, new { @class = "btn btn-success" })
+                </li>
+            </ul>
+
+        }
+    </div>
+</body>
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+

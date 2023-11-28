@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SampleModels.Users>
+@{ Layout = "~/Views/Shared/_Dashboard.cshtml";}
+@using GridMvc.Html
+
+@*@Html.ActionLink("Add Employee", "AddUser","User",new { @class= "btn btn-warning"})
+    <a href="#" onclick="CreateUser();" class="btn btn-warning">Add Employee</a>*@
+<div style="left:0px">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.UserName).Titled("User Name");
+    columns.Add(c => c.FirstName).Titled("First Name");
+    columns.Add(c => c.LastName).Titled("Last Name");
+    columns.Add(c => c.DOB).Format("{0:dd/MM/yyyy}").Titled("Date of Birth");
+    columns.Add(c => c.UserAddress).Titled("Address");
+    columns.Add(c => c.MobileNumber).Titled("Mobile No");
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => "<input type='button' class = 'btn btn-success' Value='Edit' onclick=EditUser('" + o.UserId + "')>");
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(o => "<input type='button' class = 'btn btn-danger' Value='Delete' onclick=Delete('" + o.UserId + "')>");
+}).WithPaging(2).Sortable(true)
+</div>
+
+
+@*<input type="button" value="Edit" onclick="ShowUserDetailsTousif('182')">*@
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+<style>
+    a.classname {
+        background: url(../Images/AddNew.png) no-repeat top left;
+        display: block;
+        width: 70px;
+        height: 60px;
+        background-size: cover;
+        text-indent: -9999px; /* hides the link text */
+    }
+</style>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body" id="contentBody">
+
+            </div>
+
+        </div>
+    </div>
+</div>

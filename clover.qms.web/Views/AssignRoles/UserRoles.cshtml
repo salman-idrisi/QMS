@@ -1,0 +1,235 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<!DOCTYPE html>
+<style>
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+</style>
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        Model.listusers = ViewBag.user;
+        Model.listusersrolesmapping = ViewBag.UserRolesMapping;
+        Model.listusersroles = ViewBag.userroles;
+        Model.userslist = ViewBag.listuser;
+        <div>
+            Search User:<input type="text" name="SearchString" autocomplete="off" required data-val="true" data-val-required="Data is required" /> &nbsp;
+            <input type="submit" formaction="@Url.Action("SearchEmployee", "AssignRoles")" value="Search" id="btnSubmit" />
+        </div>
+        <div>
+            <h3 style="color:#00239B; text-align:center">Roles Of Employee</h3>
+        </div>
+        <div class="container">
+            @if (Model.listusers.Count() != 0)
+            {
+                <div class="form-horizontal table-responsive" align="center">
+                    <br>
+                    <table id="Table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr bgcolor='#D3D3D3'>
+
+                                <th><b>Sr.No</b></th>
+                                <th><b>UserName</b></th>
+                                <th><b>FirstName</b></th>
+                                <th><b>LastName</b></th>
+                                <th><b>EmailID</b></th>
+                                <th><b>Role</b></th>
+ <th><b>Department</b></th>@*ADDED BY SUSHILA 14-12-2022*@
+                                <th class="noExl">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var srNo = 1; var i = 0;
+                                if (i < Model.listusers.Count)
+                                {
+                                    foreach (var user in Model.listusers)
+                                    {
+                                        <tr>
+
+                                            <td class="ID">@srNo</td>
+
+                                            <td class="UserName">@user.UserName</td>
+                                            <td class="FirstName">@user.FirstName</td>
+                                            <td class="LastName">@user.LastName</td>
+                                            <td class="EmailID">@user.EmailId</td>
+                                            <td class="Role">
+                                                @foreach (var listuser in Model.userslist)
+                                                {
+                                                    if (listuser.UserId.Equals(user.UserId))
+                                                    {
+                                                        string a = "-";
+                                                        @a;
+                                                        break;
+                                                    }
+                                                }
+                                                @foreach (var rolemapping in Model.listusersrolesmapping.Where(x => x.UserId == user.UserId))
+                                                {
+                                                    foreach (var role in Model.listusersroles.Where(x => x.RoleId == rolemapping.RoleId))
+                                                    {
+
+                                                        @role.RoleName
+                                                        string space = " ";
+                                                        @space
+                                                        break;
+                                                    }
+
+                                                }
+
+                                            </td>
+ <td class="UserName">@user.Departmentname</td>@*ADDED BY SUSHILA 14-12-2022*@
+                                            <td class="noExl">
+
+                                                @foreach (var listuser in Model.userslist)
+                                                {
+                                                    if (listuser.UserId.Equals(user.UserId))
+                                                    {
+                                                        <a rel="tooltip" title="Remove User" class="table-action remove" href="#" onclick=Delete(@user.UserId);;>
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </a>
+
+                                                        break;
+                                                    }
+                                                }
+                                                @foreach (var rolemapping in Model.listusersrolesmapping)
+                                                {
+
+                                                    if (rolemapping.UserId.Equals(user.UserId))
+                                                    {
+                                                        <a rel="tooltip" title="Edit Role" class="table-action edit" href="#" onclick=Edit(@user.UserId);>
+
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </a>
+                                                        <a rel="tooltip" title="Remove User" class="table-action remove" href="#" onclick=Delete(@user.UserId);;>
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </a>
+                                                        break;
+                                                    }
+
+                                                }
+
+                                            </td>
+
+                                        </tr>
+                                        srNo++;
+
+                                    }
+
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="set_btn">
+                    <li>
+                        <a href="#" class="btn btn-primary collapsed" id="btnExport">Export Excel</a>
+                    </li>
+                    <li>
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                                Back
+
+                            </a>
+                        }
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <br> <h4 style="text-align:center">No Record Found.</h4>
+            }
+        </div>
+    }
+</body>
+</html>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" id="contentBody">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#Table').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+
+        $('#btnExport').on('click', function () {
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+                exclude:".noExl",
+                filename: "Role_of_Employee",
+                fileext: ".xls"
+            });
+        });
+    })
+       function Edit(ID) {
+
+           var url = '@Url.Content("~/")' + "AssignRoles/UpdateUserRoles/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'UID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+    function Delete(ID) {
+
+        var url = '@Url.Content("~/")' + "AssignRoles/DeleteUser/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'UID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+
+</script>
+@Scripts.Render("~/bundles/jqueryval")

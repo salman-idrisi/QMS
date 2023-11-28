@@ -1,0 +1,239 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<style>
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+</style>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+
+    <title>DisplayNCAgingReport</title>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm())
+        {@Html.AntiForgeryToken()
+            var Report = Model.listpcrreport.Count;
+            var TotalNC = 0;
+            var avgNC = 0M;
+            int date = 0;
+            if (Report > 0)
+            {
+
+                Model.listusers = ViewBag.user;
+            <div class="div1">
+                <h3 style="text-align:center;color:#00239B">NC Aging Report</h3>
+            </div>
+            <div class="form-horizontal table-responsive" align="center">
+
+
+
+                <table id="tblReport" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td colspan="5"><p style="text-align:left"><b>Date:</b>@ViewBag.startDate  to @ViewBag.endDate</p></td>
+                        <td colspan="13"><p style="text-align:left"><b> Report Time:</b>@ViewBag.CurrentDate</p></td>
+                    </tr>
+                    <tr>
+                        <th style="background-color:#D3D3D3">Sr.No.</th>
+                        <th style="background-color:#D3D3D3">Account Name</th>
+                        <th style="background-color:#D3D3D3">Project Name</th>
+                        <th style="background-color:#D3D3D3">Audit Finding</th>
+                        <th style="background-color:#D3D3D3">Process Area</th>
+                        <th style="background-color:#D3D3D3">Auditor</th>
+                        <th style="background-color:#D3D3D3">ISO 9001 Clause</th>
+                        <th style="background-color:#D3D3D3">ISO 27001 Clause</th>
+                        <th style="background-color:#D3D3D3">Classification</th>
+                        <th style="background-color:#D3D3D3">Responsibility</th>
+                        <th style="background-color:#D3D3D3">Planned Closure Date</th>
+                        <th style="background-color:#D3D3D3">PCR Done On</th>
+                        <th style="background-color:#D3D3D3">Actual Closure Date</th>
+                        <th style="background-color:#D3D3D3">Project Manager</th>
+                        <th style="background-color:#D3D3D3">Deliver Manager</th>
+                        <th style="background-color:#D3D3D3">NC Aging</th>
+                        <th style="background-color:#D3D3D3">Status</th>
+                        <th style="background-color:#D3D3D3">Comments</th>
+
+                    </tr>
+                        </thead>
+                    <tbody>
+                        @{ var i = 0;
+                            var sr = 1;
+                            var a = 0;
+                            var b = 0;
+
+                            foreach (var report in Model.listpcrreport)
+                            {
+
+                                                <tr>
+
+                                                    @Html.HiddenFor(model => model.listNCAging[i].reportID, new { Value = report.reportID })
+
+                                                    <td class="Id">@sr</td>
+                                                    @foreach (var projectMaster in Model.listProjectMaster)
+                                                    {
+
+                                                        foreach (var schedule in Model.listPcrSchedule)
+                                                        {
+
+                                                            <td class="AccountName">@Model.listProjectMaster[a].AccountName</td>
+                                                            <td class="ProjectName">@Model.listProjectMaster[a].ProjectName</td>
+                                                            <td class="Observation">@report.AuditFindind</td>
+                                                            foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                                                            {
+                                                                <td class="Area">@area.parameterName</td>
+                                                                break;
+                                                            }
+
+                                                            foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == Model.listPcrSchedule[b].AuditorId))
+                                                            {
+                                                                foreach (var user in Model.listusers.Where(x => x.UserName == auditor.EmpID))
+                                                                {
+                                                                    string name = @user.FirstName + " " + @user.LastName;
+                                                                    <td class="Auditor">@name</td>
+                                                                    break;
+                                                                }
+                                                                break;
+                                                            }
+                                                            <td class="ISO9001Closure">@report.ISO9001Closure</td>
+                                                            <td class="ISO27001Closure">@report.ISO27001Closure</td>
+                                                            foreach (var classification in Model.listclassification.Where(x => x.classificationID == report.classificationId))
+                                                            {
+                                                                <td class="classificationName">@classification.classificationName</td>
+                                                                break;
+                                                            }
+                                                            foreach (var user in Model.listusers.Where(x => x.UserName == report.responsibility))
+                                                            {
+                                                                string name = @user.FirstName + " " + @user.LastName;
+                                                                <td class="responsibility">@name</td>
+                                                                break;
+                                                            }
+                                                            <td class="PlannedClosureDate">@report.PlannedClosureDate.ToLongDateString()</td>
+                                                            string pcrdone = Model.listPcrSchedule[b] != null ? Model.listPcrSchedule[b].ActualDate.Value.ToLongDateString() : null;
+                                                            <td class="PCRDone">@pcrdone</td>
+                                                            string closeddate = report.ActualClosureDate != null ? report.ActualClosureDate.Value.ToLongDateString() : null;
+                                                            <td class="ClosedDate">@closeddate</td>
+
+                                                            foreach (var user in Model.listusers.Where(x => x.UserName == Model.listProjectMaster[a].managerName))
+                                                            {
+                                                                string name = @user.FirstName + " " + @user.LastName;
+                                                                <td class="ProjectManager">@name</td>
+                                                                break;
+                                                            }
+
+                                                            <td class="DeliveryManager">@Model.listProjectMaster[a].deliverymanagerName</td>
+                                                            date = ((report.ActualClosureDate != null ? report.ActualClosureDate : ViewBag.Date) - Model.listPcrSchedule[b].ActualDate).Days;
+                                                            <td class="DateDifference">@date</td>
+
+                                                            foreach (var status in Model.listschedulestatus.Where(x => x.scheduleStatusID == report.statusID))
+                                                            {
+                                                                <td class="Status">@status.scheduleStatusName</td>
+                                                                break;
+                                                            }
+
+                                                            <td>
+                                                                @Html.EditorFor(model => model.listNCAging[i].Comments, new
+                                                                {
+                                                                    htmlAttributes = new { @class = "form-control", autocomplete = "off", id = "comment" }
+                    })
+                                                            </td>
+
+                                                            b++;
+                                                            break;
+
+                                                        }
+                                                        a++;
+                                                        break;
+
+                                                    }
+
+
+                                                </tr>
+                                i++;
+                                sr++;
+                                TotalNC += @date;
+
+                            }
+
+                            avgNC = (decimal)TotalNC / i;
+                        }
+                    </tbody>
+                    <tfoot>
+                    <tfoot style="background-color:#D3D3D3;font-weight:bold;">
+                        <tr>
+                            <td colspan="15">Average NC Aging</td>
+                            <td>@avgNC.ToString("0.00")</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+
+                    </tfoot>
+
+                </table>
+            </div>
+            <ul class="set_btn">
+                <li>
+                    <input type="submit" value="Submit" formaction="@Url.Action("InsertNCAging", "NCAgingReport")" class="btn btn-success" />
+                </li>
+                <li>
+                    @Html.ActionLink("New Report", "MISReportIndex", "NCAgingReport", new { @class = "btn btn-primary" })
+
+                </li>
+                <li>
+                    <a href="#" class="btn btn-success" id="btnExport">Export Excel</a>
+                </li>
+                <li>
+                    @if (Request.UrlReferrer != null)
+                    {
+                        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                            Back
+
+                        </a>
+                    }
+                </li>
+            </ul>
+
+
+        }
+
+        else
+        { <h3 style="text-align:center">No data found</h3>
+            <ul class="set_btn">
+                <li>
+                    @Html.ActionLink("New Report", "MISReportIndex", "NCAgingReport", null, new { @class = "btn btn-success" })
+                </li>
+            </ul>
+
+        }
+    }
+    </div>
+</body>
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+<script type="text/javascript">
+   
+    $(document).ready(function () {
+        var table = $('#tblReport').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+        $('#btnExport').on('click', function () {
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+
+                filename: "NC-Aging-Report",
+                fileext: ".xls",
+                exclude_inputs: false
+            });
+        });
+    })
+</script>

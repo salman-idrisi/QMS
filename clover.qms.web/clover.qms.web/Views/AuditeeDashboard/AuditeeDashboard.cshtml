@@ -1,0 +1,193 @@
+﻿@model clover.qms.model.PCRViewModel
+@*@{
+        Layout = null;
+    }*@
+
+
+<!DOCTYPE html>
+<style>
+    body {
+        margin-top: 70PX;
+    }
+
+    .cell-border {
+        border: 1px solid;
+    }
+
+    table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+        border-top: 1px solid #080707;
+        border-right: 1px solid #080707;
+    }
+
+    table.dataTable.cell-border tbody tr th:first-child, table.dataTable.cell-border tbody tr td:first-child {
+        border-left: 1px solid #080707;
+    }
+
+    .table > thead > tr > th {
+        border-bottom: 1px solid #080707;
+        border-collapse: collapse
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        /*height: 30px !important;*/
+        opacity: 1 !important;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 0%;
+    }
+
+    .modal-content {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 65%;
+        width: 1200px;
+    }
+
+    table.dataTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    .table > thead > tr > th {
+        vertical-align: top;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+</head>
+
+<body>
+
+    @using (Html.BeginForm())
+    {
+        Model.listpcrreport = ViewBag.report;
+        <div class="div1">
+            <h3 style="text-align:center;color:darkred">PCR Schedule</h3>
+        </div>
+        <div class="form-horizontal" align="center">
+            <table id="AuditeeTable" class="table cell-border">
+                <thead>
+                    <tr bgcolor='#D3D3D3' height="30">
+
+                        <th>Sr.No</th>
+                        @*<th>PCRScheduleID</th>*@
+                        <th>Project Name</th>
+                        <th>Project Lifecycle</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var srNo = 1;
+                        foreach (var pcrSchedule in Model.listPcrSchedule)
+                        {
+
+                            <tr height="30">
+
+
+                                <td>@srNo</td>
+                                @*<td>@pcrSchedule.PCRScheduleID</td>*@
+
+                                @foreach (var item in Model.listProjectMaster.Where(x => x.PID == pcrSchedule.PID))
+                                {
+                                    <td>
+                                        @item.ProjectName
+                                    </td>
+                                    <td>
+                                        @foreach (var lifeCycle in Model.listLifeCycle.Where(x => x.lifecycleID == item.lifecycleID))
+                                        {
+                                            @lifeCycle.lifecycleName
+                                            break;
+                                        }
+                                    </td>
+
+                                    break;
+                                }
+                                <td>
+                                    @foreach (var report in Model.listpcrreport)
+                                    {
+                                        if (report.scheduleID.Equals(pcrSchedule.PCRScheduleID))
+                                        {
+                                           
+                                            <a href="#" onclick=Insert(@pcrSchedule.PCRScheduleID);>PCR Report</a>
+                                          
+                                            break;
+                                        }
+                                      
+                                    }
+                                </td>
+
+                            </tr>
+                            srNo++;
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</body>
+</html>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="modal_button">&times;</span>
+            </button>
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/datatables.min.js"></script>
+<script src="~/Scripts/CheckBox.js"></script>
+<script src="~/Scripts/CheckBox.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#AuditeeTable").DataTable({ sDom: 'lrtip', "lengthChange": false })
+    });
+    function Insert(ID) {
+
+        var url = '@Url.Content("~/")' + "AuditeeDashboard/showPRCReport/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'sheduleID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+</script>

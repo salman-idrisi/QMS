@@ -1,0 +1,129 @@
+﻿@model clover.qms.model.PCRSchedule
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+    .div2 {
+        margin-top: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td, tr {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    /*.modal-header {
+        background-color: #83CB1E;
+    }*/
+
+    .container .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .modal-content {
+        height: 200px;
+        margin-left: 12%;
+    }
+    .table {
+    width:80%;}
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PCRCheckListInsert</title>
+</head>
+<body>
+    <div>
+
+        @using (Html.BeginForm("PCRCheckListDetails", "PCRCheckList", FormMethod.Get))
+        {
+            Model.listprojectmaster = ViewBag.schedule;
+            Model.listlifecycle = ViewBag.lifecycle;
+            <div class="form-horizontal" align="center">
+                <center> <h4 class="modal-header" style="text-align:center;color:#00239B"><b>Checklist</b></h4></center>
+                <table class="table"width="500px" border="1">
+                    <thead>
+                        <tr>
+                            <th style="background-color:#D3D3D3;text-align:center">Project Name</th>
+                            <th style="background-color:#D3D3D3;text-align:center">Life Cycle</th>
+                            <th style="background-color:#D3D3D3;text-align:center">Action</th>
+                         
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model.listprojectmaster.Where(x => x.PID == Model.PID))
+                        {
+                            <tr>
+                                <td>
+                                    @item.ProjectName
+                                </td>
+
+
+                                @foreach (var item1 in Model.listlifecycle.Where(x => x.lifecycleID == item.lifecycleID))
+                                {
+                                    <td>
+                                        @item1.lifecycleName
+                                    </td>
+                                    <td>
+                                        @{var Checklist = ViewBag.Checklist.Count;
+                                        }
+                                        @if (Checklist > 0)
+                                        {
+                                            <a href="/PCRCheckList/SaveAsDraft" class="btn btn-warning">Continue Checklist</a>
+                                        }
+
+                                       <a href=@Url.Action("PCRCheckListDetails", "PCRCheckList",  new { lcycleid = item1.lifecycleID}) class="btn btn-success" >Fill Checklist</a>
+                         
+                                    </td>
+                                }
+
+                            </tr>
+                                             
+                        }
+                    </tbody>
+                </table>
+            
+            </div>
+        }
+    </div>
+</body>
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+        function Show(ID) {
+
+            var url = '@Url.Content("~/")' + "PCRCheckList/PCRCheckListDetails/";
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        'lcycleid': ID
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+
+                        $('#contentBody').html(response);
+                        $('#myModal').modal('show');
+                    },
+                    failure: function (response) {
+
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+    }
+
+</script>

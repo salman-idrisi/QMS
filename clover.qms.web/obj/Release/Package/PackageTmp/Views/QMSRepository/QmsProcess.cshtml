@@ -1,0 +1,22 @@
+﻿@model IEnumerable<clover.qms.model.Qms>
+@using clover.qms.web.Models;
+@{
+    ViewBag.Title = "QmsProcess";
+    Layout = "~/Views/Shared/_LayoutRepository.cshtml";
+}
+<html>
+<head>
+    @*<script src="~/Scripts/jquery-3.5.1.min.js"></script>*@
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+<body style="margin-top:50px">
+    <ul class="set_btn">
+        <li>
+            <a href="@Url.Action("DisplayProcess", "QMSRepository",new{ processId=1})" class="btn btn-secondary">Operational Process</a>
+        </li>
+        <li>
+            <a href="@Url.Action("DisplayProcess", "QMSRepository",new{ processId=2})" class="btn btn-secondary">System Process</a>
+        </li>
+    </ul>
+   </body>
+</html>

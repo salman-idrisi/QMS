@@ -1,0 +1,76 @@
+﻿@model clover.qms.model.UserManual
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+
+<style>
+    /* .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }*/
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+</style>
+
+@*Added by Rajesh Abhiraj 02112022*@
+
+<div class="form-horizontal table-responsive" align="center" style="margin-top:-10px">
+    <center> <h5 class="modal-header" style="text-align:center">Manual Details</h5></center>
+    <table class="table table-hover table-bordered table_paddi_sec" border="1">
+        <tr>
+            <td style="background-color:#D3D3D3">Document Name</td>
+            <td> @Model.DocumentName</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Document ID</td>
+            <td> @Model.DocumentID</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Version No.</td>
+            <td>@Model.VersionNo</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Release Date</td>
+            <td> @Model.ReleaseDate.ToString("dd/MMM/yyyy") </td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Prepared By</td>
+            <td>@Model.PreparedBy</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Reviewed By</td>
+            <td>@Model.ReviewedBy</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Approved By</td>
+            <td>@Model.ApprovedBy</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Qms Status</td>
+            <td> @Model.QmsStatus</td>
+        </tr>
+        @*<tr>
+            <td style="background-color:#D3D3D3">File Path</td>
+            <td> @Model.FilePath</td>
+        </tr>
+        <tr>
+            <td style="background-color:#D3D3D3">Action</td>
+            <td> @Model.Action</td>
+        </tr>*@
+    </table>
+</div>
+
+<ul class="set_btn">
+    <li>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </li>
+</ul>

@@ -1,0 +1,71 @@
+﻿@model clover.qms.model.MetricObjectiveValue
+@using clover.qms.web.Models;
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">
+                    Update Metric Value for @ViewBag.month_year
+                </h3>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-horizontal table-responsive col-md-12" align="center">
+                <br>
+                @*@if (TempData["msg"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+                        @TempData["msg"]
+                    </div>
+                }*@
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr bgcolor='#D3D3D3'>
+                            <th>Project Name</th>
+                            <th>Metric Objective</th>
+                            <th>Metric Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.Hidden("RefUrl");
+                                @ViewBag.ProjectName
+                            </td>
+                            <td>
+                                @ViewBag.MetricName
+                            </td>
+                            <td>
+                                @Html.HiddenFor(model => model.metricidvalue)
+                                @Html.EditorFor(model => model.metric_value, new { htmlAttributes = new { @class = "form-control w-120", Value = Model.metric_value, autocomplete = "off" } })
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="set_btn">
+                    <li>
+                        <input type="submit" value="Update" id="btnUpdate" class="btn btn-success" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+</body>
+</html>
+

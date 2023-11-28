@@ -1,0 +1,27 @@
+﻿.set_btn {
+    padding-left: 0;
+    margin: 40px 0;
+    text-align: center;
+    list-style: none;
+}
+.set_btn_ul {
+    padding-left: 0;
+    margin: 20px 0;
+    text-align: center;
+    list-style: none;
+}
+    .set_btn li {
+        display: inline;
+    }
+
+.btn_mrgn {
+    margin: 3px;
+}
+.btn_style {
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    background: #81CB32 !important;
+    border: none !important;
+    padding: 10px 40px !important;
+    color:#fff !important;
+}

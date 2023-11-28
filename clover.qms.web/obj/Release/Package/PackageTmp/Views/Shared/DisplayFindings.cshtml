@@ -1,0 +1,216 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/datatables.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/datatables.min.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/datatables.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/datatables.min.js")"></script>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm())
+        {@Html.AntiForgeryToken()
+        var Report = Model.listpcrreport.Count;
+
+        if (Report > 0)
+        {
+
+            Model.listusers = ViewBag.user;
+
+            <div class="form-horizontal table-responsive" align="center">
+
+
+
+                <table id="tbl" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td colspan="8"><p style="text-align:left"><b>Date:</b>@ViewBag.startDate  to @ViewBag.endDate</p></td>
+                        <td colspan="9"><p style="text-align:left"><b> Report Time:</b>@ViewBag.CurrentDate</p></td>
+                    </tr>
+
+
+                    <tr>
+                        <th style="background-color:#D3D3D3"><b>Sr.No.</b></th>
+                        <th style="background-color:#D3D3D3"><b>Life Cycle</b></th>
+                        <th style="background-color:#D3D3D3"><b>Project Name</b></th>
+                        <th style="background-color:#D3D3D3"><b>Technology</b></th>
+                        <th style="background-color:#D3D3D3"><b>Audit Finding Description</b></th>
+                        <th style="background-color:#D3D3D3"><b>Process Area</b></th>
+                        <th style="background-color:#D3D3D3"><b>Classification</b></th>
+                        <th style="background-color:#D3D3D3"><b>PCR Date</b></th>
+                        <th style="background-color:#D3D3D3"><b>Planned Closure Date</b></th>
+                        <th style="background-color:#D3D3D3"><b>Actual Closure Date</b></th>
+                        <th style="background-color:#D3D3D3"><b>Status</b></th>
+                        <th style="background-color:#D3D3D3"><b>Auditor</b></th>
+                        <th style="background-color:#D3D3D3"><b>Project Manager</b></th>
+                        <th style="background-color:#D3D3D3"><b>Deliver Manager</b></th>
+                        <th style="background-color:#D3D3D3"><b>Responsibility<b></th>
+                        @*<th style="background-color:#D3D3D3"><b>Project TL/SPOC2</b></th>*@
+                        <th style="background-color:#D3D3D3"><b>Finding Aging</b></th>
+
+
+                    </tr>
+</thead>
+                    <tbody>
+                    @{ var i = 0;
+                        var sr = 1;
+                        var a = 0;
+                        var b = 0;
+
+                        foreach (var report in Model.listpcrreport)
+                        {
+
+                                            <tr>
+                                                <td class="Id">@sr</td>
+                                                @foreach (var projectMaster in Model.listProjectMaster)
+                                                {
+
+                                                    foreach (var schedule in Model.listPcrSchedule)
+                                                    {
+                                                        foreach (var lifecycle in Model.listLifeCycle.Where(x => x.lifecycleID == Model.listProjectMaster[a].lifecycleID))
+                                                        {
+                                                            <td class="LifeCycle">@lifecycle.lifecycleName</td>
+                                                            break;
+                                                        }
+                                                        <td class="AccountName">@Model.listProjectMaster[a].ProjectName</td>
+                                                        foreach (var technology in Model.listTechnology.Where(x => x.technologyID == Model.listProjectMaster[a].technologyID))
+                                                        {
+                                                            <td class="LifeCycle">@technology.technologyName</td>
+                                                            break;
+                                                        }
+                                                        <td class="Observation">@report.AuditFindind</td>
+                                                        foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                                                        {
+                                                            <td class="Area">@area.parameterName</td>
+                                                            break;
+                                                        }
+                                                        foreach (var classification in Model.listclassification.Where(x => x.classificationID == report.classificationId))
+                                                        {
+                                                            <td class="classificationName">@classification.classificationName</td>
+                                                            break;
+                                                        }
+                                                        string pcrdone = Model.listPcrSchedule[b] != null ? Model.listPcrSchedule[b].ActualDate.Value.ToLongDateString() : null;
+                                                        <td class="PCRDone">@pcrdone</td>
+                                                        <td class="PlannedClosureDate">@report.PlannedClosureDate.ToLongDateString()</td>
+                                                        string closeddate = report.ActualClosureDate != null ? report.ActualClosureDate.Value.ToLongDateString() : null;
+                                                        <td class="ClosedDate">@closeddate</td>
+                                                        foreach (var status in Model.listschedulestatus.Where(x => x.scheduleStatusID == report.statusID))
+                                                        {
+                                                            <td class="Status">@status.scheduleStatusName</td>
+                                                            break;
+                                                        }
+                                                        foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == Model.listPcrSchedule[b].AuditorId))
+                                                        {
+                                                            foreach (var user in Model.listusers.Where(x => x.UserName == auditor.EmpID))
+                                                            {
+                                                                string name = @user.FirstName + " " + @user.LastName;
+                                                                <td class="Auditor">@name</td>
+                                                                break;
+                                                            }
+                                                            break;
+                                                        }
+                                                        foreach (var user in Model.listusers.Where(x => x.UserName == Model.listProjectMaster[a].managerName))
+                                                        {
+                                                            string name = @user.FirstName + " " + @user.LastName;
+                                                            <td class="ProjectManager">@name</td>
+                                                            break;
+                                                        }
+                                                        <td class="DeliveryManager">@Model.listProjectMaster[a].deliverymanagerName</td>
+                                                        foreach (var user in Model.listusers.Where(x => x.UserName == report.responsibility))
+                                                        {
+                                                            string name = @user.FirstName + " " + @user.LastName;
+                                                            <td class="Responsibility">@name</td>
+                                                            break;
+                                                        }
+                                                        @*if (Model.listProjectMaster[a].tlName_2 == null|| Model.listProjectMaster[a].tlName_2 == "")
+                                                        {
+                                                            string name = "-";
+                                                            <td class="ProjectTL/SPOC2">@name</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            foreach (var user in Model.listusers.Where(x => x.UserName == Model.listProjectMaster[a].tlName_2))
+                                                            {
+                                                                string name = Model.listProjectMaster[a].tlName_2 != null ? @user.FirstName + " " + @user.LastName : "-";
+                                                                <td class="ProjectTL/SPOC2">@name</td>
+                                                                break;
+                                                            }
+                                                        }*@
+                                                        int date = ((report.ActualClosureDate != null ? report.ActualClosureDate : ViewBag.Date) - Model.listPcrSchedule[b].ActualDate).Days;
+                                                        <td class="DateDifference">@date</td>
+                                                        b++;
+                                                        break;
+
+                                                    }
+                                                    a++;
+                                                    break;
+
+                                                }
+
+
+                                            </tr>
+                            i++;
+                            sr++;
+                        }
+
+                    }
+                        </tbody>
+                </table>
+            </div>
+            <ul class="set_btn">
+                <li>
+                    <a href="#" class="btn btn-primary collapsed" id="btnExport">Export Excel</a>
+                </li>
+                <li>
+    @if (Request.UrlReferrer != null)
+    {
+        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+            Back
+
+        </a>
+    }
+</li>
+
+            </ul>
+
+
+        }
+
+        else
+        { <h3 style="text-align:center">No data found</h3>
+
+
+        }
+    }
+    </div>
+</body>
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#tbl').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+        $('#btnExport').on('click', function () {
+          
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+
+                filename: "Consolidated_Report",
+                fileext: ".xls",
+
+                exclude_inputs: false
+            });
+        });
+    })
+</script>
+
+
+

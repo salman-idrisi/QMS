@@ -1,0 +1,789 @@
+<form action="/MetricObjective/MetricPartialObjectiveAllUser?Startdate=01-Oct-2022&amp;Enddate=31-Oct-2022" method="post">    <div class="container">
+        <div class="form-horizontal table-responsive" align="center">
+                <table id="MetricTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td colspan="6"><p style="text-align:left"><b>Date:</b>01-10-2022 00:00:00  to 31-10-2022 00:00:00</p></td>
+                            <td colspan="13"><p style="text-align:left"><b> Report Time:</b>20-Oct-2022 18:12:28</p></td>
+                        </tr>
+                        <tr bgcolor="#D3D3D3">
+                            <th>Sr.No</th>
+                            <th>Project Name</th>
+                            <th>Lifecycle / Function</th>
+                            <th>Auditee</th>
+                            <th>Metric Name</th>
+                            <th>ISO</th>
+                            <th>Measurement Method</th>
+                            <th>Measurement Frequency</th>
+                            <th>Achievment Expected</th>
+                            <th>DataSource</th>
+
+                                <th>Oct-2022</th>
+                                <th>RCA Oct-2022</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+
+                                                <td>XYZ</td>
+
+                                                <td>App development</td>
+
+                                                <td>  Pinky Shah</td>
+
+
+                                            <td>Coding Phase Quality ? Critical Observations</td>
+                                            <td>EOHS</td>
+                                            <td>Number of Code Review Critical Observations</td>
+
+                                                <td>Coding Phase</td>
+
+                                            <td>Not to Exceed 5</td>
+                                            <td>Code Review Log</td>
+
+                                                <td>
+0
+                                                </td>
+                                                <td>
+0
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+
+                                                <td>ABC</td>
+
+                                                <td>Managed IT </td>
+
+                                                <td>  Pinky Shah</td>
+
+
+                                            <td>Customer Satisfaction Rating (1-5 Scale)</td>
+                                            <td>ISMS</td>
+                                            <td>Collection of Customer Feedback using CSAT Form and analysis of data</td>
+
+                                                <td>Half Yearly</td>
+
+                                            <td>&gt;= 3</td>
+                                            <td>CSAT Form</td>
+
+                                                <td>
+0
+                                                </td>
+                                                <td>
+0
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+
+                                                <td>QMS Portal</td>
+
+                                                <td>App development</td>
+
+                                                <td>  Pinky Shah</td>
+
+
+                                            <td>Coding Phase Quality ? Critical Observations</td>
+                                            <td>EOHS</td>
+                                            <td>Number of Code Review Critical Observations</td>
+
+                                                <td>Coding Phase</td>
+
+                                            <td>Not to Exceed 5</td>
+                                            <td>Code Review Log</td>
+
+                                                <td>
+0
+                                                </td>
+                                                <td>
+0
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+
+                                                <td>Cholamandalam Investment and Finance Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+
+                                                <td>TRANSASIA BIO MEDICALS LTD</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+
+                                                <td>Glenmark</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+
+                                                <td>PMS Portal</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+
+                                                <td>Reliance Life Insurance Company Limited</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+
+                                                <td>Cholamandalam Investment and Finance Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+
+                                                <td>BAJAJ ELECTRICALS LTD</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+
+                                                <td>Fullerton India Credit Company Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+
+                                                <td>PQR</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>13</td>
+
+                                                <td>Reliance Life Insurance Company Limited</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>14</td>
+
+                                                <td>Cholamandalam Investment and Finance Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>15</td>
+
+                                                <td>Toyo Engineering India Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>16</td>
+
+                                                <td>Bajaj FinServ</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>17</td>
+
+                                                <td>Bluedart LLC</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>18</td>
+
+                                                <td>Reliance Life Insurance Company Limited</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>19</td>
+
+                                                <td>Bluedart</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>20</td>
+
+                                                <td>Cholamandalam Investment and Finance Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>21</td>
+
+                                                <td>Cholamandalam Investment and Finance Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>22</td>
+
+                                                <td>Toyo Engineering India Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>23</td>
+
+                                                <td>BAJAJ ELECTRICALS LTD</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>24</td>
+
+                                                <td>IOTL Infrastructure and Energy Services</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>25</td>
+
+                                                <td>Cholamandalam Investment and Finance Ltd</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>26</td>
+
+                                                <td>TRANSASIA BIO MEDICALS LTD</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>27</td>
+
+                                                <td>Saraswat Bank</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>28</td>
+
+                                                <td>BAJAJ ELECTRICALS LTD</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td>29</td>
+
+                                                <td>MYNTRA DESIGNS PVT LTD</td>
+
+                                                <td>NA</td>
+
+                                                <td>  NA NA</td>
+
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>NA</td>
+
+                                            <td>NA</td>
+                                            <td>NA</td>
+
+                                                <td>
+NA
+                                                </td>
+                                                <td>
+NA
+                                                </td>
+                                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</form><script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+
+

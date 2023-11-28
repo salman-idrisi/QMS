@@ -1,0 +1,144 @@
+﻿@model clover.qms.model.PCRViewModel
+@{Layout = null; }
+<!DOCTYPE html>
+<style>
+    .table {
+        /*border-collapse: collapse;*/
+        width: 50%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .modal-content {
+        width: 1200px;
+        vertical-align: middle;
+        margin-top: 0%;
+        margin-left: 12%;
+    }
+    table.dataTable {
+        width: 95%;
+    }
+    .error {
+    color:red;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PCRSchedule</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+</head>
+
+<body>
+
+    @using (Html.BeginForm("SubmitPCRSchedule", "PCRSchedule", FormMethod.Post))
+    {
+    <div class="form-horizontal" align="center">
+        
+        <h3 class="modal-header" style="text-align:center;color:#00239B">PCR Scheduling</h3>
+        <table id="tblPcrSchedule"class="table" border="1">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+
+                    <th>Sr.No.</th>
+                    <th>Project List</th>
+                    <th>Region Name</th>
+                    <th>Auditee Name</th>
+                    <th>Technology</th>
+                    <th>Planned Date</th>
+                    <th>Auditor</th>
+                </tr>
+            </thead>
+            @{ var i = 0; var SrNo = 1;
+                foreach (var item in Model.listProjectMaster)
+                {
+                    <tr>
+                        <td>
+                            @*@item.PID*@
+                            @SrNo
+                        </td>
+                        <td>
+                            @item.ProjectName
+                        </td>
+                        <td>
+                            @foreach (var region in Model.listRegion.Where(x => x.regionID == item.regionID))
+                            {
+                                @region.regionName
+                            }
+                        </td>
+                        <td>
+                            @*@item.managerName*@
+                            @foreach (var users in Model.listusers.Where(x => x.UserName == item.managerName))
+                            {
+
+                                @users.FirstName
+                                break;
+                            }
+                        </td>
+                        <td>
+
+                            @foreach (var technology in Model.listTechnology.Where(x => x.technologyID == item.technologyID))
+                            {
+                                @technology.technologyName
+                            }
+                        </td>
+
+
+                        @while (i < Model.listPcrSchedule.Count)
+                        {
+                            <td>
+                                @Html.TextBoxFor(Model => Model.listPcrSchedule[i].PlannedDate, new { autocomplete = "off", @readonly="readonly", @class = "form-control date-picker" })
+                                @Html.ValidationMessageFor(Model => Model.listPcrSchedule[i].PlannedDate, "", new { @class = "error" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(Model => Model.listPcrSchedule[i].AuditorId, new SelectList(ViewBag.AuditorList, "AuditorId", "EmpName"), "--Select--", new { name = "ddlAuditorId" })
+                                <br />
+                                @Html.ValidationMessageFor(Model => Model.listPcrSchedule[i].AuditorId, "", new { @class = "error" })
+                            </td>
+                            @Html.HiddenFor(Model => Model.listPcrSchedule[i].PCRScheduleID, new { name = "txtPCRScheduleID" })
+
+                            @Html.HiddenFor(Model => Model.listPcrSchedule[i].PID, new { Value = @item.PID, name = "txtPID" })@*<td>
+                                @Html.HiddenFor(Model => Model.listPcrSchedule[i].PCRScheduleID, new { name = "txtPCRScheduleID" })
+                            </td>
+                            <td>
+                                @Html.HiddenFor(Model => Model.listPcrSchedule[i].PID, new { Value = @item.PID, name = "txtPID" })
+                            </td>*@
+                            if (i <= Model.listPcrSchedule.Count) { break; }
+                        }
+                    </tr>
+                    i++;
+                    SrNo++;
+                }
+            }
+        </table>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Save" formaction="@Url.Action("SaveAsDraftPcrSchedule")" class="btn btn-warning cancel" />
+                <input type="submit" value="Submit" formaction="@Url.Action("SubmitPCRSchedule")" class="btn btn-success" />
+                @*<input type="submit" value="Create Schedule" class="btn btn-success"/>*@
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>*@
+            </div>
+        </div>
+    </div>
+    }
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    @*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+</body>
+
+</html>
+<script src="~/Scripts/CheckBox.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $("#tblPcrSchedule").DataTable({ sDom: 'lrtip', "lengthChange": false, "bDestroy": true })
+    });
+</script>

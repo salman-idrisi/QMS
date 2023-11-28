@@ -1,0 +1,138 @@
+﻿@model clover.qms.model.ProjectMaster
+
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    Model.technology = ViewBag.PT;
+    Model.lifecycle = ViewBag.PLC;
+    Model.users = ViewBag.user;
+    Model.region = ViewBag.PR;
+    Model.pStatus = ViewBag.PStatus;
+
+    <div class="form-horizontal" align="center">
+
+        <center> <h5 class="modal-header" style="text-align:center">Details Project</h5></center>
+        <table border="1">
+            <tr>
+                <td style="background-color:#D3D3D3">Account Name</td>
+                <td> @Model.AccountName</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Project Name</td>
+                <td> @Model.ProjectName</td>
+            </tr>
+            @foreach (var technology in Model.technology.Where(x => x.technologyID == Model.technologyID))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">Technology</td>
+                    <td>@technology.technologyName</td>
+                </tr>
+            }
+            @foreach (var lifecycle in Model.lifecycle.Where(x => x.lifecycleID == Model.lifecycleID))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">Project Life Cycle</td>
+                    <td> @lifecycle.lifecycleName</td>
+                </tr>
+            }
+            @foreach (var user in Model.users.Where(x => x.UserName == Model.managerName))
+            {
+                string name = user.FirstName + " " + user.LastName;
+                <tr>
+                    <td style="background-color:#D3D3D3">Project Manager</td>
+                    <td>@name</td>
+                </tr>
+            }
+            @foreach (var user in Model.users.Where(x => x.UserName == Model.tlName_1))
+            {
+                string name = user.FirstName + " " + user.LastName;
+                <tr>
+                    <td style="background-color:#D3D3D3">Project TL/SPOC 1</td>
+                    <td>@name</td>
+                </tr>
+            }
+            @foreach (var user in Model.users.Where(x => x.UserName == Model.tlName_2))
+            {
+                string name = user.FirstName + " " + user.LastName;
+                <tr>
+                    <td style="background-color:#D3D3D3">Project TL/SPOC 2</td>
+                    <td>@name</td>
+                </tr>
+            }
+            @foreach (var user in Model.users.Where(x => x.UserName == Model.tlName_3))
+            {
+                string name = user.FirstName + " " + user.LastName;
+                <tr>
+                    <td style="background-color:#D3D3D3">Project TL/SPOC 3</td>
+                    <td>@name</td>
+                </tr>
+            }
+            @foreach (var user in Model.users.Where(x => x.UserName == Model.tlName_4))
+            {
+                string name = user.FirstName + " " + user.LastName;
+                <tr>
+                    <td style="background-color:#D3D3D3">Project TL/SPOC 4</td>
+                    <td>@name</td>
+                </tr>
+            }
+            @foreach (var region in Model.region.Where(x => x.regionID == Model.regionID))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">Location</td>
+                    <td> @region.regionName</td>
+                </tr>
+            }
+
+            <tr>
+                <td style="background-color:#D3D3D3">Delivery Manager</td>
+                <td> @Model.deliverymanagerName</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Delivery Head</td>
+                <td> @Model.deliveryheadName</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Start Date</td>
+                <td>@Model.startdate.ToString("dd/MMM/yyyy")</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">End Date</td>
+                <td>@Model.enddate.ToString("dd/MMM/yyyy")</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Team Size</td>
+                <td>@Model.teamSize</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Planned Effort</td>
+                <td>@Model.plannedEffort</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Billing Type</td>
+                <td>@Model.billingType</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">SQA</td>
+                <td>@Model.SQA</td>
+            </tr>
+            @foreach (var status in Model.pStatus.Where(x => x.statusID == Model.statusID))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">Status</td>
+                    <td>@status.statusName</td>
+                </tr>
+            }
+
+        </table>
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/CheckBox.js"></script>

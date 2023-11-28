@@ -1,0 +1,130 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<!DOCTYPE html>
+<style>
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+</style>
+<html>
+<head>
+
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        Model.listusers = ViewBag.user;
+        Model.listusersroles = ViewBag.userroles;
+        <div>
+            <h3 style="color:#00239B; text-align:center">Assign Role To Employee</h3>
+            @*<a href="@Url.Action("UserRoles","AssignRoles")" class="btn btn-success" onclick=Add();>Users Role</a>*@
+        </div>
+        <div class="container">
+            @if (Model.listusers.Count() != 0)
+            {
+                <div class="form-horizontal table-responsive" align="center">
+                    <br>
+                    <table id="Table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <td colspan="3">
+                                    <a href="@Url.Action("UserRoles","AssignRoles")" class="btn btn-success">Users Role</a>&nbsp;&nbsp;<a href="@Url.Action("InactiveUser","AssignRoles")" class="btn btn-primary">Inactive User</a>
+                                </td>
+                                <td colspan="3" style="text-align:right">
+                                    Search User:<input type="text" name="SearchString" autocomplete="off" required data-val="true" data-val-required="Data is required" />&nbsp;
+                                    <input type="submit" formaction="@Url.Action("SearchUser","AssignRoles")" value="Search" id="btnSubmit" />
+                                </td>
+                            </tr>
+                            <tr bgcolor='#D3D3D3'>
+                                <th><input type="checkbox" id="OneCheckAll" /> Select All</th>
+                                <th>Sr.No</th>
+                                <th>UserName</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Role</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var srNo = 1; var i = 0;
+                                foreach (var user in Model.listusers)
+                                {
+
+                                    <tr>
+
+                                        <td><input class="check-box" id="parentHeader" name="parentHeader" type="checkbox" value="@user.UserName" /></td>
+                                        <td>@srNo</td>
+
+                                        <td>@user.UserName</td>
+                                        <td>@user.FirstName</td>
+                                        <td>@user.LastName</td>
+
+
+                                        <td>
+                                            @Html.HiddenFor(model => model.listusersrolesmapping[i].UserId, new { Value = user.UserId })
+
+                                            @foreach (var role in Model.listusersroles)
+                                            {
+                                                string a = "  ";
+                                                <input class="check-box" id="childHeader" name="childHeader" type="checkbox" value="@user.UserId,@role.RoleId" />
+                                                @role.RoleName
+                                                @a
+
+                                            }
+
+                                        </td>
+
+                                    </tr>
+                                    srNo++;
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <ul class="set_btn">
+                        <li>
+                            <input data-url="@Url.Action("InsertUserRoles", "AssignRoles")" class="btn btn-success" id="checkSubmit" readonly="readonly" value="Assign Role" />
+
+                        </li>
+                        <li>
+                            @if (Request.UrlReferrer != null)
+                            {
+                                <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                                    Back
+
+                                </a>
+                            }
+                        </li>
+                    </ul>
+
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a href="@Url.Action("UserRoles","AssignRoles")" class="btn btn-success" style="margin-left:100px"> Users Role</a>&nbsp; &nbsp;<a href="@Url.Action("InactiveUser","AssignRoles")" class="btn btn-primary">Inactive User</a>
+                    <text style="margin-left:500px"> Search User:</text><input type="text" name="SearchString" autocomplete="off" required data-val="true" data-val-required="Data is required" />&nbsp;
+                    <input type="submit" formaction="@Url.Action("SearchUser","AssignRoles")" value="Search" id="btnSubmit" />
+                    
+                </div>
+                <br> <h4 style="text-align:center">No Record Found.</h4>
+            }
+        </div>
+    }
+</body>
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/RoleCheckBox.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Table").DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false, destroy: true })
+    });
+</script>

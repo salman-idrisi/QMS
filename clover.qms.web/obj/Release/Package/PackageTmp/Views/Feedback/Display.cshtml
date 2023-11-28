@@ -1,0 +1,403 @@
+﻿@model clover.qms.model.Feedback
+@using clover.qms.web.Models;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Feedback</title>
+    <style>
+
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+            /* width: 100% !important;*/
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 100% !important;
+            border: none;
+        }
+
+        .Distable {
+            width: 100%;
+            /*max-width: 100%;*/
+            margin-bottom: 20px;
+            /*text-align: left;*/
+            align-items: center;
+        }
+    </style>
+
+
+    @*  <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/bootstrap-datepicker.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+    @*<script src="~/Scripts/jquery-3.5.1.js"></script>*@
+
+</head>
+<body>
+    @using (Html.BeginForm("getData", "Feedback", "POST"))
+    {
+        ViewBag.Counter = 0;
+        @Html.AntiForgeryToken()
+        if (TempData["msg"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="row">
+
+            <h3 style="text-align:center;color:#00239B;font-size:20px">View Feedback</h3>
+        </div>
+        <br />
+        <div class="row offset-1 text-center">
+            @*<div class="col-sm-1"> <p style="color: darkblue; font-size: 12px; ">Start Date:</p></div>*@
+            <div class="col-sm-2">
+
+                @Html.TextBoxFor(m => m.startdate, "Select Start Date", new { @class = "form-control date-picker", @readonly = "readonly", @id = "startdate", @placeholder = "Select Start Date" })
+                @*@Html.ValidationMessageFor(m => m.startdate)*@
+
+            </div>
+            @*<div class="col-sm-1"><p style="color: darkblue; font-size: 15px; ">End Date:</p></div>*@
+            <div class="col-sm-2">
+
+                @Html.TextBoxFor(m => m.enddate, "Select End Date", new { @class = "form-control date-picker", @readonly = "readonly", @id = "enddate", @placeholder = "Select End Date" })
+                @*@Html.ValidationMessageFor(m => m.enddate)*@
+            </div>
+
+
+
+
+            @*<div class="col-sm-1"><p style="color: darkblue; font-size: 15px; ">Department Name:</p></div>*@
+            <div class="col-sm-3">
+                @Html.DropDownListFor(m => m.DepartmentID, new SelectList(ViewBag.department, "QmsDepartmentID", "QmsDepartmentName"), "Select Department Name", new { @class = "form-control txt_width", @id = "ddldepartment" })
+                @*@Html.ValidationMessageFor(model => model.DepartmentIDD, "", new { @class = "text-danger" })*@
+
+            </div>
+
+            @*<div class="col-sm-1"><p style="color: darkblue; font-size: 15px;">Project Name:</p></div>*@
+            <div class="col-sm-2">
+                @Html.DropDownListFor(m => m.projectid, new SelectList(ViewBag.Project, "Value", "Text"), "Select Project Name", new { @class = "form-control txt_width", @id = "ddlproject" })
+                @*@Html.ValidationMessageFor(model => model.projectid, "", new { @class = "text-danger" })*@
+
+
+            </div>
+
+            <div class="col-sm-2">
+                @*<input type="submit" value="View feedback " id="btn" class="btn btn-success form-control" />*@
+
+                <div class="row">
+                    <input type="submit" value="View feedback" id="btnViewFeedback" onclick="viewFeedback();" class="btn" style="background-color:#83CB1E;color:white;" sho />
+                    @*ADDED BY SUSHILA 301120222*@
+                    <input type="submit" value="Reset" id="btnReset" onclick="ResetFeedback();" class="btn" style="background-color:#83CB1E;color:white" />
+
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-1">
+                @*<input type="submit" value="View feedback " id="btn" class="btn btn-success form-control" />*@
+            </div>
+        </div>
+
+        <div class="fresh-table toolbar-color-green">
+            <div @*class="modal-header"*@ style="display: -webkit-inline-box;">
+
+            </div>
+            <table id="fresh-table" class="Distable">
+                <thead>
+                    <tr bgcolor='#D3D3D3'>
+                        <th>SR. NO.</th>
+                        <th>PROJECT NAME</th>
+                        <th>PROJECT MANAGER</th>
+                        <th>AVERAGE CSAT RATING</th>
+                        <th>Form Fill Date</th>
+                         <th>CSAT Period From</th>
+                        <th>CSAT Period To</th>
+                        <th>RCA</th>
+                        @*ADDED BY SUHSILA 29112022*@
+                        <th>Department</th>
+                </thead>
+                <tbody style="text-align:center">
+
+                    @{ var srNo = 1;
+
+
+                        if (Model.flist != null)
+                        {
+                            ViewBag.Counter = Model.flist.Count;
+                            foreach (var item in Model.flist)
+                            {
+                                <tr>
+                                    <td>
+                                        @srNo
+                                    </td>
+                                    <td>
+                                        <a href="#" style="color:cornflowerblue" onclick=showForm(@item.pid,@item.cind,@item.csatID,@item.customerIndex)>@item.pname</a>
+                                    </td>
+                                    <td>
+                                        @item.pmanager
+                                    </td>
+
+                                    <td>
+                                        @item.averageRatings
+                                    </td>
+
+                                    <td>
+                                        @*@item.datefilled*@
+                                        @item.datefilled.ToString("dd/MM/yyyy")
+                                    </td>
+
+                                    <td>
+                                        @*@item.startdate*@
+                                        @item.startdate.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @*@item.enddate*@
+                                        @item.enddate.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @item.rca
+                                    </td>
+                                    @*ADDED BY SUSHILA 29112022*@
+                                    <td>
+                                        @item.Departmentname
+                                    </td>
+                                </tr>
+                                srNo++;
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+    }
+
+    @using (Html.BeginForm("PostDataForExport", "Feedback", "POST"))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        @*<div id="fresh-table" class="table"></div>*@<div id="fresh-table" class="table"></div><div id="fresh-table" class="table"></div><div id="fresh-table" class="table"></div><div id="fresh-table" class="table"></div><div id="fresh-table" class="table"></div><div id="fresh-table" class="table"></div>
+
+
+
+
+        @*<div id="fresh-table" class="table"></div>*@<div id="fresh-table" class="table"></div><div id="fresh-table" class="table"></div>
+
+
+        <input type="hidden" name="GridHtml" />
+        <center>
+            <input type="submit" id="btnExport" class="btn btn-primary collapsed text-center" onclick="viewFeedbackForExport();" style="margin-top:10px;" value="Export" />
+        </center>
+    }
+
+    <script type="text/javascript">
+         $(document).ready(function () {
+            debugger;
+            if (@ViewBag.Counter > 0) {
+                $('#btnExport').Show();
+            }
+            else {
+                $('#btnExport').hide();
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+                $("input[name='GridHtml']").val($("#fresh-table").html());
+                /*  $("input[name='GridHtml']").val($("#divPartialView").html());*/
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //$('#btnViewFeedback').click(function () {
+
+        //});
+
+
+
+    });
+
+        function getViewFeedbackData() {
+
+            $("#divPartialView").html(response);
+            $("#btnExport").show();
+            $('#fresh-table').removeClass("Hidden");
+        }
+
+         function viewFeedback(projectid) {
+
+
+            start = document.getElementById("dateStart").value;
+            end = document.getElementById("dateEnd").value;
+
+             var url = '@Url.Content("~/")' + "Feedback/getData";
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json",
+                dataType:"html",
+                success: function (response) {
+
+                    $("#divPartialView").html(response);
+                    $("#btnExport").show();
+                    $('#fresh-table').removeClass("Hidden");
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+         function showForm(pid,customerID,csatID,customerIndex) {
+
+
+             var url = '@Url.Content("~/")' + "Feedback/Show?pid=" + pid + "&customerID=" + customerID + "&csatID=" + csatID + "&customerIndex=" + customerIndex;
+
+        $.ajax({
+
+            type: "GET",
+            url: url,
+            data: {
+                'pid': pid,
+                'customerID': customerID,
+                'csatID': csatID,
+                'customerIndex': customerIndex
+            },
+            contentType: "application/json; charset=utf-8",
+          //  dataType: "html",
+            success: function (response) {
+
+                    window.location.href = url;
+            },
+            failure: function (response) {
+
+            alert(response.responseText);
+            },
+            error: function (response) {
+            alert(response.responseText);
+            }
+            });
+    }
+
+         // Added by Asees on 3/10/22 for export
+         function viewFeedbackForExport() {
+
+
+            start = document.getElementById("dateStart").value;
+            end = document.getElementById("dateEnd").value;
+
+            var url = '@Url.Content("~/")' + "Feedback/getDataForExport";
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'pstart': start, 'pend': end
+                },
+                contentType: "application/json",
+                dataType:"html",
+                success: function (response) {
+                    debugger;
+
+                },
+                failure: function (response) {
+                    debugger;
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    debugger;
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        //ADDED BY SUSHILA 30112022
+        function ResetFeedback() {
+            debugger;
+
+            $('#ddlproject').val(0);
+            $('#enddate').val('Select End Date');
+            $('#startdate').val('Select Start Date');
+
+            $('#ddldepartment').val(0);
+
+        }
+
+    </script>
+
+    @* added by priyanka daki on 22112022*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $table = $('#fresh-table')
+            $(function () {
+                $table.bootstrapTable({
+                    classes: 'table table-hover table-striped',
+                    toolbar: '.toolbar',
+                    search: true,
+                    showRefresh: false,
+                    showToggle: false,
+                    showColumns: true,
+                    pagination: true,
+                    striped: true,
+                    sortable: true,
+                    pageSize: 10,
+                    pageList: [8, 10, 25, 50, 100],
+
+                    formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                        return ''
+                    },
+                    formatRecordsPerPage: function (pageNumber) {
+                        return pageNumber + ' rows visible'
+                    }
+                })
+
+
+            });
+
+        });
+
+
+    </script>
+
+
+
+</body>
+</html>
+

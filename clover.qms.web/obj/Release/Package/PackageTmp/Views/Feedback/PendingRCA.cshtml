@@ -1,0 +1,254 @@
+﻿@model IEnumerable<clover.qms.model.Feedback>
+@using clover.qms.web.Models;
+
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+    </style>
+
+    <!-- Style -->
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @TempData["msg"]
+        </div>
+    }
+    <h3 style="text-align:center;color:#00239B;font-size:20px">Pending RCA</h3>
+    <div class="fresh-table toolbar-color-green">
+        @*    fresh-table toolbar-color-green*@
+        <div class="toolbar">
+            @*<a href="#" class="btn btn-default" onclick=insert();>Add</a>*@
+        </div>
+
+        <table id="fresh-table" class="table">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+                    <th>SR. NO.</th>
+                    <th>PROJECT NAME</th>
+                    <th>PROJECT MANAGER</th>
+                    <th>AVERAGE CSAT RATING</th>
+                    <th>SUBMISSION DATE</th>
+                    <th>RCA</th>
+                    @* @if (ViewBag.Mode != "getData")
+                        { *@
+                    <th>ACTIONS</th>
+                    @*  } *@
+            </thead>
+            <tbody>
+
+                @{ var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @srNo
+                            </td>
+                            <td>
+                                <a href="#" style="color:cornflowerblue" onclick=showForm(@item.pid,@item.cind,@item.csatID,@item.customerIndex)>@item.pname</a>
+                            </td>
+                            <td>
+                                @item.pmanager
+                            </td>
+
+                            <td>
+                                @item.averageRatings
+                            </td>
+
+                            @if (@item.averageRatings <= 3.5)
+                            {
+                                if (!@item.rca.Equals(""))
+                                {
+                                    <td>
+                                        @item.datefilled
+                                    </td>
+                                    <td>
+                                        @item.rca
+                                    </td>
+
+                                }
+                                else
+                                {
+                        <td>
+                            @*@item.datefilled*@
+                            @item.datefilled.ToString("dd/MM/yyyy") @*changed by Priyanka Daki on 30112022*@
+                        </td>
+                                    <td>
+                                        <input type="text" style="border:solid 2px #FF0000" id="textbox+@item.pid" placeholder="Enter RCA" value="@item.rca" required> <a href="#">
+
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="glyphicon glyphicon-ok" onclick="SubmitButton(@item.pid,@item.csatID)"></span>
+
+                                    </td>
+                                    @*   if (ViewBag.Mode != "getData")
+                                        { *@
+
+
+                                    @*  } *@
+                                }
+                            }
+
+                        </tr>
+                        srNo++;
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+
+
+        });
+
+    });
+
+   @* $(document).ready(function () {
+        var table = $('#Table').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+        $('#btnExport').on('click', function () {
+
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+
+                filename: "FeedbackReport",
+                fileext: ".xls",
+                exclude_inputs: false
+            });
+        });
+    });*@
+
+
+
+
+
+    function SubmitButton(pid,csatID) {
+
+        debugger;
+        document.getElementById("textbox+" + pid).style.textAlign = "center";
+         document.getElementById("textbox+" + pid).style.border = "0px solid white";
+
+        var url = '@Url.Content("~/")' + "Feedback/InsertRCA?pid=" + pid;
+        var url2 = '@Url.Content("~/")' + "Feedback/PendingRCA";
+        debugger;
+        $.ajax({
+
+            type: "GET",
+            url: url,
+            data: {
+                'pid': pid,
+                'rca': document.getElementById("textbox+" + pid).value,
+                'csatId': csatID
+            },
+            contentType: "application/json; charset=utf-8",
+          //  dataType: "html",
+            success: function (response) {
+
+                debugger;
+               $('#modalMessage').modal('show');
+               window.location.href = url2;
+               // viewFeedback();
+
+
+            },
+            failure: function (response) {
+
+            alert(response.responseText);
+            },
+            error: function (response) {
+            alert(response.responseText);
+            }
+            });
+
+    }
+    function showForm(pid,customerid,csatid,customerIndex) {
+
+
+        var url = '@Url.Content("~/")' + "Feedback/Show?pid=" + pid + "&customerID=" + customerid + "&csatID=" + csatid + "&customerIndex=" + customerIndex;
+
+        $.ajax({
+
+            type: "GET",
+            url: url,
+            data: {
+                'pid': pid,
+                'customerID': customerid,
+                'csatID': csatid,
+                'customerIndex': customerIndex
+            },
+            contentType: "application/json; charset=utf-8",
+          //  dataType: "html",
+            success: function (response) {
+
+                    window.location.href = url;
+            },
+            failure: function (response) {
+
+            alert(response.responseText);
+            },
+            error: function (response) {
+            alert(response.responseText);
+            }
+            });
+    }
+
+</script>
+

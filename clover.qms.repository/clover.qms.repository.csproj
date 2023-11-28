@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7207DC37-FBBB-443B-A457-0EDB58A3F94D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>clover.qms.repository</RootNamespace>
+    <AssemblyName>clover.qms.repository</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssignRolesConcrete.cs" />
+    <Compile Include="AuditeeDashbaordConcrete.cs" />
+    <Compile Include="AuditLogConcrete.cs" />
+    <Compile Include="AuditorConcrete.cs" />
+    <Compile Include="ClassificationConcrete.cs" />
+    <Compile Include="ComplianceConcrete.cs" />
+    <Compile Include="ConsolidatedReportConcrete.cs" />
+    <Compile Include="CsatConcrete.cs" />
+    <Compile Include="CustomerConcrete.cs" />
+    <Compile Include="DeptRoleConcrete.cs" />
+    <Compile Include="DisableConcrete.cs" />
+    <Compile Include="DomainConcrete.cs" />
+    <Compile Include="FeedbackConcrete.cs" />
+    <Compile Include="GroupConcrete.cs" />
+    <Compile Include="IsoConcrete.cs" />
+    <Compile Include="LifeCycleConcrete.cs" />
+    <Compile Include="MetricFrequencyConcrete.cs" />
+    <Compile Include="MetricObjectiveConcrete.cs" />
+    <Compile Include="MISReportConcrete.cs" />
+    <Compile Include="PCRCheckListConcrete.cs" />
+    <Compile Include="PCRScheduleConcrete.cs" />
+    <Compile Include="ProjectMasterConcrete.cs" />
+    <Compile Include="ProjectTypeConcrete.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QmsConcrete.cs" />
+    <Compile Include="RegionConcrete.cs" />
+    <Compile Include="ReportConcrete.cs" />
+    <Compile Include="SaveAsDraftConcrete.cs" />
+    <Compile Include="TechnologyConcrete.cs" />
+    <Compile Include="UpdateAreaNQuestionConcrete.cs" />
+    <Compile Include="UserConcrete.cs" />
+    <Compile Include="UserManualConcrete.cs" />
+    <Compile Include="UsersRoleProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\clover.qms.Interface\clover.qms.Interface.csproj">
+      <Project>{9b30d401-9a06-49b9-b066-a6335002a5c6}</Project>
+      <Name>clover.qms.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clover.qms.model\clover.qms.model.csproj">
+      <Project>{2661d968-0063-4434-83f1-eac12d231976}</Project>
+      <Name>clover.qms.model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

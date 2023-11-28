@@ -1,0 +1,97 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <h3 style="color:#00239B; text-align:center">Inactive  User</h3>
+        </div>
+        <div class="container">
+            @if (Model.listusers.Count() != 0)
+            {
+                <div class="form-horizontal table-responsive" align="center">
+                    <br>
+                    <table id="Table" class="table table-bordered table-hover">
+                        <thead>
+                            <tr bgcolor='#D3D3D3'>
+
+                                <th><b>Sr.No</b></th>
+                                <th><b>UserName</b></th>
+                                <th><b>FirstName</b></th>
+                                <th><b>LastName</b></th>
+                                <th><b>EmailID</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var srNo = 1;
+                                    foreach (var user in Model.listusers)
+                                    {
+                                        <tr>
+
+                                            <td class="ID">@srNo</td>
+
+                                            <td class="UserName">@user.UserName</td>
+                                            <td class="FirstName">@user.FirstName</td>
+                                            <td class="LastName">@user.LastName</td>
+                                            <td class="EmailId">@user.EmailId</td>
+                                        </tr>
+                                        srNo++;
+                                    }
+                                }
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="set_btn">
+                    <li>
+                        <a href="#" class="btn btn-primary collapsed" id="btnExport">Export Excel</a>
+                    </li>
+                    <li>
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                                Back
+
+                            </a>
+                        }
+                    </li>
+
+                </ul>
+            }
+            else
+            {
+                <br> <h4 style="text-align:center">No Record Found.</h4>
+            }
+        </div>
+    }
+</body>
+</html>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" id="contentBody">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#Table').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+
+        $('#btnExport').on('click', function () {
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+                filename: "Inactive_User",
+                fileext: ".xls"
+            });
+        });
+    })
+</script>
+

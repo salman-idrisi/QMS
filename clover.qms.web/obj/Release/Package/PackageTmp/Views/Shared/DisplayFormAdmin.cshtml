@@ -1,0 +1,235 @@
+﻿@model IEnumerable<clover.qms.model.Qms>
+@using clover.qms.web.Models;
+@{
+
+    Layout = null;
+}
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+    </style>
+
+    <!-- Style -->
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+</head>
+<body>
+    @if (Model.Count() != 0)
+    {
+        <h3 style="text-align:center;color:#00239B;font-size:20px">@ViewBag.title</h3>
+        <div class="toolbar">
+            @foreach (var item in Model)
+            {
+                if ( User.IsInRole("Admin") || User.IsInRole("Quality Team"))
+                {
+                    <a href="#" class="btn btn-success" style="color:#ffffff!important" onclick=Add(@item.GeneralViewID,@item.ProcessID,@item.DocumentTypeID);>Add Document</a>
+                    break;
+                }
+            }
+        </div>
+
+        <div class="fresh-table toolbar-color-green">
+
+
+            <table id="fresh-table" class="table">
+                <thead>
+
+                    <tr bgcolor='#D3D3D3'>
+                        <th data-field="SrNo">Sr.No.</th>
+                        <th data-field="ID">ID</th>
+                        <th data-field="Name">Name</th>
+                        <th data-field="Version">Version No.</th>
+                        <th data-field="Artifact">Artifact</th>
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Quality Team"))
+                        {
+                            <th data-field="Action">Action</th>
+
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @{var srNo = 1;
+                        foreach (var item in Model)
+                        {
+                                        <tr>
+
+                                            <td>@srNo</td>
+                                            <td>@item.DocumentID</td>
+                                            <td><a href="@Url.Action("DownloadFile", "QMSRepository" , new { fileName=@item.DocumentID+"_"+item.DocumentName, path=@item.FilePath })"><p style="text-align:left;font-size:12px">@item.DocumentName</p></a></td> @*added by priyanka 31102022. added document name for downloading file*@
+                                            <td>@item.VersionNo</td>
+                                            @if (item.Artifact == "")
+                                            {
+                                                <td></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a href="@Url.Action("DownloadFile", "QMSRepository" , new {fileName=@item.DocumentID+"_"+item.DocumentName ,path=@item.Artifact})"><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                                                @*added by priyanka 31102022. added document name for downloading file*@
+
+                                            }
+                                            @if ( User.IsInRole("Admin") || User.IsInRole("Quality Team"))
+                                            {
+                                                <td>
+                                                    <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Edit(@item.QmsID);>
+
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </a>
+
+                                                    <a rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@item.QmsID);>
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </a>
+                                                </td>
+                                            }
+                                        </tr>
+                            srNo++;
+                        }
+                    }
+                </tbody>
+            </table>
+            <div>
+
+            </div>
+        </div>
+    }
+    else
+    { <h3 style="text-align:center">No document found</h3>}
+</body>
+</html>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" id="contentBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 25,
+                pageList: [25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+        });
+    });
+     function Add(ViewID,Process,DocID) {
+
+         var url = '@Url.Content("~/")' + "RepositoryAdminModule/InsertDocument/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'ViewID': ViewID,
+                    'Process': Process,
+                    'DocId': DocID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+       function Edit(ID) {
+
+           var url = '@Url.Content("~/")' + "RepositoryAdminModule/UpdateDocument/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'ID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function Delete(ID) {
+
+            var url = '@Url.Content("~/")' + "RepositoryAdminModule/DeleteDocument/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { 'ID': ID },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+</script>

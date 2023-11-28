@@ -1,0 +1,776 @@
+﻿@*@{Layout = null;}*@
+<!DOCTYPE html>
+<style>
+    .modal-title {
+        font-size: 20px !important;
+    }
+</style>
+<html lang="en">
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container">
+            <div class="row">
+                @if (User.IsInRole("Project Team") || User.IsInRole("Senior Mgmt") || User.IsInRole("Support Team"))
+                {
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-dashboard gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    @*<a href=@Url.Action("ProjectMasterIndex", "ProjectMaster") class="text_c">Project Master</a>*@
+                                    <a href="#" data-toggle="modal" data-target="#myModal5" class="text_c">Clover Qms</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+
+                                    <span class="glyphicon glyphicon-info-sign gly_set"></span>
+
+                                </h4>
+
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    <a href="#" data-toggle="modal" data-target="#myModal6" class="text_c">Clover ISMS</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+
+                                    <span class="glyphicon glyphicon-globe gly_set"></span>
+
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    <a href="#" data-toggle="modal" data-target="#myModal7" class="text_c">Clover EOHS</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+                @if (User.IsInRole("Auditor"))
+                {
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-hdd gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("ProjectMasterIndex", "ProjectMaster") class="text_c">Project Master</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-pencil gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    <a href="#" data-toggle="modal" data-target="#myModal2" class="text_c">Audit Module</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Quality Team"))
+                {
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+
+                                    <span class="glyphicon glyphicon-list-alt gly_set"></span>
+
+                                </h4>
+
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    <a href="#" data-toggle="modal" data-target="#myModal3" class="text_c">Report</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @*Added by Rajesh Abhiraj 23112022*@
+                @{
+                    List<int> LoginId = new List<int>() {4,34,35,80,81,82,83,84,85,86,87,88,89,93,94,95,99,103,105,108,111,114,117,129,133,143,155,171,228,242,251,
+                       267,268,271,275,277,280,282,285,288,291,313,316,327,361,400,197,421,438,441,452,457,461,462,464,469,471,472,473};
+                }
+
+                @if (User.IsInRole("Admin") || LoginId.Contains(Convert.ToInt32(Session["UserID"].ToString())))
+                {
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+
+                                    <span class="glyphicon glyphicon-copyright-mark gly_set"></span>
+
+                                </h4>
+
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    @*<a href=@Url.Action("Index", "Customer") class="text_c">Customer</a>*@
+                                    <a href="#" data-toggle="modal" data-target="#myModal56" class="text_c">Customer</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (User.IsInRole("Auditee"))
+                {
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-book gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("AuditeeDashboard", "AuditeeDashboard") class="text_c">Audit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-check gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("MetricObjectivebyUser", "MetricObjective") class="text_c">Metric Objective</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Project Team") || User.IsInRole("Senior Mgmt") || User.IsInRole("Support Team") || User.IsInRole("Auditee") || User.IsInRole("Auditor") || User.IsInRole("Quality Team"))
+                {
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+
+                                    <span class="glyphicon glyphicon-align-justify gly_set"></span>
+
+                                </h4>
+
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("Index", "UserManual") class="text_c">User Manual</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-user gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("SelectUserRoles", "AssignRoles") class="text_c">Assign Roles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+
+                                    <span class="glyphicon glyphicon-upload gly_set"></span>
+
+                                </h4>
+
+                            </div>
+                            <div class="card-footer right btm_sec">
+
+                                <div class="box_cnt">
+                                    <a href="#" data-toggle="modal" data-target="#myModal4" class="text_c">Update Data</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-edit gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("AdminPcrSchedule", "Admin") class="text_c">Update Audit Schedule</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-folder-close gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("AdminAuditClosed", "Admin") class="text_c">Audit Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-calendar gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("Index", "AuditLog") class="text_c">Audit History</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-move gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("ShowDepartmentRoles", "AssignRoles") class="text_c">Department Role</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon glyphicon-import gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("ImportExcel", "User") class="text_c">Import Excel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-inbox gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("MetricObjectiveIndex", "MetricObjective") class="text_c">Metric Objective Parameters</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card card-chart box_eft">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <span class="glyphicon glyphicon-signal gly_set"></span>
+                                </h4>
+                            </div>
+                            <div class="card-footer right btm_sec">
+                                <div class="box_cnt">
+                                    <a href=@Url.Action("MetricFrequencyIndex", "MetricFrequency") class="text_c">Metric Frequency </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                @if (!User.IsInRole("Admin") && !User.IsInRole("Auditee") && !User.IsInRole("Auditor") && !User.IsInRole("Project Team") && !User.IsInRole("Senior Mgmt") && !User.IsInRole("Support Team") && !User.IsInRole("Quality Team"))
+                {
+                    <h3 style="text-align:center">Your request is submitted to Admin and You will be intimated once access is approved</h3>
+                }
+            </div>
+        </div>
+    }
+</body>
+</html>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">General View</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="#" data-toggle="modal" data-target="#myModal5" class="btn btn-secondary my-2 fnt_sz">QMS</a>
+                        <a href="#" data-toggle="modal" data-target="#myModal15" class="btn btn-secondary my-2 fnt_sz">ISMS</a>
+                        @*  <a href="@Url.Action("DisplayISMS", "QMSRepository", new { title = "ISMS", GeneralView = 2, UserID = Session["UserID"] },null)" class="btn btn-secondary my-2 fnt_sz">ISMS</a>*@
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">General View</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="#" data-toggle="modal" data-target="#myModal6" class="btn btn-secondary my-2 fnt_sz">QMS</a>
+                        <a href="#" data-toggle="modal" data-target="#myModal7" class="btn btn-secondary my-2 fnt_sz">ISMS</a>
+                        <a href="#" data-toggle="modal" data-target="myModal9" class="btn btn-secondary my-2 fnt_sz">EOHS</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Audit Module</h3>
+            </div>
+            <div class="modal-body">
+
+                <div style="margin:0 auto; text-align:center;">
+
+
+                    <p>
+                        <a href="@Url.Action("AuditorDashboard", "PCRCheckList")" class="btn btn-secondary my-2 fnt_sz">Display AuditSchedule</a>
+                        <a href="@Url.Action("PCRScheduleDetails", "PCRSchedule")" class="btn btn-secondary my-2 fnt_sz">Create AuditSchedule</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Report</h3>
+            </div>
+            <div class="modal-body">
+
+                <div style="margin:0 auto; text-align:center;">
+
+
+                    <p>
+                        <a href="@Url.Action("MISReportIndex", "NCAgingReport")" class="btn btn-secondary my-2 fnt_sz">NC Aging Report</a>
+                        <a href="@Url.Action("Index", "MISReport")" class="btn btn-secondary my-2 fnt_sz">Lifecycle wise Report</a>
+                        <a href="#" data-toggle="modal" data-target="#myModal8" class="btn btn-secondary my-2 fnt_sz">Consolidated Audit Dashboard</a>
+                        <a href="@Url.Action("ViewPCRScheduleIndex", "PCRSchedule")" class="btn btn-secondary my-2 fnt_sz">Audit Schedule Export</a>
+                        @*     <a href="@Url.Action("AuditChecklistReport", "MISReport")" class="btn btn-secondary my-2 fnt_sz">Audit Checklist Export</a>*@
+                        <a href="@Url.Action("MetricObjectiveAllUser", "MetricObjective")" class="btn btn-secondary my-2 fnt_sz">Metric Report</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*Added by Rajesh Abhiraj 23112022*@
+<div class="modal fade" id="myModal56" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Customer</h3>
+            </div>
+            <div class="modal-body">
+
+                <div style="margin:0 auto; text-align:center;">
+
+
+                    <p>
+                        <a href="@Url.Action("CustomerIndex", "Customer")" class="btn btn-secondary my-2 fnt_sz">Customer Master</a>
+                        <a href="#" data-toggle="modal" data-target="#myModal32" class="btn btn-secondary my-2 fnt_sz">Feedback</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Data</h4>
+            </div>
+            <div class="modal-body">
+
+                <div style="margin:0 auto; text-align:center;">
+
+
+                    <p>
+                        <a href="@Url.Action("ShowLifeCycle", "UpdateByAdminParameters")" class="btn btn-secondary my-2 fnt_sz">Life Cycle</a>
+                        <a href="@Url.Action("ShowTechnology", "UpdateByAdminParameters")" class="btn btn-secondary my-2 fnt_sz">Technology</a>
+                        <a href="@Url.Action("ShowRegion", "UpdateByAdminParameters")" class="btn btn-secondary my-2 fnt_sz">Region</a>
+                        <a href="@Url.Action("ShowType", "UpdateByAdminParameters")" class="btn btn-secondary my-2 fnt_sz">Project Type</a>
+                        <a href="@Url.Action("ShowDepartment", "QMSRepository")" class="btn btn-secondary my-2 fnt_sz">Qms Department</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal5" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">QMS</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 6, title = "Operation Process", GeneralView = 1, ProcessId = 1, UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Operation Process</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 1, ProcessId = 2, UserID = Session["UserID"] },null)" class="btn btn-secondary my-2 fnt_sz">System Process</a>
+                        <a href="@Url.Action( "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Checklist</a>
+                        <a href="@Url.Action("DisplayFormDepartment", "QMSRepository", new { GeneralView = 1, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Forms</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Guidelines</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView = 1, ProcessId = 0 , UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Standard</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 5, title = "Manual", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Manual</a>
+
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal15" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">ISMS</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 6, title = "Operation Process", GeneralView = 1, ProcessId = 1, UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Operation Process</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 1, ProcessId = 2, UserID = Session["UserID"] },null)" class="btn btn-secondary my-2 fnt_sz">System Process</a>
+                        <a href="@Url.Action( "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView =1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Checklist</a>
+                        <a href="@Url.Action("DisplayFormDepartment", "QMSRepository", new { GeneralView = 1, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Forms</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView =1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Guidelines</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView = 1, ProcessId = 0 , UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Standard</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 5, title = "Manual", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Manual</a>
+
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal6" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">QMS</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 6, title = "Operation Process", GeneralView = 2, ProcessId = 1, UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Operation Process</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 2, ProcessId = 2, UserID = Session["UserID"] },null)" class="btn btn-secondary my-2 fnt_sz">System Process</a>
+                        <a href="@Url.Action( "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 2, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Checklist</a>
+                        <a href="@Url.Action("DisplayFormDepartment", "QMSRepository", new { GeneralView = 2, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Forms</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView = 2, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Guidelines</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView = 2, ProcessId = 0 , UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Standard</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 5, title = "Manual", GeneralView = 2, ProcessId = 0, UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Manual</a>
+
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal7" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">EOHS</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        @*
+                            change needs to be done here*@
+
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 6, title = "Operation Process", GeneralView = 3, ProcessId = 1,UserID=Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Operation Process</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 3, ProcessId = 2,UserID=Session["UserID"] },null)" class="btn btn-secondary my-2 fnt_sz">System Process</a>
+                        <a href="@Url.Action( "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 3, ProcessId = 0,UserID=Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Checklist</a>
+                        <a href="@Url.Action("DisplayFormDepartment", "QMSRepository", new { GeneralView = 3,UserID=Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Forms</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView = 3, ProcessId = 0,UserID=Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Guidelines</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView =3, ProcessId = 0,UserID=Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Standard</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 5, title = "Manual", GeneralView = 3, ProcessId = 0,UserID=Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Manual</a>
+
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal9" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">EOHS</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        @* <li style="font-size:15px">@Html.ActionLink("Checklist", "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"] }, null)</li>
+                            <li style="font-size:15px">@Html.ActionLink("Forms", "DisplayFormDepartment", "QMSRepository", new { GeneralView = 1, UserID = Session["UserID"] }, null)*@
+
+
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new {DocumentId = 6, title = "Operation Process", GeneralView = 3, ProcessId = 1,UserID = Session["UserID"]},null)" class="btn btn-secondary my-2 fnt_sz">Operation Process</a>
+                        <a href="@Url.Action("DisplayFormDepartment", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 3, ProcessId = 2,UserID = Session["UserID"] },null)" class="btn btn-secondary my-2 fnt_sz">System Process</a>
+
+                        <a href="@Url.Action( "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 3, ProcessId = 0 ,UserID = Session["UserID"]}, null)" class="btn btn-secondary my-2 fnt_sz">Checklist</a>
+                        <a href="@Url.Action("DisplayFormDepartment", "QMSRepository",  new { GeneralView = 1, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Forms</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Guidelines</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Standard</a>
+                        <a href="@Url.Action("DisplayProcess", "QMSRepository",new { DocumentId = 5, title = "Manual", GeneralView = 1, ProcessId = 0, UserID = Session["UserID"] }, null)" class="btn btn-secondary my-2 fnt_sz">Manual</a>
+
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModal8" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Consolidated Audit Dashboard</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="@Url.Action("ConsolidatedReportIndex", "ConsolidatedReport")" class="btn btn-secondary my-2 fnt_sz">Audit Findings</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*Added by Rajesh Abhiraj 23112022*@
+<div class="modal fade" id="myModal32" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header head_p">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Feedback</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin:0 auto; text-align:center;">
+                    <p>
+                        <a href="@Url.Action("FeedbackIndex", "Feedback")" class="btn btn-secondary my-2 fnt_sz">Raise Form</a>
+                        <a href="@Url.Action("PendingRCA", "Feedback")" class="btn btn-secondary my-2 fnt_sz">Pending Rca</a>
+                        <a href="@Url.Action("Display", "Feedback")" class="btn btn-secondary my-2 fnt_sz">View Feedback</a>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="stats" data-dismiss="modal">Close</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+          function ShowReport() {
+              var url = '@Url.Content("~/")' + "MISReport/DisplayReportLinks/";
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                //$('.modal-header').html(response);
+                $('#contentBody').html(response);
+                $('#myModal').modal({ backdrop: 'static', keyboard: false })
+               // $('#myModal').modal('show');
+
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+            });
+    }
+
+</script>

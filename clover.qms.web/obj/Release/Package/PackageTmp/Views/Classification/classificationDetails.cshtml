@@ -1,0 +1,22 @@
+﻿@model clover.qms.model.Classifiaction
+
+@{
+    ViewBag.Title = "ClassificationDetails";
+}
+
+<h2>Classification Details</h2>
+
+<div>
+    <h4>Iso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.classificationName) :  @Html.DisplayFor(model => model.classificationName)
+        </dt>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.classificationID }) |
+    @Html.ActionLink("Back to List", "classificationIndex")
+</p>

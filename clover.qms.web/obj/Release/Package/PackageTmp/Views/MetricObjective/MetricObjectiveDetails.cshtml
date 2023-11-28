@@ -1,0 +1,83 @@
+﻿@model clover.qms.model.MetricObjective
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+<style>
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+    /* Added by Bhushan on 20-10-2021 for table css */
+    table tr td:first-child {
+        width:30%;
+    }
+    /* End */
+</style>
+@using (Html.BeginForm())
+{
+
+    Model.frequency = ViewBag.frequency;
+    Model.lifecycle = ViewBag.PLC;
+    Model.lstIso = ViewBag.listIso;
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal table-responsive" align="center" style="margin-top:-10px">
+
+        <center> <h5 class="modal-header" style="text-align:center">Metric Objective Details</h5></center>
+        <table class="table table-hover table-bordered table_paddi_sec" border="1">
+            <tr>
+                <td style="background-color:#D3D3D3">Metric Name</td>
+                <td> @Model.metricname</td>
+            </tr>
+
+            @foreach (var department in Model.lifecycle.Where(x => x.lifecycleID == Model.plcid))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">Lifecycle/Function</td>
+                    <td>@department.lifecycleName</td>
+                </tr>
+            }
+            @foreach (var freq in Model.frequency.Where(x => x.frequencyId == Model.measurementfrequency))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">Project Life Cycle</td>
+                    <td> @freq.frequencyName</td>
+                </tr>
+            }
+            <tr>
+                <td style="background-color:#D3D3D3">Measurement Method</td>
+                <td>@Model.mesurement_method</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">DataSource</td>
+                <td>@Model.datasource</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Achievement Expected</td>
+                <td>@Model.achievementexpected</td>
+            </tr>
+            @foreach (var iso in Model.lstIso.Where(x => x.isoId == Model.isoId))
+            {
+                <tr>
+                    <td style="background-color:#D3D3D3">ISO </td>
+                    <td> @iso.isoName</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <ul class="set_btn">
+        <li>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </li>
+    </ul>
+
+
+}
+

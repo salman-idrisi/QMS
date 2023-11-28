@@ -1,0 +1,306 @@
+﻿@model clover.qms.model.ProjectMaster
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+
+}
+
+<link href="@Url.ContentAbsUrl("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+<script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.1.1.min.js")"></script>
+<script src="@Url.ContentAbsUrl("~/Scripts/bootstrap.min.js")"></script>
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+
+<style>
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" align="center" style="margin-top:-10px">
+
+        <center> <h5 class="modal-header" style="text-align:center">Add Project Information</h5></center>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" align="center">
+            @*<div class="col-md-1">
+
+                </div>*@
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.ProjectID)</p>
+                @Html.EditorFor(model => model.ProjectID, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Project ID" } })
+                @Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })
+            </div>
+            @*<div class="col-md-1">
+
+                </div>*@
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.ProjectName)</p>
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 60, placeholder = "Project Name" } })
+                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.AccountName)</p>
+                @Html.EditorFor(model => model.AccountName, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 60, placeholder = "Account Name" } })
+                @Html.ValidationMessageFor(model => model.AccountName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> <lable style="font-weight: bold;"> Project Technology</lable></p>
+                @Html.DropDownListFor(m => m.technologyID, new SelectList(ViewBag.PT, "technologyID", "technologyName"), "Select Technology", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.technologyID, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Project Life Cycle</lable></p>
+                @Html.DropDownListFor(m => m.lifecycleID, new SelectList(ViewBag.PLC, "lifecycleID", "lifecycleName"), "Select Life Cycle", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.lifecycleID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Project Region</lable></p>
+                @Html.DropDownListFor(m => m.regionID, new SelectList(ViewBag.PR, "regionID", "regionName"), "Select Region", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.regionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Project Status</lable></p>
+                @Html.DropDownListFor(m => m.statusID, new SelectList(ViewBag.PStatus, "statusID", "statusName"), "Select Status", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.statusID, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Project Type</lable></p>
+                @Html.DropDownListFor(m => m.pTypeID, new SelectList(ViewBag.PType, "pTypeID", "pTypeName"), "Select Type", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.pTypeID, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Project Manager</lable></p>
+                @Html.DropDownListFor(m => m.managerName, new SelectList(ViewBag.user, "UserName", "FullName"), "Select", new { @id = "ddlmgr", @class = "form-control", onchange = "return GetMgrEmail(this)" })
+                @Html.ValidationMessageFor(model => model.managerName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.managerEmailid)</p>
+                @Html.EditorFor(model => model.managerEmailid, new { htmlAttributes = new { @readonly = "readonly", @id = "txtMgrEmailId", @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.managerEmailid, "", new { @class = "text-danger" })*@
+            </div>
+
+            @*<div class="col-md-6">
+                    <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.managerEmailid)</p>
+                    @Html.EditorFor(model => model.managerEmailid, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Eg:firstname.lastname@cloverinfotech.com" } })
+                    @Html.ValidationMessageFor(model => model.managerEmailid, "", new { @class = "text-danger" })
+                </div>*@
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.deliverymanagerName)</p>
+                @Html.EditorFor(model => model.deliverymanagerName, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 30, placeholder = "Delivery Manager Name" } })
+                @Html.ValidationMessageFor(model => model.deliverymanagerName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7> @Html.LabelFor(model => model.deliverymanagerEmailid)</p>
+                @Html.EditorFor(model => model.deliverymanagerEmailid, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Eg:firstname.lastname@cloverinfotech.com" } })
+                @Html.ValidationMessageFor(model => model.deliverymanagerEmailid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.deliveryheadName)</p>
+                @Html.EditorFor(model => model.deliveryheadName, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 30, placeholder = "Delivery Head Name" } })
+                @Html.ValidationMessageFor(model => model.deliveryheadName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.deliveryheadEmailid)</p>
+                @Html.EditorFor(model => model.deliveryheadEmailid, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Eg:firstname.lastname@cloverinfotech.com" } })
+                @Html.ValidationMessageFor(model => model.deliveryheadEmailid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> <lable style="font-weight: bold;"> Project TL/SPOC</lable></p>
+                @Html.DropDownListFor(m => m.tlName_1, new SelectList(ViewBag.user, "UserName", "FullName"), "Select", new { @id = "ddlTL1", @class = "form-control", onchange = "return GetTL1Email(this)" })
+                @Html.ValidationMessageFor(model => model.tlName_1, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.tlEmailid_1)</p>
+                @Html.EditorFor(model => model.tlEmailid_1, new { htmlAttributes = new { @readonly = "readonly", @id = "txtTL1EmailId", @class = "form-control" } })
+                @*@Html.EditorFor(model => model.tlEmailid_1, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Eg:firstname.lastname@cloverinfotech.com" } })*@
+                @*@Html.ValidationMessageFor(model => model.tlEmailid_1, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><lable style="font-weight: bold;"> Project TL/SPOC</lable></p>
+                @Html.DropDownListFor(m => m.tlName_2, new SelectList(ViewBag.user, "UserName", "FullName"), "Select", new { @id = "ddlTL2", @class = "form-control", onchange = "return GetTL2Email(this)" })
+                @Html.ValidationMessageFor(model => model.tlName_2, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p> @Html.LabelFor(model => model.tlEmailid_2)</p>
+                @Html.EditorFor(model => model.tlEmailid_2, new { htmlAttributes = new { @readonly = "readonly", @id = "txtTL2EmailId", @class = "form-control" } })
+                @*@Html.EditorFor(model => model.tlEmailid_2, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Eg:firstname.lastname@cloverinfotech.com" } })*@
+                @*@Html.ValidationMessageFor(model => model.tlEmailid_2, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.startdate)</p>
+                @Html.EditorFor(model => model.startdate, new
+           {
+               htmlAttributes = new
+               {
+                   autocomplete = "off",
+                   @class = "form-control date-picker",
+                   id = "dateStart",
+                   placeholder = "Start Date"
+               }
+           })
+
+                @Html.ValidationMessageFor(model => model.startdate, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.enddate)</p>
+                @Html.EditorFor(model => model.enddate, new
+           {
+               htmlAttributes = new
+               {
+                   autocomplete = "off",
+                   @class = "form-control date-picker",
+                   id = "dateEnd",
+                   placeholder = "End Date"
+               }
+})
+
+                @Html.ValidationMessageFor(model => model.enddate, "", new { @class = "text-danger" })
+                <div><p id="validationDate" /></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <P>@Html.LabelFor(model => model.teamSize)</P>
+                @Html.EditorFor(model => model.teamSize, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 10, placeholder = "Team Size" } })
+                @Html.ValidationMessageFor(model => model.teamSize, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p> @Html.LabelFor(model => model.plannedEffort)</p>
+                @Html.EditorFor(model => model.plannedEffort, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 10, placeholder = "Planned Effort" } })
+                @Html.ValidationMessageFor(model => model.plannedEffort, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <p> @Html.LabelFor(model => model.billingType)</p>
+                @Html.EditorFor(model => model.billingType, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Billing Type" } })
+                @Html.ValidationMessageFor(model => model.billingType, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p> @Html.LabelFor(model => model.SQA)</p>
+                @Html.EditorFor(model => model.SQA, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "SQA" } })
+                @Html.ValidationMessageFor(model => model.SQA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <ul class="set_btn">
+            <li>
+                <input type="submit" onclick="ValidateEndDate()" value="Create" class="btn btn-success" />
+            </li>
+            <li>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </li>
+        </ul>
+
+    </div>
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+
+<script>
+    function ValidateEndDate() {
+        var startDate = $("#dateStart").val();
+        var endDate = $("#dateEnd").val();
+
+        if (startDate != '' && endDate != '') {
+            if (Date.parse(startDate) > Date.parse(endDate)) {
+                $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                $("#dateEnd").val('');
+
+            }
+        }
+        return false;
+    };
+    function GetMgrEmail() {
+        var selected_val = $('#ddlmgr').find(":selected").attr('value');
+        $.ajax({
+            type: "POST",
+            url: "/ProjectMaster/GetEmailId",
+            data: "userName=" + selected_val,
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#txtMgrEmailId').val(data[0].EmailId);
+                }
+                else {
+                    $('#txtMgrEmailId').val('');
+                }
+            },
+        });
+    }
+    function GetTL1Email() {
+        var selected_val = $('#ddlTL1').find(":selected").attr('value');
+        $.ajax({
+            type: "POST",
+            url: "/ProjectMaster/GetEmailId",
+            data: "userName=" + selected_val,
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#txtTL1EmailId').val(data[0].EmailId);
+                }
+                else {
+                    $('#txtTL1EmailId').val('');
+                }
+            },
+        });
+    }
+    function GetTL2Email() {
+        var selected_val = $('#ddlTL2').find(":selected").attr('value');
+        $.ajax({
+            type: "POST",
+            url: "/ProjectMaster/GetEmailId",
+            data: "userName=" + selected_val,
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#txtTL2EmailId').val(data[0].EmailId);
+                }
+                else {
+                    $('#txtTL2EmailId').val('');
+                }
+            },
+        });
+    }
+</script>

@@ -1,0 +1,118 @@
+﻿@using clover.qms.web.Models;
+<!DOCTYPE html>
+<title>Quality Management System</title>
+<link rel="shortcut icon" href="~/Images/clover.png">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div class="container-fluid head_c">
+
+        <div class="col-md-12">
+            <ul class="list-inline mb_0">
+                <li> <a href=@Url.Action("Index", "QMSRepository") class="text_c">Home</a> @*| @Html.ActionLink("Change Password", "ChangePassword", "ForgotPassword", null, new { @class = "text_c" }) | <a href=@Url.Action("Logout", "User") class="text_c">Logout</a>*@</li>
+            </ul>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="container-fluid set_bg">
+
+        <div class="col-md-6 col-xs-6 text_left"><img src="~/Images/Clover_Logo.gif" width="142px" height="42px"></div>
+        <div class="col-md-6 col-xs-6 text_right"><img src="~/Images/Qms_logo.gif" width="142px" height="42px"></div>
+
+    </div>
+
+
+
+
+    <div class="container-fluid paddi_0">
+
+
+
+
+        <!-- Navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            @*  <div class="navbar-collapse collapse">
+
+                        <!-- left nav -->
+                        <ul class="nav navbar-nav">
+                <li>
+                    @Html.ActionLink("General View", "", "")*@
+
+
+            @*<a href="#">General View <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">QMS <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#">Process <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                @Html.ActionLink("Operation Process", "DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "Operation Process", GeneralView = 1, ProcessId = 1 }, null)
+                                                @Html.ActionLink("System Process", "DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 1, ProcessId = 2 }, null)
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>@Html.ActionLink("Checklist", "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                    <li>@Html.ActionLink("Forms", "DisplayFormDepartment", "QMSRepository", new { GeneralView = 1 }, null)</li>
+                                    <li>@Html.ActionLink("Guidelines", "DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                    <li>@Html.ActionLink("Standard", "DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                    <li>@Html.ActionLink("Manual", "DisplayProcess", "QMSRepository", new { DocumentId = 5, title = "Manual", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                </ul>
+                            </li>
+                            <li>
+
+                                @Html.ActionLink("ISMS", "DisplayISMS", "QMSRepository", new { title = "ISMS", GeneralView = 2 }, null)
+
+                                <a href="#">ISMS <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Process <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("Operation Process", "DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "Operation Process", GeneralView = 2, ProcessId = 1 }, null)
+                                @Html.ActionLink("System Process", "DisplayProcess", "QMSRepository", new { DocumentId = 6, title = "System Process", GeneralView = 2, ProcessId = 2 }, null)
+                            </li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Checklist", "DisplayProcess", "QMSRepository", new { DocumentId = 2, title = "Checklist", GeneralView = 2, ProcessId = 0 }, null)</li>
+                    <li>@Html.ActionLink("Forms", "DisplayFormDepartment", "QMSRepository", new { GeneralView = 2 }, null)</li>
+                    <li>@Html.ActionLink("Guidelines", "DisplayProcess", "QMSRepository", new { DocumentId = 4, title = "Guidelines", GeneralView = 2, ProcessId = 0 }, null)</li>
+                    <li>@Html.ActionLink("Standard", "DisplayProcess", "QMSRepository", new { DocumentId = 7, title = "Standard", GeneralView = 2, ProcessId = 0 }, null)</li>
+                    <li>@Html.ActionLink("Manual", "DisplayProcess", "QMSRepository", new { DocumentId = 5, title = "Manual", GeneralView = 2, ProcessId = 0 }, null)</li>
+                </ul>
+                            </li>
+                        </ul>*@
+
+            @*</li>
+
+                        <li>@Html.ActionLink("Audit Portal", "", "")</li>
+                    </ul>
+                </div>*@
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

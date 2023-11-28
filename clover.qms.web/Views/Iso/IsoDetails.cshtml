@@ -1,0 +1,22 @@
+﻿@model clover.qms.model.Iso
+
+@{
+    ViewBag.Title = "IsoDetails";
+}
+
+<h2>IsoDetails</h2>
+
+<div>
+    <h4>Iso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.isoName) :  @Html.DisplayFor(model => model.isoName)
+        </dt>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.isoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

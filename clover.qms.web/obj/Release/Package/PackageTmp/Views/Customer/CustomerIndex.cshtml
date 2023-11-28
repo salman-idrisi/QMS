@@ -1,0 +1,309 @@
+﻿@using clover.qms.web.Models;
+@model IEnumerable<clover.qms.model.Customer>
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+    </style>
+
+    <!-- Style -->
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+
+</head>
+
+<body>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @TempData["msg"]
+        </div>
+
+    }
+    <h3 style="text-align:center;color:#00239B;font-size:20px">Customer Master</h3>
+
+            <div class="fresh-table toolbar-color-green">
+                <div class="toolbar">
+                    <a href="#" class="btn btn-default" onclick=insert();>Add</a>
+                </div>
+                <table id="fresh-table" class="table">
+                    <thead>
+                        <tr bgcolor='#D3D3D3'>
+                            <th data-field="customername">Customer 1 Name</th>
+                            <th data-field="customername2">Customer 2 Name</th>
+                            <th data-field="customername3">Customer 3 Name</th>
+                            <th data-field="customername4">Customer 4 Name</th>
+                            <th data-field="customeremailid">Customer 1 Email</th>
+                            <th data-field="customeremailid2">Customer 2 Email</th>
+                            <th data-field="customeremailid3">Customer 3 Email</th>
+                            <th data-field="customeremailid4">Customer 4 Email</th>
+                            <th data-field="customerorganization">Customer Organization</th>
+                            <th data-field="ProjectName">Project Name</th>
+                            <th data-field="departmentname">Department Name</th>
+                            <th data-field="domainname">Domain Name</th>
+                            <th data-field="designation1">Designation 1</th>
+                            <th data-field="designation2">Designation 2</th>
+                            <th data-field="designation3">Designation 3</th>
+                            <th data-field="designation4">Designation 4</th>
+                            <th data-field="AccountName">Account Name</th>
+                            <th data-field="plcname">Project Life Cycle Name</th>
+                            <th data-field="ptname">Project Technology Name</th>
+                            <th data-field="Groupemailid">Group Email ID</th>
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customername)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customername2)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customername3)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customername4)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customeremailid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customeremailid2)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customeremailid3)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customeremailid4)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.customerorganization)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pm.ProjectName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.departmentname)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dm.domainname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.designation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.designation2)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.designation3)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.designation4)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pm.AccountName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.plcname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ptname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Groupemailid)
+                            </td>
+                            <td>
+                                <a rel="tooltip" style="color:#2CA8FF" title="Edit" class="table-action edit" href="#" onclick="Edit(@item.custId);">
+
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+
+                                <a rel="tooltip" style="color:#2CA8FF" title="Remove" class="table-action remove" href="#" onclick="Delete(@item.custId);">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+
+                                <a rel="tooltip" style="color:#2CA8FF" title="Show Customer Details" class="table-action add" href="#" onclick="Details(@item.custId);">
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </a>
+
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+
+
+        });
+
+    });
+    function insert()
+    {
+
+            var url = '@Url.Content("~/")' + "Customer/CustomerInsert/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                    //$('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
+
+    }
+
+ function Edit(ID) {
+     
+            var url = '@Url.Content("~/")' + "Customer/CustomerUpdate/";
+            $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+            'cid': ID
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+            // alert("success");
+                
+                $('#contentBody').html(response);
+                $('#myModal').modal('show');
+                //{ backdrop: 'static', keyboard: false })
+            },
+            failure: function (response) {
+
+            alert(response.responseText);
+            },
+            error: function (response) {
+            alert(response.responseText);
+            }
+            });
+     
+       }
+            function Details(ID) {
+
+            var url = '@Url.Content("~/")' + "Customer/CustomerDetails/";
+
+            $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+            'cid': ID
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+
+                $('#contentBody').html(response);
+                $('#myModal').modal('show');
+           // $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            },
+            failure: function (response) {
+
+            alert(response.responseText);
+            },
+            error: function (response) {
+            alert(response.responseText);
+            }
+            });
+            }
+    function Delete(ID) {
+
+            var url = '@Url.Content("~/")' + "Customer/CustomerDelete/";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { 'cid': ID },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                $('#contentBody').html(response);
+                $('#myModal').modal('show');
+               
+            },
+            failure: function (response) {
+            alert(response.responseText);
+            },
+            error: function (response) {
+            alert(response.responseText);
+            }
+            });
+    }
+</script>
+
+<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

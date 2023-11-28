@@ -1,0 +1,46 @@
+﻿@model IEnumerable<clover.qms.model.Qms>
+@{
+    ViewBag.Title = "OperationalProcess";
+    Layout = "~/Views/Shared/_LayoutRepository.cshtml";
+}
+<html>
+<body style="margin-top:50px">
+    <h3 style="text-align:center;color:#00239B;font-size:20px">@ViewBag.process</h3>
+    <div id="process" class="form-horizontal table-responsive" align="center">
+        <table class="table table-bordered table-hover">
+            <thead>
+
+                <tr bgcolor='#D3D3D3'>
+                    <th>Sr.No.</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Version No.</th>
+                    <th>Artifact</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@srNo</td>
+                            <td><a>@item.DocumentID</a></td>
+                            <td>@item.DocumentName</td>
+                            <td>@item.VersionNo@*.ToString("0.00")*@</td>
+                            <td> </td>
+                        </tr>
+                        srNo++;
+                    }
+
+                }
+            </tbody>
+        </table>
+        <ul class="set_btn">
+            <li>
+                <a href="@Url.Action("QmsProcess", "QMSRepository")" class="btn btn-secondary">Back</a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+

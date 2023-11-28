@@ -1,0 +1,37 @@
+﻿@model clover.qms.model.CsatSubParameter
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+@*<script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.5.1.min.js")"></script>*@
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+<style>
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal table-responsive" align="center" style="margin-top:-10px">
+
+    <center> <h5 class="modal-header" style="text-align:center">CSAT Sub Parmeter Information for @ViewBag.CsatParameter </h5></center>
+    <table class="table table-hover table-bordered table_paddi_sec" border="1">
+        <tr>
+            <td style="background-color:#D3D3D3">CSAT Sub Parameter  Name</td>
+            <td> @Model.subParameterName</td>
+        </tr>
+    </table>
+</div>
+    <ul class="set_btn">
+        <li>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </li>
+    </ul>
+
+
+}

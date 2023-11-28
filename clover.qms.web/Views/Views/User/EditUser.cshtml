@@ -1,0 +1,153 @@
+﻿@model clover.qms.model.Users
+@using clover.qms.web.Models;
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+@using (Html.BeginForm("EditUser", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-lg-3">&nbsp;</div>
+
+            <div class="col-lg-6">
+
+
+                <div id="loginbox" style="margin-top:100px;background:#fff; border-radius:5px;">
+
+
+                    <div class="panel panel-info" style="border:none !important;">
+                        @if (TempData["UpdateMsg"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+                                @TempData["UpdateMsg"]
+                            </div>
+                        }
+
+                        <div style="background:#114a85 !important; font-weight:bold; color:#fff;  padding:13px; border-radius: 50px;  margin: 13px 13px 0px 13px; text-align:center;">
+                            <div class="panel-title"><span class="glyphicon glyphicon-user"></span> &nbsp;Update Profile</div>
+
+                        </div>
+                        @using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { @class = "form-inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.UserId, new { @Value = Model.UserId })
+
+
+                            <div class="panel-body">
+
+                                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control txt_width", onkeypress = "return lettersOnly(event);", id = "FirstName", autocomplete = "off", maxlength = 15, placeholder = "First Name" } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "error" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control txt_width", onkeypress = "return lettersOnly(event);", autocomplete = "off", maxlength = 15, placeholder = "Last Name" } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "error" })
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control txt_width", id = "username", onchange = "CheckUserNameAvailability()", autocomplete = "off", maxlength = 15, placeholder = "User Name" } })
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error" })
+                                            <p id="UserNameStatus" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control txt_width", onchange = "CheckEmailAvailability()", id = "EmailId", autocomplete = "off", placeholder = "Email ID" } })
+                                            @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "error" })
+                                            <p id="EmailStatus" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="set_btn">
+                                    <li>  <input id="input" type="submit" class="btn btn-success" style="border-radius: 50px; background:#81CB32 !important; border:none; padding:10px 40px; font-size:16px; font-weight:bold;" value="Update Profile" /></li>
+                                </ul>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function lettersOnly(event) {
+        var charCode = event.keyCode;
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+            return true;
+        else
+            return false;
+    };
+    //Checking EmailID already exist or not
+    function CheckEmailAvailability() {
+        $.post("@Url.Action("CheckEmailAvailability", "User")",
+            {
+                EmailId: $("#EmailId").val()
+            },
+            function (data) {
+                if (data> 0) {
+                    $('#EmailStatus').delay(2000).fadeOut(function (data) {
+                        $("#EmailStatus").load(location.href + "#EmailStatus");
+                    });
+                    $('#EmailId').val("");
+                    $("#EmailStatus").html('<font color="Red">EmailID already exist.</font>');
+
+                }
+        });
+    }
+    //Checking UserName already exist or not
+    function CheckUserNameAvailability() {
+        $.post("@Url.Action("CheckUserNameAvailability", "User")",
+    {
+        name: $("#username").val()
+    },
+    function (data) {
+        if (data > 0) {
+                $('#UserNameStatus').delay(2000).fadeOut(function (data) {
+                $("#UserNameStatus").load(location.href + "#UserNameStatus");
+            });
+            $('#username').val("");
+            $("#UserNameStatus").html('<font color="Red">Username already exist.</font>');
+
+        }
+    });
+    }
+    //Checking Mobile number already exist or not
+    function CheckMobileNumberAvailability() {
+        $.post("@Url.Action("CheckMobileNOAvailability", "User")",
+    {
+        number: $("#mobileNo").val()
+    },
+    function (data) {
+        if (data > 0) {
+            $('#MobileStatus').delay().fadeOut(2000, function (data) {
+                $("#MobileStatus").load(location.href + "#MobileStatus");
+            });
+            $("#mobileNo").val("");
+            $("#MobileStatus").html('<font color="Red">Mobile number already exist.</font>');
+          }
+    });
+    }
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

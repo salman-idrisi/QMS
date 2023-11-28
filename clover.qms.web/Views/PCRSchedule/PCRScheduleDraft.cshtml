@@ -1,0 +1,149 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+@{Layout = null; }
+<!DOCTYPE html>
+<style>
+   /* table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }*/
+
+    .error {
+        color: red;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.4.1.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap.min.js")"></script>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+    @using (Html.BeginForm("SubmitPCRSchedule", "PCRSchedule", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal  table-responsive" align="center">
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr bgcolor='#D3D3D3'>
+
+                        <th>Sr.No.</th>
+                        <th>Project List</th>
+                        <th>Region Name</th>
+                        <th>Auditee Name</th>
+                        <th>Technology</th>
+                        <th>Planned Date</th>
+                        <th>Auditor</th>
+                    </tr>
+                </thead>
+                @{ var i = 0; var srNo = 1;
+
+                    foreach (var PcrSchedule in Model.listPcrSchedule)
+                    {
+
+                        <tr>
+                            <td>
+                                @srNo
+
+                                @Html.HiddenFor(Model => Model.listPcrSchedule[i].PID, new { Value = @PcrSchedule.PID })
+                            </td>
+
+                            @foreach (var ProjectMaster in Model.listProjectMaster.Where(x => x.PID == PcrSchedule.PID))
+                            {
+                                <td>
+                                    @ProjectMaster.ProjectName
+
+                                </td>
+                                <td>
+                                    @foreach (var region in Model.listRegion.Where(x => x.regionID == ProjectMaster.regionID))
+                                    {
+                                        @region.regionName
+                                    }
+                                </td>
+                                <td>
+
+                                    @foreach (var users in Model.listusers.Where(x => x.UserName == ProjectMaster.managerName))
+                                    {
+
+                                        @users.FirstName
+                                        break;
+                                    }
+                                </td>
+                                <td>
+
+                                    @foreach (var technology in Model.listTechnology.Where(x => x.technologyID == ProjectMaster.technologyID))
+                                    {
+                                        @technology.technologyName
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        string date = Convert.ToDateTime(@PcrSchedule.PlannedDate).ToString("dd-MMM-yyyy");
+
+                                    }
+
+                                    @if (date == "01-Jan-0001")
+                                    {
+                                        date = null;
+                                    }
+
+                                    @Html.TextBoxFor(Model => Model.listPcrSchedule[i].PlannedDate, new
+                                    {
+                                        autocomplete = "off",
+                                        @class = "form-control date-picker",
+                                        Value = @date,
+                                        @readonly = "readonly"
+                                    })
+                                    @Html.ValidationMessageFor(Model => Model.listPcrSchedule[i].PlannedDate, "", new { @class = "error" })
+
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(Model => Model.listPcrSchedule[i].AuditorId, new SelectList(ViewBag.AuditorList, "AuditorId", "EmpName", @PcrSchedule.AuditorId), "--Select--", new { name = "ddlAuditorId" })
+                                    <br />
+                                    @Html.ValidationMessageFor(Model => Model.listPcrSchedule[i].AuditorId, "", new { @class = "error" })
+                                </td>
+
+                                @Html.HiddenFor(Model => Model.listPcrSchedule[i].PCRScheduleID, new { name = "txtPCRScheduleID", Value = @PcrSchedule.PCRScheduleID })
+
+
+
+
+                            }
+                        </tr>
+                        i++;
+                        srNo++;
+                    }
+                }
+            </table>
+        </div>
+        <ul class="set_btn">
+            <li>
+                <input type="submit" value="Save" formaction="@Url.Action("SaveAsDraftPcrSchedule")" class="btn btn-primary cancel" />
+            </li>
+            <li>
+                <input type="submit" value="Submit" formaction="@Url.Action("SubmitPCRSchedule")" class="btn btn-success" />
+
+            </li>
+        </ul>
+
+
+    }
+
+
+
+</body>
+
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+@Scripts.Render("~/bundles/jqueryval")

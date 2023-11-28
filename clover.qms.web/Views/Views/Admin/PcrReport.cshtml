@@ -1,0 +1,196 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+    .w-120 {
+        width: 120px;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+    }
+</style>
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/datatables.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/datatables.min.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/datatables.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/datatables.min.js")"></script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        Model.listPcrSchedule = ViewBag.pcrschedule;
+        Model.listProjectMaster = ViewBag.projectmaster;
+        Model.listusers = ViewBag.user;
+        <div class="form-horizontal table-responsive" align="center">
+            <table id="Table" class="table table-bordered table-hover">
+                <thead>
+
+                    <tr bgcolor='#D3D3D3'>
+                        <th>Audit Finding</th>
+                        <th>Process Area</th>
+                        <th>ISO 9001 Clause</th>
+                        <th>ISO 27001 Clause</th>
+                        <th>Document Referred</th>
+                        <th>Classification</th>
+                        <th>Responsibility</th>
+                        <th>Planned Closure Date</th>
+                        <th>Actual Closure Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var i = 0;
+
+                        foreach (var report in Model.listpcrreport)
+                        {
+                            string date = report.ActualClosureDate != null ? report.ActualClosureDate.Value.ToString("dd-MMM-yyyy") : null;
+                            <tr>
+                                @Html.HiddenFor(model => model.listpcrreport[i].reportID, new { Value = @report.reportID })
+                                @Html.HiddenFor(model => model.listpcrreport[i].scheduleID, new { Value = @report.scheduleID })
+                                <td>
+                                    @report.AuditFindind
+                                    @*@Html.EditorFor(model => model.listpcrreport[i].AuditFindind, new { htmlAttributes = new { @class = "form-control w-120", Value = report.AuditFindind, autocomplete = "off" } })*@
+                                </td>
+                                @foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                                {
+                                    <td>
+                                        @Html.HiddenFor(model => model.listpcrreport[i].parameterID, new { Value = report.parameterID })
+                                        @area.parameterName
+                                        @*@Html.EditorFor(model => model.area, new { htmlAttributes = new { @class = "form-control w-120", Value = area.parameterName, autocomplete = "off" } })*@
+                                    </td>
+                                    break;
+                                }
+                                <td>
+                                    @report.ISO9001Closure
+                                    @*@Html.EditorFor(model => model.listpcrreport[i].ISO9001Closure, new { htmlAttributes = new { @class = "form-control w-120", Value = report.ISO9001Closure, autocomplete = "off" } })*@
+                                </td>
+                                <td>
+                                    @report.ISO27001Closure
+                                    @*@Html.EditorFor(model => model.listpcrreport[i].ISO27001Closure, new { htmlAttributes = new { @class = "form-control w-120", Value = report.ISO27001Closure, autocomplete = "off" } })*@
+                                </td>
+                                <td>
+                                    @report.DocumentReferred
+                                    @*@Html.EditorFor(model => model.listpcrreport[i].DocumentReferred, new { htmlAttributes = new { @class = "form-control w-120", Value = report.DocumentReferred, autocomplete = "off" } })*@
+                                </td>
+                                @foreach (var classification in Model.listclassification.Where(x => x.classificationID == report.classificationId))
+                                {
+                                    <td>
+                                        @classification.classificationName
+                                        @*@classification.classificationID*@
+                                        @*@Html.DropDownListFor(model => model.listpcrreport[i].classificationId, new SelectList(ViewBag.classification, "classificationID", "classificationName", classification.classificationID), new { @class = "form-control w-120" })*@
+                                    </td>
+                                    break;
+                                }
+                                @foreach (var user in Model.listusers.Where(x => x.UserName == report.responsibility))
+                                {
+                                    <td>
+                                        @user.FirstName
+
+                                        @*@Html.DropDownListFor(model => model.listpcrreport[i].responsibility, new SelectList(ViewBag.user, "UserName", "FullName", report.responsibility), "Select", new { @class = "form-control w-120" })*@
+
+                                    </td>
+                                }
+                                <td>
+                                    @report.PlannedClosureDate.ToString("dd-MMM-yyyy")
+                                    @*@Html.EditorFor(model => model.listpcrreport[i].PlannedClosureDate, new { htmlAttributes = new { @class = "form-control w-120 date-picker", Value = report.PlannedClosureDate.ToString("dd-MMM-yyyy"), autocomplete = "off", @readonly = "readonly" } })*@
+                                </td>
+                                <td>
+
+                                    @date
+                                    @*@Html.EditorFor(model => model.listpcrreport[i].ActualClosureDate, new { htmlAttributes = new { @class = "form-control w-120 date-picker", Value = date, autocomplete = "off", @readonly = "readonly" } })*@
+
+
+                                </td>
+                                @foreach (var status in Model.listschedulestatus.Where(x => x.scheduleStatusID == report.statusID))
+                                {
+                                    <td>
+                                        @status.scheduleStatusName
+                                        @*@Html.DropDownListFor(model => model.listpcrreport[i].statusID, new SelectList(ViewBag.schedulestatus, "scheduleStatusID", "scheduleStatusName", status.scheduleStatusID), new { @class = "form-control w-120" })*@
+                                    </td>
+
+
+
+                                    if (status.scheduleStatusID != 4)
+                                    {
+                                        <td>
+                                            <a href="#" onclick="CloseAudit(@report.reportID)"> Close NC</a>
+                                            @*<a rel="tooltip" title="Close NC" class="table-action remove" href="#" onclick=CloseAudit(@report.reportID);>
+
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>*@
+
+                                        </td>
+                                    }
+                                    else
+                                    {
+
+                                        <td> </td>
+                                    }
+
+
+                                    break;
+
+                                }
+
+
+                            </tr>
+                            i++;
+
+                        }
+                    }
+                </tbody>
+            </table>
+
+
+
+
+        </div>
+      
+    }
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#Table").DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false, destroy: true })
+    });
+    function CloseAudit(ID) {
+
+        var url = '@Url.Content("~/")' + "Admin/AuditClosed";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { 'Reportid': ID },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+
+                $('#contentBody').html(response);
+                $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+</script>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

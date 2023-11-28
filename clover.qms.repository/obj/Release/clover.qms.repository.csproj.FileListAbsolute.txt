@@ -1,0 +1,154 @@
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.repository.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.model.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.model.pdb
+D:\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.csprojAssemblyReference.cache
+D:\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+D:\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+D:\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.dll
+D:\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\MySql.Data.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\Google.Protobuf.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\Renci.SshNet.dll
+D:\QMS-project final-7 july\clover.qms.repository\bin\Release\MySql.Data.xml
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.repository.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.model.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\Google.Protobuf.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\Renci.SshNet.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\clover.qms.model.pdb
+C:\files\QMS-project final-7 july\clover.qms.repository\bin\Release\MySql.Data.xml
+C:\files\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.csprojAssemblyReference.cache
+C:\files\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+C:\files\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.dll
+C:\files\QMS-project final-7 july\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\clover.qms.repository.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\clover.qms.model.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\MySql.Data.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\Google.Protobuf.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\Renci.SshNet.dll
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\clover.qms.model.pdb
+E:\QMS-project final-29 july\clover.qms.repository\bin\Release\MySql.Data.xml
+E:\QMS-project final-29 july\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+E:\QMS-project final-29 july\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+E:\QMS-project final-29 july\clover.qms.repository\obj\Release\clover.qms.repository.dll
+E:\QMS-project final-29 july\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+E:\QMS-project final-29 july\clover.qms.repository\obj\Release\clover.qms.repository.csprojAssemblyReference.cache
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\Google.Protobuf.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\Renci.SshNet.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.pdb
+C:\files\QMS-project final-18 August\clover.qms.repository\bin\Release\MySql.Data.xml
+C:\files\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csprojAssemblyReference.cache
+C:\files\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+C:\files\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.dll
+C:\files\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\Google.Protobuf.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\Renci.SshNet.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\bin\Release\MySql.Data.xml
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.AssemblyReference.cache
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.AssemblyReference.cache
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\Google.Protobuf.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\Renci.SshNet.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csprojAssemblyReference.cache
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\Google.Protobuf.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\Renci.SshNet.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.pdb
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.AssemblyReference.cache
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\Google.Protobuf.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\Renci.SshNet.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\bin\Release\clover.qms.model.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.AssemblyReference.cache
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.repository\obj\Release\clover.qms.repository.pdb
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\clover.qms.repository.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\clover.qms.repository.pdb
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\clover.qms.Interface.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\clover.qms.model.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\Google.Protobuf.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\BouncyCastle.Crypto.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\Ubiety.Dns.Core.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\Renci.SshNet.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\clover.qms.Interface.pdb
+C:\KhalidSir\QMSProject\clover.qms.repository\bin\Release\clover.qms.model.pdb
+C:\KhalidSir\QMSProject\clover.qms.repository\obj\Release\clover.qms.repository.csproj.AssemblyReference.cache
+C:\KhalidSir\QMSProject\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CoreCompileInputs.cache
+C:\KhalidSir\QMSProject\clover.qms.repository\obj\Release\clover.qms.repository.csproj.CopyComplete
+C:\KhalidSir\QMSProject\clover.qms.repository\obj\Release\clover.qms.repository.dll
+C:\KhalidSir\QMSProject\clover.qms.repository\obj\Release\clover.qms.repository.pdb

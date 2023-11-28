@@ -1,0 +1,190 @@
+﻿@*@{Layout = null;
+}*@
+
+@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+<script src="~/Scripts/menubar.js"></script>
+<link href="~/Content/MenuBar.css" rel="stylesheet" />
+
+<!------ Include the above in your HEAD tag ---------->
+<!-- Ace Responsive Menu -->
+<img src="~/Images/QMSImage.png" style="height:7%; width:10%" />
+<nav style="margin-top:1px">
+    <!-- Menu Toggle btn-->
+    @*<div class="menu-toggle">
+                    <h3>Menu</h3>
+                    <button type="button" id="menu-btn">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+        <a href="~/Views/User/welcome.cshtml">~/Views/User/welcome.cshtml</a>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>*@
+    <!-- Responsive Menu Structure-->
+    <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+    <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+        <li>
+            <a href="javascript:;">
+                <i class="fa fa-home" aria-hidden="true"></i>
+                <span class="title">Organization</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                <span class="title">Initiation</span>
+            </a>
+            <!-- Level Two-->
+            <ul>
+                <li>
+                    @* @Html.ActionLink("Project Requirements", "UserDetails", "User")*@
+                    <a href="/user/userdetails">Project Kick-off</a>
+                </li>
+                <li>
+                    <a href="#">Project Requirements</a>
+                </li>
+                <li>
+                    <a href="#">Projet Estimation</a>
+                </li>
+                <li>
+                    <a href="#">Project Mgmt Planning</a>
+                </li>
+                <li>
+                    <a href="#">Project Roles and Responsibilities</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="fa fa-crop" aria-hidden="true"></i>
+                <span class="title">Execution</span>
+            </a>
+        <li />
+        <li>
+            <a class="" href="javascript:;">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                <span class="title">Monitoring</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="#">
+                        Daily Stand-up
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Weekly Dashboard Reviews
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Fortnightly Sr Mgmt Reviews
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Quarterly Engagement Reviews
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        Client Satisfaction Reviews
+                    </a>
+                    <ul>
+                        <li><a href="#">Appreciation</a></li>
+                        <li><a href="#">Customer Dissat</a></li>
+                        <li><a href="#">Client Feedback</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        Action Item Reviews
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                <span class="title">Supporting</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="#">
+                        Configuration Management
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Change Management
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Defect Prevention
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Metrics Management
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        PCR
+                    </a>
+                    <ul>
+                        <li><a href="#">PCR Scheduling</a></li>
+                        <li><a href="#">PCR Checklist</a></li>
+                        <li><a href="#">PCR Report</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        Project Closure
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span class="title">Reports</span>
+            </a>
+        </li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li style="float:right">
+                <a href="javascript:;">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <span class="title">Welcome @User.Identity.Name</span>
+                </a>
+            </li>
+            <li>
+                @Html.ActionLink("Logout", "Logout", "User")
+            </li>
+        }
+    </ul>
+</nav>
+
+<!--Plugin Initialization-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#respMenu").aceResponsiveMenu({
+            resizeWidth: '768', // Set the same in Media query
+            animationSpeed: 'fast', //slow, medium, fast
+            accoridonExpAll: false //Expands all the accordion menu on click
+        });
+    });
+</script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+

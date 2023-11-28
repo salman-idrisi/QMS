@@ -1,0 +1,173 @@
+﻿@model IEnumerable<clover.qms.model.ProjectTechnology>
+<style>
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    @using (Html.BeginForm())
+    {@Html.AntiForgeryToken()
+
+    <div>
+        <h3 style="color:#00239B; text-align:center">Project Technology</h3>
+       
+        
+    </div>
+    <div class="container">
+        <div class="form-horizontal table-responsive" align="center">
+            @if (TempData["msg"] != null)
+            {
+                <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+                    @TempData["msg"]
+                </div>
+            }
+            <br>
+            <table id="Table" class="table table-bordered table-hover">
+                <thead>
+                    <tr><td colspan="3">
+                        @if (Request.UrlReferrer != null)
+    {
+        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+            Back
+
+        </a>
+    } <a href="#" class="btn btn-success" onclick=Add();>Add New Technology</a>
+</td></tr>
+                    <tr bgcolor='#D3D3D3'>
+
+                        <th>Sr.No</th>
+                        <th>Project Technology</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var srNo = 1;
+                        foreach (var tech in Model)
+                        {
+
+                            <tr>
+
+
+                                <td>@srNo</td>
+
+                                <td>@tech.technologyName</td>
+                                <td>
+
+                                    <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Edit(@tech.technologyID);>
+
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+
+                                    <a rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@tech.technologyID);>
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                            srNo++;
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        </div>
+        }
+</body>
+</html>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" id="contentBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Table").DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false })
+    });
+     function Add() {
+
+         var url = '@Url.Content("~/")' + "UpdateByAdminParameters/InsertTechnology/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+       function Edit(ID) {
+
+           var url = '@Url.Content("~/")' + "UpdateByAdminParameters/UpdateTechnology/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'techID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function Delete(ID) {
+
+            var url = '@Url.Content("~/")' + "UpdateByAdminParameters/DeleteTechnology";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { 'techID': ID },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+</script>

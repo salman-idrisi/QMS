@@ -1,0 +1,967 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{206DE62C-E90C-4C7C-9C3A-4CF02B3FBA9A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>clover.qms.web</RootNamespace>
+    <AssemblyName>clover.qms.web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44353</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\clover.qms.repository\bin\Debug\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel.1.11.0\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <HintPath>packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AssignRolesController.cs" />
+    <Compile Include="Controllers\AuditeeDashboardController.cs" />
+    <Compile Include="Controllers\AuditLogController.cs" />
+    <Compile Include="Controllers\classificationController.cs" />
+    <Compile Include="Controllers\ConsolidatedReportController.cs" />
+    <Compile Include="Controllers\CsatController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\DomainController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IsoController.cs" />
+    <Compile Include="Controllers\MetricFrequencyController.cs" />
+    <Compile Include="Controllers\MetricObjectiveController.cs" />
+    <Compile Include="Controllers\MISReportController.cs" />
+    <Compile Include="Controllers\NCAgingReportController.cs" />
+    <Compile Include="Controllers\PCRCheckListController.cs" />
+    <Compile Include="Controllers\PCRScheduleController.cs" />
+    <Compile Include="Controllers\ProjectMasterController.cs" />
+    <Compile Include="Controllers\QMSRepositoryController.cs" />
+    <Compile Include="Controllers\RepositoryAdminModuleController.cs" />
+    <Compile Include="Controllers\UpdateByAdminParametersController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserManualController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UrlHelperExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Chart.xml" />
+    <Content Include="assets\css\all.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\default.css" />
+    <Content Include="assets\css\magnific-popup.css" />
+    <Content Include="assets\css\nice-select.css" />
+    <Content Include="assets\css\odometer.min.css" />
+    <Content Include="assets\css\slick.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\fonts\fa-brands-400.html" />
+    <Content Include="assets\fonts\fa-brands-401.html" />
+    <Content Include="assets\fonts\fa-light-300.html" />
+    <Content Include="assets\fonts\fa-light-301.html" />
+    <Content Include="assets\fonts\fa-regular-400.html" />
+    <Content Include="assets\fonts\fa-regular-401.html" />
+    <Content Include="assets\fonts\fa-solid-900.html" />
+    <Content Include="assets\fonts\fa-solid-901.html" />
+    <Content Include="assets\images\banner-bg.jpg" />
+    <Content Include="assets\images\bg2.jpg" />
+    <Content Include="assets\images\Clover_Logo.gif" />
+    <Content Include="assets\images\favicons.ico" />
+    <Content Include="assets\images\Qms_logo.gif" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\imagesloaded.pkgd.min.js" />
+    <Content Include="assets\js\isotope.pkgd.min.js" />
+    <Content Include="assets\js\jquery.appear.min.js" />
+    <Content Include="assets\js\jquery.magnific-popup.min.js" />
+    <Content Include="assets\js\jquery.nice-select.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\odometer.min.js" />
+    <Content Include="assets\js\parallaxie.js" />
+    <Content Include="assets\js\popper.min.js" />
+    <Content Include="assets\js\slick.min.js" />
+    <Content Include="assets\js\vendor\jquery-3.5.1.min.js" />
+    <Content Include="assets\js\vendor\modernizr-3.6.0.min.js" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\buttons.css" />
+    <Content Include="Content\Dashboard.css" />
+    <Content Include="Content\datatables.css" />
+    <Content Include="Content\datatables.min.css" />
+    <Content Include="Content\demo.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\ForgotPassword.css" />
+    <Content Include="Content\jquery-ui-timepicker-addon.css" />
+    <Content Include="Content\jquery-ui-timepicker-addon.min.css" />
+    <Content Include="Content\Login.css" />
+    <Content Include="Content\LoginNew.css" />
+    <Content Include="Content\MenuBar.css" />
+    <Content Include="Content\Menus.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\all.css" />
+    <Content Include="Content\register.css" />
+    <Content Include="Content\StyleSheet1.css" />
+    <Content Include="Content\StyleSheet2.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\timeout-dialog.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\bg2.jpg" />
+    <Content Include="Images\clover.png" />
+    <Content Include="Images\Clover_Logo.gif" />
+    <Content Include="Images\desk.jpg" />
+    <Content Include="Images\InfoSec-Policy Image 22sep.jpg" />
+    <Content Include="Images\qms.png" />
+    <Content Include="Images\Qms_logo.gif" />
+    <Content Include="Images\Quality-Policy Image 22sep.jpg" />
+    <Content Include="Images\timeout-icon.png" />
+    <Content Include="Mail Data-Repository\QMS\Forms\blank.txt" />
+    <Content Include="Scripts\AgeCompliance.js" />
+    <Content Include="Scripts\AgeComplianceSaveAsDraft.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
+    <Content Include="Scripts\bootstrap-table.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CheckBox.js" />
+    <Content Include="Scripts\CheckBoxMetricValidation.js" />
+    <Content Include="Scripts\dashboard.js" />
+    <Content Include="Scripts\datatables.js" />
+    <Content Include="Scripts\datatables.min.js" />
+    <Content Include="Scripts\Employee.js" />
+    <Content Include="Scripts\EmployeeRegistration.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-addon-i18n.min.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-af.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-am.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-bg.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ca.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-cs.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-da.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-de.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-el.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-es.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-et.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-eu.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fa.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fi.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-fr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-gl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-he.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-hr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-hu.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-id.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-it.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ja.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ko.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-lt.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-lv.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-mk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-nl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-no.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pt-BR.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-pt.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ro.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-ru.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sl.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sq.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sr-RS.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sr-YU.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-sv.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-th.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-tr.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-uk.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-vi.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-CN.js" />
+    <Content Include="Scripts\i18n\jquery-ui-timepicker-zh-TW.js" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-01-Monthly MIS.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-02-Schedule for batch.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-03-Day wise Portion Completed for the Batch.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-04-Mark sheet.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-05-Progress Report for Trainees.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-06 Technical Training Feedback.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-07 Infrastructure Information.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-08 Final Report Card.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-09 Reviewer%27s Feedback.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-10 All Batches History.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-11 SoftSkill Training Feedback.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-12 Technology Course Content Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-13 Trainer_Evaluation Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ACD-14- Feedback Form for Training Effectiveness.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-01 Employee Attendance Register.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-02 Visitor In-Out Register.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-04 Asset Register.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-08 Contract  Agreement %28NDA%29 with the agency.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-09 Travel Expenses Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-10 Monthly MIS &amp; Expense Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-11 Outage Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-12 Purchase Order Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-14 Visiting Card Requisition Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-15 Vendor Profile Form.DOC" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-16 Vendor Peformance Evaluation Form.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-17 Supplier -Vendor List.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-18 Employee Details for Guest House.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-19 Employee Undertaking for Guest House.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-20 Comparative Statements of Quotation.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-22 COVID19 Incident Report.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-01 Requirement Understanding Document.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-02 Requirements Traceability Matrix.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-03 Test Case.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-04 Defect Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-06 User Training Feedback Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-07 Unit Test Case.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-08 Functional Scope Document.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-09 High Level Design Document.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-10 Low Level Design Document.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-11 User Manual Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-12 Data Migration Strategy.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-13 Data Collection Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-COE-01 COE Tracker.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-01-PCR Form for Application Development.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-02-PCR form for Managed IT Service .xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-03 PCR Form for Infrastructure Project Delivery.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-04-PCR Form for Application Support.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-05 Status Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-06 PCI Summary Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-07 PCR Schedule Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-08 Training Schedule Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-09 Project List Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-10 Cumulative NC Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-04 New Joinee Details File.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-05 Food Coupon.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-06 ID Card Request Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-07 Employment Verification Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-08 Induction Feedback Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-09 Key Result Areas sheet.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-10 Non-Disclosure Agreement.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-11 Exit Interview Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-12 Full and Final Settlement Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-13 Training Attendance Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-14 Training Feedback Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-16 Stakeholder Clearance Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-17 Agreement Closure Letter.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-18 Experience Letter.DOCX" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-19 Relieving Letter.DOCX" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-20 Appointment Letter.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-21 Training and Employment Agreement.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-HR-22 Self Declaration Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IPD-03 Issue log %28Migration%29.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IPD-04 Implementation Document.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IPD-05 Proposal Format.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IPD-06 Project Pre-requisite.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IT-01 Daily Monitoring Report.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IT-04 Master List of Software.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MKT-01 Case studyTemplate.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MKT-02-Marketing tracker.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-01 Master list of Documents.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-02 Quality Policy and Objectives.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-03 Risk Management Plan.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-04 Minutes of Meeting.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-05 Change Request Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-06 Change Request Register.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-07 MRM Minutes of Meeting.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-08 Management Review Meeting Agenda.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-09 Customer Feedback Form.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-10 Improvement Register.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-11 Internal Audit Plan.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-12 Internal Audit Schedule.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-13 Internal Audit Report.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-14 Internal Audit Summary Report.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-15 Corrective Action Report.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-16 Customer Complaint Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-17  Root Cause Analysis.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-19 Metric Measurement Report.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-20 Document Modification Request Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-21 Customer Complaint Register.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-22 Master list of Auditors.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-23 Clover Roles and Responsibilities.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-01-Service Management Plan Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-02 Issue Tracking Sheet.xlsb" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-03 Problem and Known error database log.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-04 Site Document Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-05 System Study Document Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-06 Schema Assessment &amp; Security Policy Document.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-07 Backup Policy Document Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-08 Monthly Service Report.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-09  Incident Report %28Intrusion and Breaches%29.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-10 Test Report.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-11 Sign-off  for all deliverables.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-13-Availability Management.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-14-Capacity Management.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-15 Standard Operating Procedure %28SOP%29 Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-01 Project Initiation Note.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-02 Introductory Mail Format.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-05 Handover Form.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-06 Issue Log.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-07 Reusable Component Log.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-08 Knowledge Base Document Template.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-09 Project Status Report %28Dev and Infra%29.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-10 Project Status Report %28Support and Managed%29.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-11 Test Status Report.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-12 Project Closure Report.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-13 Test Plan Template.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-15 Release Note.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-18 Project Plan Template.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-19 Project Plan - ResourcesNRoles.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-20 Project Plan- Access Rights.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-01 Timesheet Format 1.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-02 Travel Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-03 STPA Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-04 Project Margin Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-05 Project Status Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-06 Resource Updates Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PRT-02 Our Understanding Document Template.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PRT-03 Estimation Template.xlsm" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-RES-01 - Replacements Data Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-RES-02 - Bench Data Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-RES-03 Deployment Data.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-01 Account Summary Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-02 Review records of Bid Review.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-03 Resources Deployment Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-06 Handover Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-07 MIS - Pipeline Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-08 Proposal Format.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-09 Non Disclosure Agreement.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-10 Service Catalouge.pptx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAM-01 Quarterly Opportunity Status.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAM-02 Customer Feedback.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAM-03 Training requirement.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-01 Manpower Requisition Form.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-02 Documents Required to Release Offer and Onboarding .docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-03 Interview Rating Sheet.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-05 Clover Application Form - Lateral.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-06 Clover Application Form-Academy.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-07 Documents Required to Release offer and onboarding-Academy.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-08 Interview Rating Sheet - Academy.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-ADT-01 Guidelines for Information Gathering, Study and Analysis.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-ADT-02 Guidelines for Definition of Constraints.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-ADT-03 Guidelines for High Level Design.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-ADT-04 Guidelines Low Level Design.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-ADT-05 Guidelines for Testing.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-HR-01 Joining Kit.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-HR-02 User IT Guidelines.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-MR-01 Guidelines for Quality Objectives.doc" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PM-01 Guidelines for Project Classification.doc" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PM-02 Guidelines for Life-Cycle Selection and Project Approach.doc" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PM-03 Guidelines for Tailoring.doc" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PM-04 Guidelines for Quality System Deviation.doc" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PM-05 Guidelines for Scheduling, Tracking, and Communication.doc" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-01 Marketing Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-02 Practices Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-03 Talent Acquisition Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-04 Project Management Office Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-05 Academy Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-06 Strategic Account Management Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-07 Administration Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-08 Information Technology Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-09 Managed IT Services Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-10 Resourcing Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-11 Infrastructure Project Delivery Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-12 Application Support Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-13 Sales Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-14 Project Management Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-15 Centre of Excellence Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-16 Corporate Quality Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\QMS-L3-PR-OPR-17 Application Development Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-HR-01 Human Resource Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-01 Management Review Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-02 Internal Audit Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-03 Corrective Action Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-04 Document Control Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-05 Monitoring and Measurement Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-06 Customer Management Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-07 Risk Assessment Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\SYSTEM Process\QMS-L2-PR-MR-08 Change Management Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-01 Standards for Coding in Dot Net.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-02 Standards for Coding in Java.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-03 Standards for Coding in ASP.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-04 Standards for Coding in C.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-05 Standards for Coding in C++.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-06 Standards for Coding in VB.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-07 Standards for System Documentation.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-08 Standards for Coding in PL SQL.docx" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L4-CD-ADT-09 Standards for Oracle.docx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-ACD-01 Checklist for Batch and Lateral Trainings.xls" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-ADM-02 Office Opening Closing Checklist.xls" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-ADM-03 Fresh Room Cleaning Checklist.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-ADM-04 AC Temperature Monitoring Checklist.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-ADM-05 COVID Vigilance Checklist.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-ADT-01 Checklist for Risk Identification.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-HR-01 Joining Checklist.docx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-MR-01 Checklist for Meeting.doc" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-MR-02 Internal Audit checklist.xls" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-PM-02 Checklist for Risk identification.xls" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-PM-03 Checklist for Project Closure.doc" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-PRT-01 Contract and Project Review Checklist.xls" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-RES-01 Interview Questions Checklist and Summary Format.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\Bluedart_Backup Policy Document_1.0y18-19.docx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\Bluedart_OracleDBA_Service Management Plan_V1.5.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\Managed IT Services Process V1.1.doc" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\Minutes of Meeting_Connect Team_Review_Meeting.doc" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MR-03  Risk Management Plan %28RMP%29.xls" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MR-09  Customer Feedback Form.xls" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MR-15  Corrective Action Report.doc" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MR-17  Root Cause Analysis.xls" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MR-19 Metric Measurement Report.xls" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-02  Issue Tracking Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-03  Problem &amp; Known error database log.xls" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-04  Site Document.docx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-05  System Study Document.DOC" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-06  Schema assessment  &amp; Security Policy document.doc" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-08  Monthly Service Report.pptx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-MTS-09  Incident Report %28Intrusion and Breaches%29.docx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-PM-08  Knowledge-Base Document Template.doc" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-PM-10  Project Status Report %28Support &amp; Managed%29.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-PM-12  Project Closure Report Template.doc" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-PM-18  Project Plan.docx" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-FR-PM-20  Project Plan - Access Rights.xls" />
+    <Content Include="Mail Data-Repository\ISMS\Process\System Process\ISMS-L2-PR-CISO-01 Management Review Procedure.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Process\System Process\ISMS-L2-PR-CISO-03 Monitoring and Measurement Procedure.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Process\System Process\ISMS-L2-PR-CISO-04 Business Continuity Process.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Process\System Process\ISMS-L2-PR-CISO-05 Compliance Procedure.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Process\System Process\ISMS-L2-PR-CISO-06 Capacity Management Procedure.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-01 Master List of Documents.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-03 Risk Assessment Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-05 Management Review Meeting Agenda.docx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-06 Improvement Register.docx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-07 Metric Measurement Report.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-09 Business Impact Analysis Report.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-10 Business Continuity Test Report-Admin.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-11 Business Continuity Test Report-IT.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Forms\ISMS-L4-FR-CISO-12 Business Continuity Test Report-HR.xlsx" />
+    <Content Include="Mail Data-Repository\ISMS\Guidelines\ISMS_L4-GD-CISO-01 Guidelines for Security Objectives.doc" />
+    <Content Include="Mail Data-Repository\ISMS\Manual\Clover Infotech - ISMS- Security Policy and Objectives- v3.0.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Manual\ISMS-L1-ML-CISO-01 ISMS Manual.pdf" />
+    <Content Include="Mail Data-Repository\ISMS\Manual\ISMS-L5-ML-CISO-01 ISMS Policy Manual.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L1-ML-MR-01 QMS Manual v1.0.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L2-PR-MR-01 Management Review Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Artifact\QMS-L4-GD-ADT-02 Guidelines for Definition of Constraints.docx" />
+    <Content Include="Mail Data-Repository\QMS\Checklist\QMS-L4-CK-PRT-02 Requirement Design and Code Review Checklist.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\Impact Analysis Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\Proposal for Managed Services %28SOW%29.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADM-13 NDA Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-ADT-14 Solution Design Document %28SDD%29 Template.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-CQ-02-PCR form for Managed IT Service.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IPD-05 Proposal Format for Infrastructure Managed Services %28SOW%29.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-IT-08 Vulnerability Analysis %28VAPT%29 Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MKT-01 Case studyTemplate.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-06 Change Request Register %28CR Tracker%29.xls.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-15 Corrective Action Report %28RCA%29.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MR-23 Clover Infotech Roles and Responsibilities.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-02  Issue_Incident Tracking Sheet.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-03 Problem and Known error database log %28KEDB%29.xls" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-09 Incident Report %28Intrusion and Breaches%29.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-12 Monthly Service Report %28Connect%29.pptx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-12-Capacity Management Tracker.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-13-Availability Management Tracker.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-MTS-14-Service Improvement Plan Template.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-07 Proposal for Application Support %28SOW%29.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PM-17 Proposal for T and M %28SOW%29.docx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-PMO-01 Timesheet Format.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-RES-02 Bench Data Form.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-SAL-08 Proposal Format %28SOW%29.doc" />
+    <Content Include="Mail Data-Repository\QMS\Forms\QMS-L4-FR-TA-01 Manpower Requisition Form %28MRF%29.xlsx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-ACD-01 Guidelines for Academy Trainee.doc" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-MTS-01 Guidelines for Project Handover.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PMO-01 Guidelines for Resource_Portal_Management.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PMO-02 Guidelines for Margin_compilation_verification.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PMO-03 Guidelines Conveyance_processing.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PMO-04 Guidelines for Project Monitoring and Invoicing.docx" />
+    <Content Include="Mail Data-Repository\QMS\Guidlines\QMS-L4-GD-PMO-05 Guidelines for Engagement Naming Suggestion.doc" />
+    <Content Include="Mail Data-Repository\QMS\Manual\Clover Infotech -Quality Policy and Objectives v3.0.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Manual\Clover Infotech QMS Manual v3.0.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Process\Operation Process\Information Technology Process V2.2.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-HR-01 Human Resource Process.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-01 Management Review Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-02 Internal Audit Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-03 Corrective Action Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-04 Document Control Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-05 Monitoring and Measurement Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-06 Customer Management Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-07 Risk Assessment Procedure.pdf" />
+    <Content Include="Mail Data-Repository\QMS\Standard\QMS-L2-PR-MR-08 Change Management Procedure.pdf" />
+    <Content Include="assets\fonts\fa-brands-400.eot" />
+    <Content Include="assets\fonts\fa-brands-400.ttf" />
+    <Content Include="assets\fonts\fa-brands-400.woff" />
+    <Content Include="assets\fonts\fa-brands-400d41d.eot" />
+    <Content Include="assets\fonts\fa-light-300.eot" />
+    <Content Include="assets\fonts\fa-light-300.ttf" />
+    <Content Include="assets\fonts\fa-light-300.woff" />
+    <Content Include="assets\fonts\fa-light-300d41d.eot" />
+    <Content Include="assets\fonts\fa-regular-400.eot" />
+    <Content Include="assets\fonts\fa-regular-400.ttf" />
+    <Content Include="assets\fonts\fa-regular-400.woff" />
+    <Content Include="assets\fonts\fa-regular-400d41d.eot" />
+    <Content Include="assets\fonts\fa-solid-900.eot" />
+    <Content Include="assets\fonts\fa-solid-900.ttf" />
+    <Content Include="assets\fonts\fa-solid-900.woff" />
+    <Content Include="assets\fonts\fa-solid-900d41d.eot" />
+    <Content Include="Doc\Users.xlsx" />
+    <Content Include=".build\nuget-publish.ps1" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui-sliderAccess.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\ReportDate.js" />
+    <Content Include="Scripts\RoleCheckBox.js" />
+    <Content Include="Scripts\table2excel.js" />
+    <Content Include="Scripts\timeout-dialog.js" />
+    <Content Include="Scripts\UpdateRoleCheckbox.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\PCRSchedule\PCRSchedule.cshtml" />
+    <Content Include="Views\PCRSchedule\PCRScheduleDetails.cshtml" />
+    <Content Include="Views\User\DeleteUser.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\UserDetails.cshtml" />
+    <Content Include="Views\User\welcome.cshtml" />
+    <Content Include="Views\PCRCheckList\PCRCheckListDetails.cshtml" />
+    <Content Include="Views\PCRCheckList\PCRCheckListInsert.cshtml" />
+    <Content Include="Views\PCRCheckList\showCompliance.cshtml" />
+    <Content Include="Views\ProjectMaster\ProjectMasterDelete.cshtml" />
+    <Content Include="Views\ProjectMaster\ProjectMasterIndex.cshtml" />
+    <Content Include="Views\ProjectMaster\ProjectMasterInsert.cshtml" />
+    <Content Include="Views\ProjectMaster\ProjectMasterUpdate.cshtml" />
+    <Content Include="Views\PCRCheckList\PCRReport.cshtml" />
+    <Content Include="Views\AuditeeDashboard\AuditeeDashboard.cshtml" />
+    <Content Include="Views\AuditeeDashboard\showPRCReport.cshtml" />
+    <Content Include="Views\User\WelcomeDashboard.cshtml" />
+    <Content Include="Views\PCRSchedule\PCRScheduleDraft.cshtml" />
+    <Content Include="Views\PCRCheckList\SaveAsDraft.cshtml" />
+    <Content Include="Views\PCRCheckList\showPRCReport.cshtml" />
+    <Content Include="Views\PCRCheckList\AuditorDashboard.cshtml" />
+    <Content Include="Views\MISReport\Index.cshtml" />
+    <Content Include="Views\MISReport\MISReport.cshtml" />
+    <Content Include="Views\MISReport\ProjectsAsPerlifeCycle.cshtml" />
+    <Content Include="Views\PCRCheckList\PreviousMonthsRecords.cshtml" />
+    <Content Include="Views\ProjectMaster\ProjectMasterDetails.cshtml" />
+    <Content Include="Views\NCAgingReport\DisplayNCAgingReport.cshtml" />
+    <Content Include="Views\NCAgingReport\ExportExcel.cshtml" />
+    <Content Include="Views\NCAgingReport\MISReportIndex.cshtml" />
+    <Content Include="Views\User\Logout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\MISReport\DisplayReportLinks.cshtml" />
+    <Content Include="Views\User\AddNewUser.cshtml" />
+    <Content Include="Views\ForgotPassword\ForgotPassword.cshtml" />
+    <Content Include="Views\ForgotPassword\ChangePassword.cshtml" />
+    <Content Include="Views\ForgotPassword\ResetPassword.cshtml" />
+    <Content Include="Views\AssignRoles\DeleteUser.cshtml" />
+    <Content Include="Views\AssignRoles\SelectUserRoles.cshtml" />
+    <Content Include="Views\AssignRoles\UpdateUserRoles.cshtml" />
+    <Content Include="Views\AssignRoles\UserRoles.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\DeleteArea.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\DeleteLifeCycle.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\DeleteQuestion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\DeleteRegion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\DeleteTechnology.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\DeleteType.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\InsertArea.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\InsertLifeCycle.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\InsertQuestion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\InsertRegion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\InsertTechnology.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\InsertType.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\ShowArea.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\ShowLifeCycle.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\ShowQuestion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\ShowRegion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\ShowTechnology.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\ShowType.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\UpdateArea.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\UpdateLifeCycle.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\UpdateQuestion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\UpdateRegion.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\UpdateTechnology.cshtml" />
+    <Content Include="Views\UpdateByAdminParameters\UpdateType.cshtml" />
+    <Content Include="Views\Admin\AdminAuditClosed.cshtml" />
+    <Content Include="Views\Admin\AdminPcrSchedule.cshtml" />
+    <Content Include="Views\Admin\AuditClosed.cshtml" />
+    <Content Include="Views\Admin\PcrReport.cshtml" />
+    <Content Include="Views\Admin\UpdateAuditor.cshtml" />
+    <Content Include="Views\AuditeeDashboard\DateWiseAudit.cshtml" />
+    <Content Include="Views\PCRCheckList\DateWiseAudit.cshtml" />
+    <Content Include="Views\Shared\EmailTrigger.cshtml" />
+    <Content Include="Views\Shared\AuditeeEmailTrigger.cshtml" />
+    <Content Include="Views\QMSRepository\DeleteDepartment.cshtml" />
+    <Content Include="Views\QMSRepository\DisplayFormDepartment.cshtml" />
+    <Content Include="Views\QMSRepository\DisplayProcess.cshtml" />
+    <Content Include="Views\QMSRepository\Index.cshtml" />
+    <Content Include="Views\QMSRepository\index1.cshtml" />
+    <Content Include="Views\QMSRepository\InsertDepartment.cshtml" />
+    <Content Include="Views\QMSRepository\OperationalProcess.cshtml" />
+    <Content Include="Views\QMSRepository\QmsProcess.cshtml" />
+    <Content Include="Views\QMSRepository\ShowDepartment.cshtml" />
+    <Content Include="Views\QMSRepository\SystemProcess.cshtml" />
+    <Content Include="Views\QMSRepository\UpdateDepartment.cshtml" />
+    <Content Include="Views\QMSRepository\ViewDocument.cshtml" />
+    <Content Include="Views\RepositoryAdminModule\DeleteDocument.cshtml" />
+    <Content Include="Views\RepositoryAdminModule\DisplayFormDepartment.cshtml" />
+    <Content Include="Views\RepositoryAdminModule\Index.cshtml" />
+    <Content Include="Views\RepositoryAdminModule\InsertDocument.cshtml" />
+    <Content Include="Views\RepositoryAdminModule\UpdateDocument.cshtml" />
+    <Content Include="Views\Shared\DisplayForm.cshtml" />
+    <Content Include="Views\Shared\DisplayFormAdmin.cshtml" />
+    <Content Include="Views\Shared\Qms.cshtml" />
+    <Content Include="Views\Shared\QmsAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutRepository.cshtml" />
+    <Content Include="Views\AuditLog\Index.cshtml" />
+    <Content Include="Views\PCRCheckList\LastUpdatedRecords.cshtml" />
+    <Content Include="Views\AuditLog\DateWiseHistory.cshtml" />
+    <Content Include="Views\PCRCheckList\CheckListScheduleIDWise.cshtml" />
+    <Content Include="Views\AssignRoles\ShowDepartmentRoles.cshtml" />
+    <Content Include="Views\AssignRoles\InsertDepartmentRoles.cshtml" />
+    <Content Include="Views\AssignRoles\UpdateDepartmentRoles.cshtml" />
+    <Content Include="Views\ConsolidatedReport\ConsolidatedReportIndex.cshtml" />
+    <Content Include="Views\Shared\DisplayFindings.cshtml" />
+    <Content Include="Views\PCRSchedule\ViewPCRScheduleIndex.cshtml" />
+    <Content Include="Views\Shared\ViewPCRSchedule.cshtml" />
+    <Content Include="Views\AssignRoles\InactiveUser.cshtml" />
+    <Content Include="Views\User\ImportExcel.cshtml" />
+    <Content Include="Views\MetricFrequency\MetricFrequencyDelete.cshtml" />
+    <Content Include="Views\MetricFrequency\MetricFrequencyDetails.cshtml" />
+    <Content Include="Views\MetricFrequency\MetricFrequencyIndex.cshtml" />
+    <Content Include="Views\MetricFrequency\MetricFrequencyInsert.cshtml" />
+    <Content Include="Views\MetricFrequency\MetricFrequencyUpdate.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveAdmin.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveAllUser.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectivebyUser.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveDelete.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveDetails.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveIndex.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveInsert.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveUpdate.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveUser.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjectiveView.cshtml" />
+    <Content Include="Views\MetricObjective\MetricObjValUpdateAdmin.cshtml" />
+    <Content Include="Views\MetricObjective\MetricPartialObjectiveAdmin.cshtml" />
+    <Content Include="Views\MetricObjective\MetricPartialObjectiveAllUser.cshtml" />
+    <Content Include="Views\UserManual\Create.cshtml" />
+    <Content Include="Views\UserManual\Edit.cshtml" />
+    <Content Include="Views\UserManual\Delete.cshtml" />
+    <Content Include="Views\UserManual\Details.cshtml" />
+    <Content Include="Views\UserManual\Index.cshtml" />
+    <Content Include="Views\Csat\CsatDelete.cshtml" />
+    <Content Include="Views\Csat\CsatParameterDetails.cshtml" />
+    <Content Include="Views\Csat\CsatParameterInsert.cshtml" />
+    <Content Include="Views\Csat\CsatSubDelete.cshtml" />
+    <Content Include="Views\Csat\CsatSubParameterDetails.cshtml" />
+    <Content Include="Views\Csat\CsatSubParameterInsert.cshtml" />
+    <Content Include="Views\Csat\CsatSubUpdate.cshtml" />
+    <Content Include="Views\Csat\CsatUpdate.cshtml" />
+    <Content Include="Views\Csat\Index.cshtml" />
+    <Content Include="Views\Csat\ShowSubParameter.cshtml" />
+    <Content Include="Views\Customer\CustomerDelete.cshtml" />
+    <Content Include="Views\Customer\CustomerDetails.cshtml" />
+    <Content Include="Views\Customer\CustomerIndex.cshtml" />
+    <Content Include="Views\Customer\CustomerInsert.cshtml" />
+    <Content Include="Views\Customer\CustomerUpdate.cshtml" />
+    <Content Include="Views\Domain\DomainDelete.cshtml" />
+    <Content Include="Views\Domain\DomainDetails.cshtml" />
+    <Content Include="Views\Domain\DomainInsert.cshtml" />
+    <Content Include="Views\Domain\DomainUpdate.cshtml" />
+    <Content Include="Views\Domain\DomainIndex.cshtml" />
+    <Content Include="Views\Feedback\denied.cshtml" />
+    <Content Include="Views\Feedback\Display.cshtml" />
+    <Content Include="Views\Feedback\DisplayByDate.cshtml" />
+    <Content Include="Views\Feedback\FeedbackIndex.cshtml" />
+    <Content Include="Views\Feedback\nodata.cshtml" />
+    <Content Include="Views\Feedback\PendingRCA.cshtml" />
+    <Content Include="Views\Feedback\Raise.cshtml" />
+    <Content Include="Views\Feedback\Show.cshtml" />
+    <Content Include="Views\Feedback\View1.cshtml" />
+    <Content Include="Views\Iso\ISOIndex.cshtml" />
+    <Content Include="Views\Iso\Index1.cshtml" />
+    <Content Include="Views\Iso\IsoDelete.cshtml" />
+    <Content Include="Views\Iso\IsoDetails.cshtml" />
+    <Content Include="Views\Iso\IsoInsert.cshtml" />
+    <Content Include="Views\Iso\IsoUpdate.cshtml" />
+    <Content Include="Views\Classification\classificationDelete.cshtml" />
+    <Content Include="Views\Classification\classificationDetails.cshtml" />
+    <Content Include="Views\Classification\classificationIndex.cshtml" />
+    <Content Include="Views\Classification\classificationInsert.cshtml" />
+    <Content Include="Views\Classification\classificationUpdate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mail Data-Repository\EOHS\" />
+    <Folder Include="Mail Data-Repository\ISMS\Checklist\" />
+    <Folder Include="Mail Data-Repository\ISMS\Process\Operation Process\" />
+    <Folder Include="Mail Data-Repository\ISMS\Standard\" />
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="userupload\" />
+    <Folder Include="Views\App_LocalResources\" />
+    <Folder Include="Views\Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\clover.qms.Interface\clover.qms.Interface.csproj">
+      <Project>{9b30d401-9a06-49b9-b066-a6335002a5c6}</Project>
+      <Name>clover.qms.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clover.qms.model\clover.qms.model.csproj">
+      <Project>{2661d968-0063-4434-83f1-eac12d231976}</Project>
+      <Name>clover.qms.model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\clover.qms.repository\clover.qms.repository.csproj">
+      <Project>{7207dc37-fbbb-443b-a457-0edb58a3f94d}</Project>
+      <Name>clover.qms.repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49579</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44353/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

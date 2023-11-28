@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<title>Quality Management System</title>
+<link rel="shortcut icon" href="~/Images/clover.png">
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/datatables.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.11/js/dataTables.checkboxes.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    @*<script src="~/Scripts/Employee.js"></script>*@
+</head>
+
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="font-size:20px; color:black">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li> <img src="~/Images/qms.png" width="100" height="45" /></li>
+
+                    @*<li><a>Welcome @ViewBag.UserName</a></li>*@
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a>Welcome @Session["UserName"].ToString()</a></li>
+                        if (User.IsInRole("Auditor"))
+                        {
+                            @*<li><a> Welcome Auditor @User.Identity.Name </a></li>*@
+                            <li>@Html.ActionLink("Project Master", "ProjectMasterIndex", "ProjectMaster")</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Audit Module</span><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-submenu">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">PCR Schedule</span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/PCRCheckList/AuditorDashboard">Display PCRSchedule</a></li>
+                                            <li><a href="/PCRSchedule/PCRScheduleDetails">Create PCRSchedule</a></li>
+                                        </ul>
+                                    </li>
+                                    @*@Html.ActionLink("PCR Schedule", "PCRScheduleDetails", "PCRSchedule")</li>*@
+                                    @*<li><a href="#">PCR Checklist</a></li>*@
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Report</span><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/NCAgingReport/MISReportIndex">NC Aging Report</a></li>
+                                    <li><a href="/MISReport/Index">Overall Report</a></li>
+                                </ul>
+                            </li>
+                        }
+                        if (User.IsInRole("Auditee"))
+                        {
+                            @*<li><a> Welcome Auditee @User.Identity.Name </a></li>*@
+                            <li>@Html.ActionLink("Projects", "AuditeeDashboard", "AuditeeDashboard")</li>
+                        }
+                        @*<li>@Html.ActionLink("Create PCRSchedule", "PCRScheduleDetails", "PCRSchedule")</li>
+                            <li>@Html.ActionLink("Show PCRSchedule", "AuditorDashboard", "AuditorDashboard")</li>*@
+
+                        <li>@Html.ActionLink("Logout", "Logout", "User")</li>
+                    }
+                    @*else
+                        {
+                            <li> @Html.ActionLink("Login", "UserLogin", "User") </li>
+                        }*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<link href="~/Content/Menus.css" rel="stylesheet" />

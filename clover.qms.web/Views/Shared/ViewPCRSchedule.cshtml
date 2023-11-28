@@ -1,0 +1,144 @@
+﻿
+@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+@{Layout = null; }
+<!DOCTYPE html>
+@*<style>
+
+        table.dataTable {
+            width: 95%;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>*@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+
+<body>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        if (Model.listPcrSchedule.Count() > 0)
+        {
+            <div class="form-horizontal table-responsive" align="center">
+                <table class="table table-bordered table-hover" id="Table">
+                    <thead>
+                        <tr bgcolor='#D3D3D3'>
+
+                            <th><b>Sr.No.</b></th>
+                            <th><b>Project Name</b></th>
+                            <th><b>Region</b></th>
+                            <th><b>Technology</b></th>
+                            <th><b>Planned Date</b></th>
+                            <th><b>Actual Date</b></th>
+                            <th><b>Auditor</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var i = 0; var SrNo = 1;
+                            foreach (var item1 in Model.listPcrSchedule)
+                            {
+                                string actual = @item1.ActualDate != null ? @item1.ActualDate.Value.ToLongDateString() : null;
+                                string planned = @item1.PlannedDate != null ? @item1.PlannedDate.Value.ToLongDateString() : null;
+
+                                <tr>
+                                    <td class="SrNo">
+                                        @SrNo
+                                    </td>
+                                    <td class="ProjectName">
+                                        @foreach (var item in Model.listProjectMaster.Where(x => x.PID == item1.PID))
+                                        {
+                                            @item.ProjectName
+                                            break;
+                                        }
+                                    </td>
+                                    <td class="Region">
+                                        @foreach (var item in Model.listProjectMaster.Where(x => x.PID == item1.PID))
+                                        {
+                                            foreach (var region in Model.listRegion.Where(x => x.regionID == item.regionID))
+                                            {
+                                                @region.regionName
+                                                break;
+                                            }
+                                            break;
+                                        }
+                                    </td>
+                                    <td class="Technology">
+                                        @foreach (var item in Model.listProjectMaster.Where(x => x.PID == item1.PID))
+                                        {
+                                            foreach (var technology in Model.listTechnology.Where(x => x.technologyID == item.technologyID))
+                                            {
+                                                @technology.technologyName
+                                                break;
+                                            }
+                                            break;
+                                        }
+                                    </td>
+                                    <td class="PlannedDate">
+                                        @planned
+                                    </td>
+
+                                    <td class="ActualDate">
+                                        @actual
+                                    </td>
+                                    <td class="Auditor">
+                                        @foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == item1.AuditorId))
+                                        {
+                                            @auditor.EmpName
+                                            break;
+                                        }
+                                    </td>
+                                </tr>
+                                i++;
+                                SrNo++;
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <ul class="set_btn">
+                <li>
+                    <a href="#" class="btn btn-primary collapsed" id="btnExport">Export Excel</a>
+                </li>
+                <li><td colspan="3">
+    @if (Request.UrlReferrer != null)
+    {
+        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+            Back
+
+        </a>
+    }
+</li>
+            </ul>
+        }
+        else
+        { <h3 style="text-align:center">No data found</h3>
+        }
+
+    }
+</body>
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#Table').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+        $('#btnExport').on('click', function () {
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+
+                filename: "PCRReport",
+                fileext: ".xls",
+                exclude_inputs: false
+            });
+        });
+    })
+</script>
+
+

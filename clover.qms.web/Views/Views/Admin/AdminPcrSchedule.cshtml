@@ -1,0 +1,219 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+@{Layout = "~/Views/Shared/_Layout.cshtml"; }
+<!DOCTYPE html>
+<style>
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link href="@Url.ContentAbsUrl("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.4.1.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap.min.js")"></script>*@
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div>
+        <h3 style="color:#00239B; text-align:center">Update Audit Schedule</h3>
+    </div>
+    <div class="form-horizontal  table-responsive" align="center">
+
+        <table id="AdminTable" class="table table-bordered table-hover">
+            <thead>
+                <tr><td colspan="9">
+    @if (Request.UrlReferrer != null)
+    {
+        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+            Back
+
+        </a>
+    }
+</td>
+                </tr>
+                <tr bgcolor='#D3D3D3'>
+
+                    <th>Sr.No.</th>
+                    <th>Project List</th>
+                    <th>Region Name</th>
+                    <th>Auditee Name</th>
+                    <th>Technology</th>
+                    <th>Planned Date</th>
+                    <th>Status</th>
+                    <th>Auditor</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var i = 0; var srNo = 1;
+
+                    foreach (var PcrSchedule in Model.listPcrSchedule)
+                    {
+
+                        <tr>
+                            <td>
+                                @srNo
+
+                                @Html.HiddenFor(Model => Model.listPcrSchedule[i].PID, new { Value = @PcrSchedule.PID })
+                            </td>
+
+                            @foreach (var ProjectMaster in Model.listProjectMaster.Where(x => x.PID == PcrSchedule.PID))
+                            {
+                                <td>
+                                    @ProjectMaster.ProjectName
+
+                                </td>
+                                <td>
+                                    @foreach (var region in Model.listRegion.Where(x => x.regionID == ProjectMaster.regionID))
+                                    {
+                                        @region.regionName
+                                    }
+                                </td>
+                                <td>
+
+                                    @foreach (var users in Model.listusers.Where(x => x.UserName == ProjectMaster.managerName))
+                                    {
+
+                                        @users.FirstName
+                                        break;
+                                    }
+                                </td>
+                                <td>
+
+                                    @foreach (var technology in Model.listTechnology.Where(x => x.technologyID == ProjectMaster.technologyID))
+                                    {
+                                        @technology.technologyName
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        string date = Convert.ToDateTime(@PcrSchedule.PlannedDate).ToString("dd-MMM-yyyy");
+
+                                    }
+
+                                    @if (date == "01-Jan-0001")
+                                    {
+                                        date = null;
+                                    }
+
+                                    @*@Html.TextBoxFor(Model => Model.listPcrSchedule[i].PlannedDate, new
+                                {
+                                    autocomplete = "off",
+                                    @class = "form-control date-picker",
+                                    Value = @date,
+                                    @readonly = "readonly"
+                                })*@
+
+                                    @date
+                                </td>
+                                <td>
+                                    @PcrSchedule.ProjectStatus
+                                </td>
+                                <td>
+                                    @foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == PcrSchedule.AuditorId))
+                                    {
+
+                                        @auditor.EmpName
+                                        break;
+                                    }
+                                    @*@PcrSchedule.AuditorId*@
+                                    @*@Html.DropDownListFor(Model => Model.listPcrSchedule[i].AuditorId, new SelectList(ViewBag.AuditorList, "AuditorId", "EmpName", @PcrSchedule.AuditorId), "--Select--", new { name = "ddlAuditorId" })
+                                <br />
+                                @Html.ValidationMessageFor(Model => Model.listPcrSchedule[i].AuditorId, "", new { @class = "error" })*@
+                                </td>
+
+                                @Html.HiddenFor(Model => Model.listPcrSchedule[i].PCRScheduleID, new { name = "txtPCRScheduleID", Value = @PcrSchedule.PCRScheduleID })
+
+                                <td>
+                                    <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Update(@PcrSchedule.PCRScheduleID);>
+
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                                </td>
+
+
+                            }
+                        </tr>
+                        i++;
+                        srNo++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#AdminTable").DataTable({
+            sDom: 'lrtip', "lengthChange": false, "bInfo": false
+        })
+    });
+     function Update(ID) {
+
+         var url = '@Url.Content("~/")' + "Admin/UpdateAuditor/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'scheduleId': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                   // alert("success");
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">PCR Scheduling</h3>
+            </div>
+            <div class="modal-body" id="contentBody">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

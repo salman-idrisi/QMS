@@ -1,0 +1,194 @@
+﻿@model clover.qms.model.PCRViewModel
+@*@{
+        Layout = null;
+    }*@
+
+<!DOCTYPE html>
+<style>
+
+    .div2 {
+        margin-top: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td, tr {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+
+    .modal-header {
+        background-color: #83CB1E;
+    }
+
+    .container .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .modal-content {
+        width: 1200px;
+        vertical-align: middle;
+        margin-top: 10%;
+        margin-left: 12%;
+    }
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        /*background-color: #FF0000;*/
+    }
+
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <center><h3>CheckList</h3></center>
+
+    @using (Html.BeginForm())
+    {
+        Model.listquestionDump = ViewBag.question;
+        if (Model.listPcrSchedule.Count > 0)
+        {
+            <div>
+                <h3 style="color:darkred" align="center">PCR Checklist</h3>
+            </div>
+            <div class="form-horizontal" align="center">
+                <table id="=tbl" border="1">
+
+
+                    @{ var i = 0; var count = 1; var id = 0; var rows = 0; string divId = null;
+
+                        foreach (var PcrCheckList in Model.listPcrCheckList/*.Where(x => x.flag == 1)*/)
+                        {
+                           
+
+                            if (id != @PcrCheckList.areaID)
+                            {
+                                foreach (var parameter in Model.listparameter.Where(x => x.parameterID == PcrCheckList.areaID))
+                                {
+
+                                    rows = 0;
+                                    divId = parameter.parameterName;
+                                    divId = divId.Replace(" ", "");
+                                    <tr>
+                                        <th colspan="5" style="background-color:#ADD8E6; text-align:center">
+                                            Area:@parameter.parameterName
+
+
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="background-color:#D3D3D3;text-align:center">Sr.No</th>
+                                        @*<th style="background-color:#D3D3D3">SaveId</th>*@
+                                        <th style="background-color:#D3D3D3;text-align:center">Description</th>
+                                        <th style="background-color:#D3D3D3;text-align:center;width:100px">Y/N/NA</th>
+                                        <th style="background-color:#D3D3D3;text-align:center">Observation</th>
+                                        <th style="background-color:#D3D3D3;text-align:center">%age Compliance</th>
+
+                                    </tr>
+                                    id = (int)@PcrCheckList.areaID;
+                                    break;
+
+                                }
+                            }
+
+                            if (i < Model.listPcrSchedule.Count)
+                            {
+                                foreach (var item in Model.listparameter.Where(x => x.parameterID == PcrCheckList.areaID))
+                                {
+                                    var TotalQuestions = Model.listquestionDump.Where(x => x.parameterID == PcrCheckList.areaID);
+
+                                    int rowsCount = TotalQuestions.Count();
+                                    foreach (var question in Model.listquestion.Where(x => x.questionID == PcrCheckList.questionID))
+                                    {
+                                        //var TotalQuestions = Model.listquestion.Where(x => x.parameterID == item.parameterID);
+
+                                        //int rowsCount = TotalQuestions.Count();
+                                        //int c = Model.listquestion.Count(x => x.parameterID == PcrCheckList.areaID);
+                                        rows++;
+
+                                        <tr>
+
+                                            @Html.HiddenFor(model => model.listPcrCheckList[i].scheduleID, new { Value = @ViewBag.sid })
+
+
+                                            @Html.HiddenFor(model => model.listPcrCheckList[i].areaID, new { Value = PcrCheckList.areaID })
+                                            <td>@count</td>
+                                            @*@Html.HiddenFor(model => model.listPcrCheckList[i].SaveDraftId, new { Value = PcrCheckList.SaveDraftId })*@
+                                            <td style="text-align:left;padding-left:5px">
+                                                @question.description
+                                                @Html.HiddenFor(model => model.listPcrCheckList[i].questionID, new { Value = question.questionID })
+
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    @Html.DropDownListFor(m => m.listPcrCheckList[i].statusID, new SelectList(ViewBag.status, "statusID", "statusName"), "select", new { @id = @divId, required = "required" })
+                                                    @Html.ValidationMessageFor(m => m.listPcrCheckList[i].statusID, "", new { @class = "text-danger" })
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @Html.EditorFor(model => model.listPcrCheckList[i].observation, new { htmlAttributes = new { Value = PcrCheckList.observation, autocomplete = "off", @class = "form-control", required = "required" } })
+                                                @Html.ValidationMessageFor(model => model.listPcrCheckList[i].observation, "", new { @class = "text-danger" })
+                                            </td>
+                                            @if (@rows == 1)
+                                            {
+                                            <td rowspan="@(rowsCount)" class="@(divId)">
+                                            </td>
+
+                                            }
+                                        </tr>
+
+                                    }
+
+                                    break;
+                                }
+
+                                i++;
+                                count++;
+                            }
+                        }
+                        }
+                    </table>
+                <div class="div2">
+
+                    <input type="submit" value="Save As Draft" formaction="@Url.Action("SaveAsDraft")" formnovalidate="formnovalidate" class="btn btn-info" />
+                    @*<input type="submit" value="Check Calculation" formaction="@Url.Action("PCRCheckListCalculation")" formnovalidate="formnovalidate" class="btn btn-success" />*@
+
+                    <input type="submit" value="Submit" formaction="@Url.Action("PCRCheckListDetails")" class="btn btn-success" />
+                    <input type="submit" value="Cancel" formaction="@Url.Action("AuditorDashboard","PCRCheckList")" formnovalidate="formnovalidate" class="btn btn-danger" />
+
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <h2>No records found</h2>
+            <div class="div2">
+                <input type="submit" value="Cancel" formaction="@Url.Action("AuditorDashboard", "PCRCheckList")" formnovalidate="formnovalidate" class="btn btn-danger" />
+            </div>
+        }
+
+    }
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/CheckBox.js"></script>
+    @*</div>*@
+</body>
+</html>

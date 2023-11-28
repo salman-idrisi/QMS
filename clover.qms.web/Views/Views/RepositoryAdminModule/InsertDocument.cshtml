@@ -1,0 +1,184 @@
+﻿@model clover.qms.model.Qms
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+<style>
+
+    .w-120 {
+        width: 120px;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #ff0000;
+        text-align: left;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+</style>
+
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.1.1.min.js")"></script>
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap.min.js")"></script>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+</head>
+<body>
+    @using (Html.BeginForm("InsertDocument", "RepositoryAdminModule", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">
+                Add Document
+            </h3>
+
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.DocumentTypeID, new { Value = ViewBag.docid })
+        @Html.HiddenFor(model => model.GeneralViewID, new { Value = ViewBag.viewid })
+        @if (ViewBag.process == 1 || ViewBag.process == 2)
+        {
+            @Html.HiddenFor(model => model.ProcessID, new { Value = ViewBag.process })
+        }
+
+        @if (ViewBag.docid == 5 || ViewBag.docid == 6)
+        {
+            @Html.HiddenFor(model => model.Action, new { Value = 1 })
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.Action, new { Value = 2 })
+        }
+        <div class="form-group">
+            <br>
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.DocumentName)</p>
+                @Html.EditorFor(model => model.DocumentName, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 200, placeholder = "Document Name" } })
+                @Html.ValidationMessageFor(model => model.DocumentName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.DocumentID)</p>
+                @Html.EditorFor(model => model.DocumentID, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 50, placeholder = "Document ID" } })
+                @Html.ValidationMessageFor(model => model.DocumentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.VersionNo)</p>
+                @Html.EditorFor(model => model.VersionNo, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 5, placeholder = "Vresion No." } })
+                @Html.ValidationMessageFor(model => model.VersionNo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> * </h7>@Html.LabelFor(model => model.ReleaseDate)</p>
+                @Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { autocomplete = "off", @class = "form-control date-picker", placeholder = "Relesed Date" } })
+                @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Prepared By</lable></p>
+                @Html.DropDownListFor(m => m.PreparedBy, new SelectList(ViewBag.department, "QmsDepartmentID", "QmsDepartmentName"), "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PreparedBy, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Reviewed By</lable></p>
+                @Html.DropDownListFor(m => m.ReviewedBy, new SelectList(ViewBag.department, "QmsDepartmentID", "QmsDepartmentName"), "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ReviewedBy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7><lable style="font-weight: bold;"> Approved By</lable></p>
+                @Html.DropDownListFor(m => m.ApprovedBy, new SelectList(ViewBag.department, "QmsDepartmentID", "QmsDepartmentName"), "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6">
+                <p><h7 style="color:red;font-weight: bold"> *</h7> @Html.LabelFor(model => model.QmsStatus)</p>
+                @Html.EditorFor(model => model.QmsStatus, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", maxlength = 20, placeholder = "Status" } })
+                @Html.ValidationMessageFor(model => model.QmsStatus, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        @*<div class="form-group" align="center">
+
+        <div class="col-md-6">
+            <br>*@
+        @if (ViewBag.docid == 5 || ViewBag.docid == 6)
+        {
+            <br />
+            <div class="col-md-6">Upload Document:</div>
+            <div class="col-md-6">
+                <input type="file" name="postedFile" accept="application/pdf" required data-val="true" data-val-required="File is required" data-val-regex="Only PDF file upload" data-val-regex-pattern="^.*\.(pdf|PDF)$" />
+                @Html.ValidationMessage("postedFile", "", new { @style = "color:red" })
+            </div>
+        }
+        else
+        { 
+    <br />
+        <div class="col-md-6">Upload Document:</div>
+            <div class="col-md-6">
+                <input type="file" name="postedFile" required data-val="true" data-val-required="File is required" />
+                @Html.ValidationMessage("postedFile", "", new { @style = "color:red" })
+            </div>
+           
+        }
+        @*    <br>
+        </div>
+        <div class="col-md-6">*@
+
+        @if (ViewBag.docid == 3)
+        {
+            <br />
+            <br>
+            <div class="col-md-6">Upload Artifact:</div>
+            <div class="col-md-6"><input type="file" name="artifact"></div>
+        }
+        <br />
+        @*</div>
+        </div>*@
+
+        <ul class="set_btn">
+
+            <li>
+
+                <input type="submit" value="Upload" class="btn btn-success" />
+
+            </li>
+
+        </ul>
+    </div>
+        }
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryval")

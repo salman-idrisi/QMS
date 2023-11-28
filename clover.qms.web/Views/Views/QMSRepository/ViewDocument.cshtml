@@ -1,0 +1,11 @@
+﻿
+@{
+
+    Layout = "~/views/shared/_layoutrepository.cshtml";
+}
+<html>
+    <body @*oncontextmenu="return false;"*@>
+        @Html.Raw(TempData["Embed"])
+        
+    </body>
+   </html>

@@ -1,0 +1,118 @@
+﻿@model clover.qms.model.Users
+    @using clover.qms.web.Models;
+<title>Quality Management System</title>
+<link rel="shortcut icon" href="~/Images/clover.png">
+@{ Layout = null;}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+        <script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+        <link href="@Url.Content("~/Content/buttons.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/LoginNew.css")" rel="stylesheet" />*@
+
+    <link href="@Url.ContentAbsUrl("~/Content/bootstrap.min.css")" rel="stylesheet" />
+        <script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.5.1.min.js")"></script>
+        <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap.min.js")"></script>
+        <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<link href="@Url.ContentAbsUrl("~/Content/LoginNew.css")" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="container-fluid" style="background:#fff; margin-bottom:25px; box-shadow: 0 10px 40px 0 rgba(0,0,0,.1); <!--box-shadow: 1px 5px 4px #d1d1d1;-->">
+        <center><img src="@Url.ContentAbsUrl("~/Images/Clover_Logo.gif")" class="img-responsive" style="border-radius:5px;"></center>
+    </div>
+    <div class="col-lg-3">&nbsp;</div>
+    <div class="col-lg-6">
+
+        <div id="loginbox" style="margin-top:20px; background:#fff; border-radius:5px;">
+
+            <div class="panel panel-info" style="border:none !important;">
+
+                <div class="panel-heading" style="background:#fff !important">
+                    <div class="panel-title">
+
+                        <center> <img src="@Url.ContentAbsUrl("~/Images/Qms_logo.gif")" width="122px" height="42px" class="img-responsive" /></center>
+                    </div>
+                </div>
+
+                <div style="background:#114a85 !important; font-weight:bold; color:#fff;  padding:13px; border-radius: 50px;  margin: 13px 13px 0px 13px; text-align:center;">
+                    <div class="panel-title"><span class="glyphicon glyphicon-user"></span> &nbsp;User Login</div>
+
+                </div>
+
+                @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="panel-body">
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
+
+                        </div>
+                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+
+                            @Html.TextBoxFor(model => model.UserName, new { autocomplete = "off", @class = "form-control", @style = "width:100%;  border-radius:50px; height: 45px; background: #f7f7f7;", placeholder = "Username", maxlength = 10 , onkeypress = "return RestrictSpace(event);", id = "Username" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error" })
+                        </div>
+
+                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", @style = "width:100%;  border-radius:50px; height: 45px; background: #f7f7f7;", placeholder = "Password", maxlength = 20, autocomplete = "off", onkeypress = "return RestrictSpace(event);" })
+                            
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
+                        </div>
+                        <div style="float: right; font-size: 80%; position: relative; top:5px">
+                            @Html.ActionLink("Forgot Password?", "ForgotPassword", "ForgotPassword")
+                        </div>
+
+                        <ul class="set_btn">
+                            <li><input type="submit" class="btn btn-success" style="border-radius: 50px; background:#81CB32 !important; border:none;  font-size:16px; font-weight:bold; width:100px" value="Login" /></li>
+                            <li>@Html.ActionLink("New User", "AddNewUser", "user", null, new { @class = "btn btn-success", @style = "border-radius: 50px; background:#81CB32 !important; border:none;  font-size:16px; font-weight:bold;" })</li>
+
+                        </ul>
+                    </div>
+                    if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                                    window.onload = function () {
+                                        alert("@ViewBag.Message");
+                                        $(document).ready(function () {
+                                            document.getElementById("Username").value = "";
+                                        });
+                                    };
+                        </script>
+                    }
+                    //qms-04 Madhavi
+                    if (ViewBag.msg != null)
+                    {
+                        <script type="text/javascript">
+                                    window.onload = function () {
+                                        alert("@ViewBag.msg");
+                                    };
+                        </script>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    function RestrictSpace(event) {
+       
+        if (event.keyCode == 32) {
+             
+            event.returnValue = false;
+            return false;
+        }
+    }
+</script>

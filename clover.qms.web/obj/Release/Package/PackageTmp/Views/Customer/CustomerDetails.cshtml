@@ -1,0 +1,95 @@
+﻿@model clover.qms.model.Customer
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+@*<script src="@Url.ContentAbsUrl("~/Scripts/jquery-3.5.1.min.js")"></script>*@
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+<style>
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+   
+    <div class="form-horizontal table-responsive" align="center" style="margin-top:-10px">
+
+        <center> <h5 class="modal-header" style="text-align:center">Customer Details</h5></center>
+        <table class="table table-hover table-bordered table_paddi_sec" border="1">
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 1 Name</td>
+                <td> @Model.customername</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 1 Email</td>
+                <td> @Model.customeremailid</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 1 Designation</td>
+                <td> @Model.designation</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 2 Name</td>
+                <td> @Model.customername2</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 2 Email</td>
+                <td> @Model.customeremailid2</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 2 Designation</td>
+                <td> @Model.designation2</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 3 Name</td>
+                <td> @Model.customername3</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 3 Email</td>
+                <td> @Model.customeremailid3</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 3 Designation</td>
+                <td> @Model.designation3</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 4 Name</td>
+                <td> @Model.customername4</td>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 4 Email</td>
+                <td> @Model.customeremailid4</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Customer 4 Designation</td>
+                <td> @Model.designation4</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">PROJECT TECHNOLOGY NAME</td>
+                <td> @Model.ptname</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">PROJECT LIFE CYCLE NAME</td>
+                <td> @Model.plcname</td>
+            </tr>
+            <tr>
+                <td style="background-color:#D3D3D3">Group Email ID</td>
+                <td> @Model.Groupemailid</td>
+            </tr>
+
+
+        </table>
+    </div>
+    <ul class="set_btn">
+        <li>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </li>
+    </ul>
+
+
+}
+

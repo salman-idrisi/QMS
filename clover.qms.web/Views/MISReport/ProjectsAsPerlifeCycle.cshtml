@@ -1,0 +1,172 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models
+@{ Layout = null;}
+<style>
+/*
+    .table {
+        width: 80% !important;
+    }*/
+</style>
+
+<html>
+<head>
+    @*<link href="@Url.ContentAbsUrl("~/Content/bootstrap.min.css")" rel="stylesheet" />*@
+</head>
+<body>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal table-responsive" align="center">
+                <table class="table table-bordered table-hover" id="tblReport">
+                    <tr>
+                        <td colspan="3">
+                            <p style="text-align:left"><b>Date:</b>@ViewBag.startDate to @ViewBag.endDate</p>
+                        </td>
+                        <td colspan="3">
+                            <p style="text-align:left"><b>Report Date:</b>@ViewBag.Datetime</p>
+                        </td>
+                    </tr>
+
+
+                    <tr bgcolor='#D3D3D3'>
+                        <th>Sr.No</th>
+
+                        <th>Account</th>
+                        <th>Group</th>
+                        <th>Technology</th>
+                        <th>Project Manager</th>
+                        <th>PCI</th>
+                    </tr>
+
+                    <tbody>
+                        @{int Serial = 1;
+                            foreach (var lifecycle in Model.listLifeCycle)
+                            {
+
+                                foreach (var PcrSchedule in Model.listPcrSchedule.Where(m => m.Lifecycle == lifecycle.lifecycleName))
+                                {
+
+                                    foreach (var ProjectMaster in Model.listProjectMaster.Where(m => m.PID == PcrSchedule.PID))
+                                    {
+
+                                        <tr>
+                                            <td>@Serial</td>
+
+
+                                            <td>
+                                                @ProjectMaster.ProjectName
+
+                                            </td>
+
+                                            <td>
+                                                @lifecycle.lifecycleName
+                                            </td>
+
+                                            @foreach (var Technology in Model.listTechnology.Where(m => m.technologyID == ProjectMaster.technologyID))
+                                            {
+                                                <td>
+                                                    @Technology.technologyName
+
+                                                </td>
+                                                break;
+                                            }
+
+                                            @foreach (var user in Model.listusers.Where(m => m.UserName == ProjectMaster.managerName))
+                                            {
+                                                <td>
+                                                    @user.FirstName
+
+                                                </td>
+                                                break;
+                                            }
+
+
+                                            <td>
+                                                @foreach (var pcrreport in Model.listpcrreport.Where(m => m.scheduleID == PcrSchedule.PCRScheduleID))
+                                                {
+                                                    foreach (var compilance in Model.listcompliance.Where(m => m.scheduleID == PcrSchedule.PCRScheduleID))
+                                                    {
+                                                        if (@compilance == null)
+                                                        {
+                                                            string value = "Project is pending";
+                                                            @value}
+
+                                                        else
+                                                        {
+                                                            {
+                                                                string date = Convert.ToDateTime(@pcrreport.ClosedDate).ToString("dd-MMM-yyyy");
+
+
+                                                                if (date == "01-Jan-0001")
+                                                                {
+                                                                    date = @compilance.compliance;
+                                                                }
+                                                                // else { date = "Project is closed"; }
+                                                                else { date = @compilance.compliance; }
+                                                                @date;
+                                                            }
+                                                        }
+                                                    }
+                                                    break;
+                                                }
+
+                                            </td>
+
+                                        </tr>
+
+                                        Serial++;
+                                        break;
+
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+            <ul class="set_btn">
+                <li>
+                    <a href="#" class="btn btn-success" id="btnExport">Export Excel</a>
+                </li>
+                <li>
+                    @if (Request.UrlReferrer != null)
+                    {
+                        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                            Back
+
+                        </a>
+                    }
+                </li>
+            </ul>
+        }
+
+
+    </div>
+</body>
+
+</html>
+
+
+
+
+<script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnExport").click(function () {
+            $("#tblReport").table2excel({
+                filename: "Overall MIS report.xls"
+            });
+        });
+    });
+    $(function () {
+        $("#btnGoBack").click(function () {
+            window.history.back();
+        });
+    });
+
+</script>

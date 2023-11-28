@@ -1,0 +1,290 @@
+﻿@model clover.qms.model.PCRViewModel
+
+<!DOCTYPE html>
+<style>
+    body {
+        margin-top: 70PX;
+    }
+
+    .cell-border {
+        border: 1px solid;
+    }
+
+    table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+        border-top: 1px solid #080707;
+        border-right: 1px solid #080707;
+    }
+
+    table.dataTable.cell-border tbody tr th:first-child, table.dataTable.cell-border tbody tr td:first-child {
+        border-left: 1px solid #080707;
+    }
+
+    .table > thead > tr > th {
+        border-bottom: 1px solid #080707;
+        border-collapse: collapse
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        /*height: 30px !important;*/
+        opacity: 1 !important;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 0%;
+    }
+
+    .modal-content {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 65%;
+        width: 1200px;
+    }
+
+    table.dataTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    .table > thead > tr > th {
+        vertical-align: top;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body style="margin-top:50PX">
+
+    @using (Html.BeginForm())
+    {
+        Model.listpcrreport = ViewBag.report;
+        Model.listScheduleDump = ViewBag.id;
+        <div class="div1">
+            <h3 style="text-align:center;color:darkred">PCR Schedule</h3>
+        </div>
+        <div></div>
+        <div class="form-horizontal" align="center">
+
+            <table id="AuditorTable" class="table cell-border">
+                <thead>
+                    <tr bgcolor='#D3D3D3' height="30">
+
+                        <th>Sr.No</th>
+                        <th>Project Name</th>
+                        <th>Project Lifecycle</th>
+                        <th>Technology</th>
+                        <th>Location</th>
+                        <th>Type of project</th>
+                        <th>Auditee</th>
+                        <th style="width:100px">Planned Date</th>
+                        <th style="width:100px">Actual Date</th>
+                        <th>Auditor</th>
+                        <th>Status</th>
+                        <th>PCR Checklist</th>
+                        <th>PCR Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{var srNo = 1;
+                        var ID = ViewBag.id;
+
+                        foreach (var pcrSchedule in Model.listPcrSchedule)
+                        {
+
+                            <tr height="30">
+
+                                <td>@srNo</td>
+
+                                @foreach (var item in Model.listProjectMaster.Where(x => x.PID == pcrSchedule.PID))
+                                {
+                                    <td>
+                                        @item.ProjectName
+                                    </td>
+                                    <td>
+                                        @foreach (var lifeCycle in Model.listLifeCycle.Where(x => x.lifecycleID == item.lifecycleID))
+                                        {
+                                            @lifeCycle.lifecycleName
+                                            break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var technology in Model.listTechnology.Where(x => x.technologyID == item.technologyID))
+
+                                        {
+                                            @technology.technologyName
+                                            break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var region in Model.listRegion.Where(x => x.regionID == item.regionID))
+                                        {
+                                            @region.regionName
+                                            break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var projectType in Model.listProjectType.Where(x => x.pTypeID == item.pTypeID))
+                                        {
+                                            @projectType.pTypeName
+                                            break;
+                                        }
+                                    </td>
+
+                                    <td style="align-content:center">
+                                        @foreach (var users in Model.listusers.Where(x => x.UserName == item.managerName))
+                                        {
+
+                                            @users.FirstName
+                                            break;
+                                        }
+                                    </td>
+                                    break;
+
+                                }
+
+                                <td>
+                                    @pcrSchedule.PlannedDate.Value.ToString("dd-MMM-yyyy")
+
+                                </td>
+                                <td>
+                                    @{string date = Convert.ToDateTime(@pcrSchedule.ActualDate).ToString("dd-MMM-yyyy");
+                                    }
+                                    @if (date == "01-Jan-0001")
+                                    {
+                                        date = null;
+                                    }
+                                    @date
+                                </td>
+
+                                <td>
+                                    @foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == pcrSchedule.AuditorId))
+                                    {
+
+                                        @auditor.EmpName
+                                        break;
+                                    }
+                                </td>
+                                <td>
+                                    @pcrSchedule.ProjectStatus
+                                </td>
+
+                                <td>
+                                    @foreach (var item in Model.listScheduleDump)
+                                    {
+                                        if (item.PCRScheduleID.Equals(pcrSchedule.PCRScheduleID))
+                                        {
+                                            <a href="#" onclick=Insert(@pcrSchedule.PCRScheduleID);>Update</a>
+                                            break;
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var report in Model.listpcrreport)
+                                    {
+                                        if (report.scheduleID.Equals(pcrSchedule.PCRScheduleID))
+                                        {
+                                            <a href="#" onclick=Report(@pcrSchedule.PCRScheduleID);>PCR Report</a>
+                                            break;
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                            //i++;
+                            srNo++;
+                        }
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</body>
+
+</html>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="modal_button">&times;</span>
+            </button>
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/datatables.min.js"></script>
+<script src="~/Scripts/CheckBox.js"></script>
+<script src="~/Scripts/CheckBox.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#AuditorTable").DataTable({ sDom: 'lrtip', "lengthChange": false })
+    });
+    function Insert(ID) {
+
+        var url = '@Url.Content("~/")' + "PCRCheckList/PCRCheckListInsert/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'SID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+    function Report(ID) {
+
+          var url = '@Url.Content("~/")' + "PCRCheckList/showPRCReport/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'sheduleID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+</script>

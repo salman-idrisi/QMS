@@ -1,0 +1,86 @@
+﻿@model IEnumerable<clover.qms.model.Users>
+@using clover.qms.web.Models;
+<style>
+    .con-right {
+        text-align: right;
+    }
+
+    .mt-20 {
+        margin-top: 20px;
+    }
+</style>
+<h4 style="text-align:center">Add Users via Excel</h4>
+<hr />
+@using (Html.BeginForm("UploadExcel", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    int c = Model != null ? Model.Count() : 0;
+
+    <div class="row mt-20">
+        @if (TempData["data"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+                @TempData["data"]
+            </div>
+        }
+        <div class="col-sm-2 con-right"> <p style="color:darkblue;font-size:18px">Download Format:</p></div>
+        <div class="col-sm-3">
+            <a href="@Url.Action("DownloadExcel", "User")" class="btn btn-primary">Download</a>
+        </div>
+        <div class="col-sm-2 con-right"><p style="color:darkblue;font-size:18px">Excel:</p></div>
+        <div class="col-sm-3">
+            <h7> <input type="file" data-url="@Url.Action("UploadExcel", "User")" id="FileUpload" name="FileUpload" class="" required data-val="true" data-val-required="File is required" data-val-regex="Only Excel file upload" data-val-regex-pattern="^.*\.(xls|XLS|xlsx|XLSX)$" /></h7>
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" value="Upload" id="upload" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="row mt-20">
+        <font color="red">
+            NOTE:Please download above  excel template for User Upload through excel. Keep column alignment to left. Please don't rename sheet name.
+        </font>
+    </div>
+    if (c != 0)
+    {
+        <div class="form-horizontal table-responsive" align="center">
+            <div>
+                <h3 style="color:#00239B; text-align:center">Imported Data</h3>
+            </div>
+            <br>
+            <table id="Table" class="table table-bordered table-hover">
+                <thead>
+                    <tr bgcolor='#D3D3D3'>
+
+                        <th><b>Sr.No</b></th>
+                        <th><b>UserName</b></th>
+                        <th><b>FirstName</b></th>
+                        <th><b>LastName</b></th>
+                        <th><b>EmailID</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ var srNo = 1;
+                        foreach (var user in Model)
+                        {
+                            <tr>
+
+                                <td class="ID">@srNo</td>
+                                <td class="UserName">@user.UserName</td>
+                                <td class="FirstName">@user.FirstName</td>
+                                <td class="LastName">@user.LastName</td>
+                                <td class="EmailId">@user.EmailId</td>
+                            </tr>
+                            srNo++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Table").DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false })
+    });
+</script>
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,139 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+  @*ADDED BY SUSHILA 14-12-2022*@
+    <script type="text/javascript">
+            //$("body").on("change", "#ddlDepartmentID", function () {
+            //    debugger;
+            //    var a = $('#Selecteddepartment').val();
+            //    alert(a);
+
+
+            //});
+
+        $(document).ready(function () {
+            var getValue = $("#Selecteddepartment").val();
+
+            $("#ddlDepartmentID").val(getValue);
+        });
+//END 14-12-2022
+
+    </script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        Model.listusers = ViewBag.user;
+        Model.listusersroles = ViewBag.userroles;
+        Model.listusersrolesmapping = ViewBag.userrolemapping;
+        List<int> roles = new List<int>();
+        List<int> mappingroles = new List<int>();
+        int userid = Model.listusersrolesmapping[0].UserId;
+        string Deptid = Convert.ToString(ViewBag.DepartmentID);//ADDED BY SUSHILA 14122022
+    <div class="row">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">
+                Update Role
+            </h3>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal table-responsive col-md-12" align="center">
+        <br>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+                    <th>UserName</th>
+  <th>Department</th>@*ADDED BY SUSHILA 14-12-2022*@
+                    <th>Role</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    @foreach (var role in Model.listusersroles)
+                    {
+                        roles.Add(role.RoleId);
+                    }
+                    @foreach (var rolemapping in Model.listusersrolesmapping)
+                    {
+                        mappingroles.Add(rolemapping.RoleId);
+                    }
+
+                    @foreach (var user in Model.listusers.Where(x => x.UserId == userid))
+                    {
+                        <td>@user.UserName</td>
+                        break;
+                    }
+   <td>
+                   @* ADDED BY SUSHILA 1412-2022*@
+                    <input id="Selecteddepartment" name="SelecteddepartmentName" type="hidden" value="@Deptid" />
+
+                    @Html.DropDownListFor(m => m.DepartmentID, new SelectList(ViewBag.department,
+                                                    "QmsDepartmentId", "QmsDepartmentName"), "--Select--", new { name = "ddQmsDepartmentId", @id = "ddlDepartmentID" })
+
+
+                </td>
+                    <td>
+
+
+                        @foreach (var role in Model.listusersroles)
+                        {
+                            IEnumerable<int> exceptroles = roles.Except(mappingroles);
+                            foreach (var rolemapping in Model.listusersrolesmapping.Where(x => x.RoleId == role.RoleId))
+
+                            {
+
+                                if (rolemapping.RoleId.Equals(role.RoleId))
+                                {
+                                    string a = "  ";
+                                    <input class="check-box" id="childHeader" name="childHeader" type="checkbox" value="@userid,@role.RoleId" checked />
+                                    @role.RoleName
+                                    @a
+
+                                }
+
+                            }
+                            foreach (var roleid in exceptroles)
+                            {
+                                if (roleid.Equals(role.RoleId))
+                                {
+                                    string a = "  ";
+                                    <input class="check-box" id="childHeader" name="childHeader" type="checkbox" value="@userid,@role.RoleId" />
+                                    @role.RoleName
+                                    @a
+
+                                }
+                            }
+                        }
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+        <ul class="set_btn">
+            <li>
+                <input data-url="@Url.Action("UpdateUserRoles", "AssignRoles")" class="btn btn-success" id="checkSubmit" readonly="readonly" value="Update" />
+
+            </li>
+
+        </ul>
+    </div>
+        </div>
+    }
+</body>
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/UpdateRoleCheckbox.js")"></script>

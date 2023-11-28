@@ -1,0 +1,96 @@
+﻿
+@using clover.qms.web.Models
+@{
+    ViewBag.Title = "Index";
+
+}
+<style>
+    .con-right {
+        text-align: right;
+    }
+
+    .mt-20 {
+        margin-top: 20px;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MISReportIndex</title>
+    <script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("ViewPCRScheduleIndex", "PCRSchedule", FormMethod.Post))
+        {
+            <div>
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <h3 style="text-align:center;color:#00239B">PCRSchedule</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-20">
+                <div class="col-sm-2 con-right"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="startdate" id="dateStart" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+                    <div><p id="validationDate1" /></div>
+                </div>
+                <div class="col-sm-2 con-right"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+                <div class="col-sm-3">
+                    <input class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="enddate" id="dateEnd" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+                    <div><p id="validationDate" /></div>
+                </div>
+                <div class="col-sm-2">
+                    <input type="button" value="Fetch Schedules" id="Submit" readonly="readonly" class="btn btn-success" />
+                </div>
+            </div>
+
+        }
+        <br>
+        <div id="divPartialView" class="row"></div>
+    </div>
+</body>
+</html>
+<script>
+    $('#Submit').on('click', function () {
+        var startDate = $("#dateStart").val();
+        var endDate = $("#dateEnd").val();
+        if (startDate == '' || endDate=='') {
+            $('#validationDate1').html('<font color="Red">The start date required</font>');
+            $('#validationDate').html('<font color="Red">The end date required</font>');
+        }
+        else if (startDate != '' && endDate != '') {
+            $('#validationDate1').html('');
+            $('#validationDate').html('');
+            if (Date.parse(startDate) > Date.parse(endDate)) {
+                $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                $("#dateEnd").val('');
+            }
+            else {
+                var url = '@Url.Content("~/")' + "PCRSchedule/ViewPCRScheduleIndex";
+                var url = $(this).data('url');
+                var obj = {
+                    startdate:startDate,
+                    enddate:endDate
+                };
+                var url = $(this).data('url');
+                $.ajax({
+                    url: url,
+                    contentType: 'application/json; charset=utf-8',
+                    type: "POST",
+                    data: JSON.stringify(obj),
+                    cache: false,
+                    success: function (data) {
+                        $("#divPartialView").html(data);
+                    },
+                    error: function (ts) { alert(ts.responseText) }
+                });
+            }
+        }
+
+    })
+</script>
+@Scripts.Render("~/bundles/jqueryval")
+
+

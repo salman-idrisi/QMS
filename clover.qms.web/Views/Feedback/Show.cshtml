@@ -1,0 +1,277 @@
+﻿@using System.Web.Optimization;
+@model clover.qms.model.Feedback
+
+<h2>Customer Fedback Form</h2>
+<style>
+    table, th, tr, td 
+    {
+        border: 1px solid black;
+    }
+
+    .form-control1 {
+        width: 750px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+</style>
+<body>
+
+    <table style="width:100%;">
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left:3px;">Company Organization</td>
+            <td style="padding-left: 3px;">@Html.DisplayFor(model => model.cm.customerorganization)</td>
+
+        </tr>
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Project ID</td>
+            <td style="padding-left: 3px;">@Html.DisplayFor(model => model.pid)</td>
+            @*<td>@TempData["id"]</td>*@
+            @Html.HiddenFor(model => model.pid)
+        </tr>
+
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Project Name</td>
+            <td style="padding-left: 3px;">@Html.DisplayFor(model => model.pname)</td>
+            @* this was showing <td>@TempData["ProjectName"]</td> *@
+        </tr>
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Customer Representative’s Name</td>
+            <td style="padding-left: 3px;">@Html.DisplayFor(model => model.customerName)</td>
+        </tr>
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Customer Representative’s Designation</td>
+            <td style="padding-left: 3px;">@Html.DisplayFor(model => model.customerDesignation)</td>
+        </tr>
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Project Type</td>
+            <td style="padding-left: 3px;">@Html.DisplayFor(model => model.cm.ptname)</td>
+        </tr>
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Project Technology</td>
+            @*this is also showing <td>@TempData["ProjectTechnology"]</td>*@
+        <td style="padding-left: 3px;">@Html.DisplayFor(model => model.ptype)</td>
+        </tr>
+        <!--<td>@Html.DisplayFor(model => model.cm.ptname)</td>
+    </tr>-->
+        <tr>
+            <td style="background-color: #D3D3D3; padding-left: 3px;">Location (if applicable)</td>
+            <td style="padding-left: 3px;">Mumbai</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+                <td style="background-color:#D3D3D3; width:200px; padding-left:3px;"><b>Feedback for the Period</b></td>
+                <td style="background-color:#D3D3D3; width:100px;" align="center"><b>From</b></td>
+                <td style="width:100px;" align="center">@Model.startdate.ToShortDateString()</td>
+                <td style="background-color:#D3D3D3; width:100px;" align="center"><b>To</b></td>
+                <td style="width:100px;" align="center">@Model.enddate.ToShortDateString()</td>
+            </tr>
+    </table>
+    <br />
+    <p style="text-align:left"><strong>Dear @Html.DisplayFor(model => model.customerName)</strong></p>
+    <p>
+        In the process to serve you better, we have designed this form to collect information about your satisfaction level on the current project.
+        Your valuable feedback will help us to know your views and meet / exceed expectations for the future work.
+
+    </p>
+
+    <b>Quality Feedback</b>
+    <div style="width:370px; border:1px solid black; font-size:14px; padding-left:5px">
+
+        The parameters are grouped in delivery quality & service related.
+        Performance Rating for the above parameters to be given based on the
+        Satisfaction Level as mentioned below:
+
+
+        <table style="border:none;">
+            <tr style="border:none;">
+                <td style="border:none;"><b><u>Rating</u></b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;"><b><u>Rating Description</u></b></td>
+            </tr>
+            <tr style="border:none;">
+                <td style="border:none;" align="center"><b>5</b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;">Most significant expectations met and many exceeded&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr style="border:none;">
+                <td style="border:none;" align="center"><b>4</b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;">Met most expectations&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr style="border:none;">
+                <td style="border:none;" align="center"><b>3</b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;">Satisfactory work done, need improvements in some areas&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr style="border:none;">
+                <td style="border:none;" align="center"><b>2</b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;">Some expectations met, considerable improvements needed&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+            <tr style="border:none;">
+                <td style="border:none;" align="center"><b>1</b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;">Not satisfactory, need substantial improvements &nbsp;&nbsp;&nbsp;</td>
+            </tr>
+
+            <tr style="border:none;">
+                <td style="border:none;"><b>Blank/0 </b>&nbsp;&nbsp;&nbsp;</td>
+                <td style="border:none;">Not Applicable &nbsp;&nbsp;&nbsp;</td>
+
+        </table>
+
+    </div>
+    <br />
+    <b style="text-decoration:underline; font-size:14px;">Quality Feedback</b>
+    <br />
+    <br />
+
+    <div style="border:1px solid black; font-size:14px; padding:5px; width:900px;">
+        <b>Section A ( Customer Satisfaction Rating )</b> contains questions 1,2,3<br />
+        <ax style="margin-left:50px;">OVERALL CUSTOMER Satisfaction Rating will be based on the ratings of section A.</ax><br />
+        <b>Section B ( Feedback )</b>contains questions 4,5,6.<br />
+        <ax style="margin-left:50px;">Your response to these questions will help us in understanding your  requirements & expectations better and tune our services.</ax><br />
+        <b>Section C ( Optional)</b> contains question 7.<br />
+        <ax style="margin-left:50px;">This Optional section can be used for additional feedback parameters that is felt necessary for feedback.</ax><br />
+    </div>
+    <br />
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <table>
+                <tr>
+                    <th>
+                        Sr. No.
+                    </th>
+                    <th>
+                        Parameters for Rating
+                    </th>
+                    <th>
+                        Performance Rating
+                    </th>
+                    <th>
+                        Please elaborate with examples & comments, if rating < 4
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        A)
+                    </th>
+                    <th>
+                        CUSTOMER SATISFACTION RATING
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+                        < Overall CSAT Rating computed only on Section (A)
+                    </th>
+
+                </tr>
+                @{ var srNo = 1;var counter = 0;
+
+
+                    foreach (var x in Model.csatParameter)
+                    {
+                        var srno2 = 1;
+
+                        <tr style="background-color:#D3D3D3;">
+                            <td style="text-align:center">@srNo</td>
+
+                            <td style="padding-left:5px; padding-right:5px">@x.parameterName</td>
+
+                            <td></td>
+                            <td>
+                            </td>
+                        </tr>
+                        foreach (var y in Model.csatSubParameter)
+                        {
+
+                            if (y.parameterId == x.parameterId)
+                            {
+                                <tr>
+                                    <td style="text-align:center">@srNo.@srno2</td>
+                                    <td style="padding-left:5px; padding-right:5px">@y.subParameterName</td>
+                                    <td style="text-align:center">@Model.ratings[counter]</td>
+                                    <td style="text-align:center">@Model.description[counter]</td>
+                                </tr>
+                                srno2++;
+                                counter++;
+                            }
+
+
+                        }
+                        srNo++;
+                    }
+
+                }
+            </table>
+            <br />
+
+            <table>
+                <tr>
+                    <td style="background-color:#D3D3D3;width:200px;" align="right"><b>Filled by:</b></td>
+                    @* <td style="width:200px;" align="center">@Html.DisplayFor(model => model.customerName)</td>*@
+                    <td style="width:200px;" align="center">@Model.customerName</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#D3D3D3;width:200px;" align="right"><b>Date:</b></td>
+                    <td style="width:200px;" align="center">@Model.datefilled.ToShortDateString()</td>
+
+
+                </tr>
+
+            </table>
+        </div>
+        <br />
+        <p>
+            Thank you for your  time and effort to fill this form.
+            <br />
+            Your feedback is greatly appreciated.
+        </p>
+
+        <table>
+            <tr>
+                <td style="background-color:#D3D3D3;width:200px;" align="right"><b>Project Manager Name</b></td>
+                <td style="width:200px" align="center">@Model.pmanager</td>
+            </tr>
+        </table>
+        <br />
+
+    }
+</body>
+<script>
+    const temp = [];
+
+   @* function checkval(id) {
+        if (document.getElementById("textbox" + id).value < 4 && document.getElementById("textbox" + id).value > 0 && document.getElementById("textbox2" + id).value == '') {
+            document.getElementById("textbox2" + id).style.border = "solid 2px red"
+            document.getElementById("textbox2" + id).required = true;
+
+        }
+        else if (document.getElementById("textbox" + id).value < 4 && document.getElementById("textbox" + id).value > 0 && document.getElementById("textbox2" + id).value != '') {
+            document.getElementById("textbox2" + id).style.border = "none";
+            // document.getElementById("textbox2" + id).required = false;
+
+        }
+        else {
+            document.getElementById("textbox2" + id).style.border = "none";
+            document.getElementById("textbox" + id).max = 5;
+            document.getElementById("textbox" + id).min = 1;
+
+        }
+    }*@
+    function csatids(id) {
+        for (var i in temp) {
+            if (id == i)
+                return 0;
+
+        }
+        temp.concat(id);
+        return -1;
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

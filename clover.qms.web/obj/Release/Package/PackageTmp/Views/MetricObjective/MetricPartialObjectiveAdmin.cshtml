@@ -1,0 +1,141 @@
+﻿@model clover.qms.model.MetricObjViewModel
+@using clover.qms.web.Models;
+
+@{ 
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <head>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    </head>
+    <div class="container">
+
+        <div class="form-horizontal table-responsive" align="center">
+            @if (Model.lstmetricvalue.Count > 0)
+            {
+                <table id="MetricTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td colspan="5"><p style="text-align:left"><b>Date:</b>@ViewBag.startDate  to @ViewBag.endDate</p></td>
+                            <td colspan="13"><p style="text-align:left"><b> Report Time:</b>@ViewBag.CurrentDate</p></td>
+                        </tr>
+                        <tr bgcolor='#D3D3D3'>
+                            <th>Sr.No</th>
+                            <th>Project Name</th>
+                            <th>Lifecycle / Function</th>
+                            <th>Auditee</th>
+                            <th>Metric Name</th>
+                            <th>Measurement Method</th>
+                            <th>Measurement Frequency</th>
+                            <th>Achievment Expected</th>
+                            <th>DataSource</th>
+
+                            @foreach (var item in ViewBag.months)
+                            {
+                                <th>@item</th>
+                                <th>RCA @item</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @Html.Hidden("RefUrl");
+                        @if (Model.pm.Count > 0)
+                        {
+                            var srno = 1;
+                            foreach (var metrciobjval in Model.pm)
+                            {
+                                foreach (var metricobj in Model.lstmetricobj.Where(x => x.plcid == metrciobjval.lifecycleID))
+                                {
+                                    if (Model.lstmetricvalue.Where(x => x.metricId == metricobj.metricid).Where(x => x.PID == metrciobjval.PID).ToList().Count > 0)
+                                    {
+                                        <tr>
+                                            <td>@srno</td>
+                                            @foreach (var project in Model.pm.Where(x => x.PID == metrciobjval.PID))
+                                            {
+
+                                                <td>@project.ProjectName</td>
+                                                break;
+                                            }
+
+                                            @foreach (var lifecycle in Model.listLifeCycle.Where(x => x.lifecycleID == metrciobjval.lifecycleID))
+                                            {
+
+                                                <td>@lifecycle.lifecycleName</td>
+                                                break;
+                                            }
+
+                                            @{var username = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Select(x => x.user_id).FirstOrDefault();
+
+                                                string name = "";
+                                                foreach (var user in Model.lstuser.Where(x => x.UserName == @username))
+                                                {
+                                                    name = user.FirstName + " " + user.LastName;
+
+                                                    break;
+                                                }
+                                                <td>  @(username == null ? " " : @name)</td>
+                                            }
+
+                                            <td>@metricobj.metricname</td>
+                                            <td>@metricobj.mesurement_method</td>
+
+                                            @foreach (var frequency in Model.lstfrequency.Where(x => x.frequencyId == metricobj.measurementfrequency))
+                                            {
+                                                <td>@frequency.frequencyName</td>
+                                                break;
+                                            }
+
+                                            <td>@metricobj.achievementexpected</td>
+                                            <td>@metricobj.datasource</td>
+
+                                            @foreach (var item in ViewBag.months)
+                                            {
+                                                <td>
+                                                    @{
+                                                        string metric_value = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item).Select(x => x.metric_value).FirstOrDefault();
+                                                        int metricid_val = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item).Select(x => x.metricidvalue).FirstOrDefault();
+
+                                                        @(metric_value == null ? "-" : metric_value)
+
+                                                        if (metric_value != null)
+                                                        {
+                                                            <a rel="tooltip" title="Edit Role" class="table-action edit" href="#" onclick=Edit(@metricid_val);>
+                                                                <span class="glyphicon glyphicon-pencil"></span>
+                                                            </a>
+                                                        }
+                                                    }
+
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        string rca_val = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item).Select(x => x.rca).FirstOrDefault();
+                                                        @(rca_val == null ? "-" : rca_val)
+                                                    }
+                                                </td>
+                                            }
+                                        </tr>
+                                        srno++;
+                                    }
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h3 style="text-align:center"> No data found</h3>
+            }
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+

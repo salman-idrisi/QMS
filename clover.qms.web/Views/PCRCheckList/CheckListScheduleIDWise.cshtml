@@ -1,0 +1,443 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("CheckListScheduleIDWise", "PCRCheckList", FormMethod.Post, new { name = "myForm" }))
+
+    {
+        Model.listquestionDump = ViewBag.question;
+        Model.listusers = ViewBag.listusers;
+        Model.listpcrreport = ViewBag.listpcrreport;
+        Model.listLifeCycle = ViewBag.listLifeCycle;
+        Model.listPcrSchedule = ViewBag.listPcrSchedule;
+        Model.listProjectMaster = ViewBag.listProjectMaster;
+        Model.listAuditor = ViewBag.listAuditor;
+        Double overall = 0;
+        Double overallcompliance;
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal table-responsive" id="img" align="center">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    @foreach (var a in Model.listPcrSchedule)
+                    {
+                        string pcrdate = a.ActualDate != null ? a.ActualDate.Value.ToString("dd-MMM-yyyy") : null;
+                        string Month = a.ActualDate.Value.ToString("MMM");
+                        string Year = a.ActualDate.Value.ToString("yy");
+                        <tr><td colspan="5"><b>PCR Date:@pcrdate</b></td></tr>
+                        <tr><td colspan="5"><b>Process Compliance Review for the Month - @Month-@Year</b></td></tr>
+                        foreach (var b in Model.listProjectMaster.Where(x => x.PID == a.PID))
+                        {
+                            <tr><td colspan="5"><b>Project Name:@b.ProjectName</b></td></tr>
+                            foreach (var c in Model.listusers.Where(x => x.UserName == b.managerName))
+                            {
+                                string name = c.FirstName + " " + c.LastName;
+                                <tr><td colspan="5"><b>Manager/Lead:@name</b></td></tr>
+                                break;
+                            }
+                            foreach (var c in Model.listAuditor.Where(x => x.AuditorId == a.AuditorId))
+                            {
+                                <tr><td colspan="5"><b>Auditor:@c.EmpName</b></td></tr>
+                                break;
+                            }
+                            foreach (var c in Model.listLifeCycle.Where(x => x.lifecycleID == b.lifecycleID))
+                            {
+                                <tr><td colspan="5"><b>LifeCycle:@c.lifecycleName</b></td></tr>
+                                break;
+                            }
+                        }
+                    }
+
+                </thead>
+                <thead>
+                    <tr>
+                        <td colspan="5" style="text-align:center">
+                            <h4> <b> Audit Details</b></h4>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @{ var i = 0; var count = 1; var id = 0; var rows = 0; string divId = null;
+
+                        foreach (var PcrCheckList in Model.listPcrCheckList)
+                        {
+
+
+                            if (id != @PcrCheckList.areaID)
+                            {
+                                foreach (var parameter in Model.listparameter.Where(x => x.parameterID == PcrCheckList.areaID))
+                                {
+
+                                    rows = 0;
+                                    divId = parameter.parameterName;
+                                    divId = divId.Replace(" ", "");
+                                    <tr>
+                                        <th colspan="5" style="background-color:#ADD8E6; text-align:center">
+                                            Area:@parameter.parameterName
+                                        </th>
+                                    </tr>
+                                    <tr style="background-color:#D3D3D3">
+                                        <th>Sr.No</th>
+
+                                        <th>Description</th>
+                                        <th>Y/N/NA</th>
+                                        <th>Observation</th>
+                                        <th>Compliance</th>
+
+                                    </tr>
+                                    id = (int)@PcrCheckList.areaID;
+                                    break;
+
+                                }
+                            }
+
+                            if (i < Model.listPcrCheckList.Count)
+                            {
+                                foreach (var item in Model.listparameter.Where(x => x.parameterID == PcrCheckList.areaID))
+                                {
+                                    var TotalQuestions = Model.listquestionDump.Where(x => x.parameterID == PcrCheckList.areaID);
+
+                                    int rowsCount = TotalQuestions.Count();
+                                    foreach (var question in Model.listquestion.Where(x => x.questionID == PcrCheckList.questionID))
+                                    {
+
+                                        rows++;
+
+                                        <tr>
+                                            <td>@count</td>
+
+                                            <td style="text-align:left;padding-left:5px">
+                                                @question.description
+
+                                            <td>
+                                                @foreach (var status in Model.liststatus.Where(x => x.statusID == PcrCheckList.statusID))
+                                                {
+                                                    @status.statusName
+                                                    break;
+                                                }
+                                            </td>
+                                            <td>
+                                                @PcrCheckList.observation
+                                            </td>
+                                            @if (@rows == 1)
+                                            {
+                                                foreach (var compliance in Model.listcompliance.Where(x => x.parameterID == PcrCheckList.areaID))
+                                                {
+
+                                                    if (compliance.compliance.Contains("NA"))
+
+                                                    {
+                                                        <td rowspan="@(rowsCount)" class="@(divId)">
+                                                            @compliance.compliance
+                                                        </td>
+                                                        break;
+                                                    }
+                                                    else if (Convert.ToDouble(compliance.compliance) >= 70)
+                                                    {
+                                                        double compliance1 = Convert.ToDouble(compliance.compliance);
+                                                        <td rowspan="@(rowsCount)" class="@(divId)" style="background-color:#83CB1E">
+                                                            @Math.Round((Double)compliance1, 2)
+
+                                                        </td>
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        double compliance1 = Convert.ToDouble(compliance.compliance);
+                                                        <td rowspan="@(rowsCount)" class="@(divId)" style="background-color:red">
+                                                            @Math.Round((Double)compliance1, 2)
+                                                        </td>
+                                                        break;
+
+                                                    }
+
+                                                }
+                                            }
+                                        </tr>
+
+                                    }
+
+                                    break;
+                                }
+
+                                i++;
+                                count++;
+                            }
+                        }
+                        <tr>
+                            <th colspan="4" style="text-align:right">Total</th>
+
+
+                            @foreach (var item in Model.listcompliance)
+                            {
+                                int NA = Model.listcompliance.Where(x => x.compliance == "NA").Count();
+                                int count1 = Model.listcompliance.Count;
+                                int exactcount = count1 - NA;
+                                if (item.compliance != "NA")
+
+                                {
+                                    double compliance = Convert.ToDouble(item.compliance);
+                                    overall += compliance;
+
+                                }
+                                overallcompliance = overall / exactcount;
+                                ViewBag.result = overallcompliance;
+                            }
+
+                            @if (ViewBag.total == "NA")
+
+                            {
+
+                                <td>
+                                    @ViewBag.total
+                                </td>
+                            }
+                            else if (ViewBag.result >= 70)
+                            {
+                                double dc = Convert.ToDouble(ViewBag.result);
+
+                                <td style="background-color:#83CB1E">
+
+                                    @Math.Round((Double)dc, 2)
+                                </td>
+                            }
+                            else
+                            {
+                                double dc = Convert.ToDouble(ViewBag.result);
+
+                                <td style="background-color:red">
+                                    @Math.Round((Double)dc, 2)
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td colspan="3" style="text-align:center">
+                            <h4> <b> Audit Summary</b></h4>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @if (ViewBag.total == "NA")
+
+                        {
+
+                            <th colspan="2" style="background-color:#D3D3D3"><b>Overall Process Compliance</b></th>
+                            <td>
+                                @ViewBag.total
+                            </td>
+                        }
+                        else if (ViewBag.result >= 70)
+                        {
+                            double dc = Convert.ToDouble(ViewBag.result);
+                            <th colspan="2" style="background-color:#D3D3D3"><b>Overall Process Compliance</b></th>
+                            <td style="background-color:#83CB1E">
+
+                                @Math.Round((Double)dc, 2)
+                            </td>
+                        }
+                        else
+                        {
+                            double dc = Convert.ToDouble(ViewBag.result);
+                            <th colspan="2" style="background-color:#D3D3D3"><b>Overall Process Compliance</b></th>
+                            <td style="background-color:red">
+                                @Math.Round((Double)dc, 2)
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td></td>
+
+                    </tr>
+                    <tr>
+                        <th style="background-color:#D3D3D3">Sr.No</th>
+                        <th style="background-color:#D3D3D3">Parameters</th>
+                        <th style="background-color:#D3D3D3">Compliance</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    @{ var srno = 1;
+                        foreach (var item1 in Model.listparameter.GroupBy(x => x.parameterID).Select(y => y.First()).ToList())
+                        {
+                            foreach (var item in Model.listcompliance.GroupBy(x => x.parameterID).Select(y => y.First()).Where(x => x.parameterID == item1.parameterID))
+                            {
+                                <tr>
+                                    <td>
+                                        @srno
+                                    </td>
+                                    <td>
+                                        @item1.parameterName
+                                    </td>
+                                    @if (item.compliance.Contains("NA"))
+
+                                    {
+                                        <td>
+                                            @item.compliance
+                                        </td>
+                                    }
+                                    else if (Convert.ToDouble(item.compliance) >= 70)
+                                    {
+                                        double compliance = Convert.ToDouble(item.compliance);
+                                        <td style="background-color:#83CB1E">
+                                            @Math.Round((Double)compliance, 2)
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        double compliance = Convert.ToDouble(item.compliance);
+                                        <td style="background-color:red">
+                                            @Math.Round((Double)compliance, 2)
+                                        </td>
+
+                                    }
+                                </tr>
+
+                            }
+                            srno++;
+                        }
+                    }
+                    <tr>
+                        <td colspan="5">
+                            <img src="@Url.Action("CharterColumn")" alt="Chart" />
+                            @*<img src="~/Images/bg2.jpg" id="img"/>*@
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td colspan="6" style="text-align:center">
+                            <h4> <b>NC-Compliance</b></h4>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr bgcolor='#D3D3D3'>
+                        <th>Nc.No</th>
+                        <th>Non-Compliance Statement</th>
+                        <th>Area</th>
+                        <th>Responsible Person</th>
+                        <th>Planned Closure Date</th>
+                        <th>Actual Closure Date</th>
+                    </tr>
+                    @{ var srno1 = 1;
+                        foreach (var report in Model.listpcrreport)
+                        {
+                            string date = report.ActualClosureDate != null ? report.ActualClosureDate.Value.ToString("dd-MMM-yyyy") : null;
+                            <tr>
+                                <td>@srno1</td>
+                                <td>
+                                    @report.AuditFindind
+                                </td>
+                                @foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                                {
+                                    <td>
+                                        @area.parameterName
+                                    </td>
+                                    break;
+                                }
+                                @foreach (var item in Model.listusers.Where(x => x.UserName == report.responsibility))
+                                {
+                                    string name = @item.FirstName + " " + @item.LastName;
+                                    <td>
+                                        @name
+                                    </td>
+                                }
+                                <td>
+                                    @report.PlannedClosureDate.ToString("dd-MMM-yyyy")
+                                </td>
+                                <td>
+                                    @date
+                                </td>
+
+                            </tr>
+                            srno1++;
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+    }
+
+    <ul class="set_btn">
+        <li>
+            <center>
+                <input id="ExporttoExcel" class="show" type="button" onclick="toExcel()" value="Export to Excel">
+            </center>
+        </li>
+
+    </ul>
+</body>
+</html>
+
+<script type="text/javascript">
+    function toExcel() {
+
+        if ("ActiveXObject" in window) {
+            alert("This is Internet Explorer!");
+        } else {
+
+            var cache = {};
+            this.tmpl = function tmpl(str, data) {
+                var fn = !/\W/.test(str) ? cache[str] = cache[str] || tmpl(document.getElementById(str).innerHTML) :
+                    new Function("obj",
+                        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+                        "with(obj){p.push('" +
+                        str.replace(/[\r\t\n]/g, " ")
+                            .split("{{").join("\t")
+                            .replace(/((^|}})[^\t]*)'/g, "$1\r")
+                            .replace(/\t=(.*?)}}/g, "',$1,'")
+                            .split("\t").join("');")
+                            .split("}}").join("p.push('")
+                            .split("\r").join("\\'") + "');}return p.join('');");
+                return data ? fn(data) : fn;
+            };
+            var tableToExcel = (function () {
+                var uri = 'data:application/vnd.ms-excel;base64,',
+                    template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{{=worksheet}}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>{{for(var i=0; i<tables.length;i++){ }}<table>{{=tables[i]}}</table>{{ } }}</body></html>',
+                    base64 = function (s) {
+                        return window.btoa(unescape(encodeURIComponent(s + $('div[id$=img]').html())));
+                    },
+                    format = function (s, c) {
+                        return s.replace(/{(\w+)}/g, function (m, p) {
+                            return c[p];
+                        });
+                    };
+                return function (tableList, name) {
+                    if (!tableList.length > 0 && !tableList[0].nodeType) table = document.getElementById(table);
+                    var tables = [];
+                    for (var i = 0; i < tableList.length; i++) {
+                        tables.push(tableList[i].innerHTML);
+                    }
+                    var ctx = {
+                        worksheet: name || 'Worksheet',
+                        tables: tables
+                    };
+                    window.location.href = uri + base64(tmpl(template, ctx));
+                };
+            })();
+            tableToExcel(document.getElementsByTagName("table"), "PCRReport");
+        }
+    }
+
+</script>

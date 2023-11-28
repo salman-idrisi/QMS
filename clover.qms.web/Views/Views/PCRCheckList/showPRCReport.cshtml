@@ -1,0 +1,161 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+
+<!DOCTYPE html>
+<style>
+    .w-120 {
+        width: 120px;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #ff0000;
+        text-align: left;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+</style>
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/ReportDate.js")"></script>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        Model.listPcrSchedule = ViewBag.pcrschedule;
+        Model.listProjectMaster = ViewBag.projectmaster;
+        Model.listusers = ViewBag.user;
+        <div class="form-horizontal table-responsive" align="center">
+            <table class="table table-bordered table-hover">
+                <thead>
+
+                    <tr bgcolor='#D3D3D3'>
+                        <th>Audit Finding</th>
+                        <th>Process Area</th>
+                        <th>ISO 9001 Clause</th>
+                        <th>ISO 27001 Clause</th>
+                        <th>Document Referred</th>
+                        <th>Classification</th>
+                        <th>Responsibility</th>
+                        <th>Planned Closure Date</th>
+                        <th>Actual Closure Date</th>
+                        <th>Correction Done</th>
+                        <th>Root Cause Analysis</th>
+                        <th>Planned Corrective Action</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                @{ var i = 0;
+
+                    foreach (var report in Model.listpcrreport)
+                    {
+                        string date = report.ActualClosureDate != null ? report.ActualClosureDate.Value.ToString("dd-MMM-yyyy") : null;
+                        <tr>
+                            @Html.HiddenFor(model => model.listpcrreport[i].reportID, new { Value = @report.reportID })
+                            @Html.HiddenFor(model => model.listpcrreport[i].scheduleID, new { Value = @report.scheduleID })
+                            <td> @Html.EditorFor(model => model.listpcrreport[i].AuditFindind, new { htmlAttributes = new { @class = "form-control w-120", Value = report.AuditFindind, autocomplete = "off" } })</td>
+                            @foreach (var area in Model.listparameter.Where(x => x.parameterID == report.parameterID))
+                            {
+                                <td>
+                                    @Html.HiddenFor(model => model.listpcrreport[i].parameterID, new { Value = report.parameterID })
+                                    @Html.EditorFor(model => model.area, new { htmlAttributes = new { @class = "form-control w-120", Value = area.parameterName, autocomplete = "off" } })
+                                </td>
+                                break;
+                            }
+                            <td> @Html.EditorFor(model => model.listpcrreport[i].ISO9001Closure, new { htmlAttributes = new { @class = "form-control w-120", Value = report.ISO9001Closure, autocomplete = "off" } })</td>
+                            <td>@Html.EditorFor(model => model.listpcrreport[i].ISO27001Closure, new { htmlAttributes = new { @class = "form-control w-120", Value = report.ISO27001Closure, autocomplete = "off" } })</td>
+                            <td>@Html.EditorFor(model => model.listpcrreport[i].DocumentReferred, new { htmlAttributes = new { @class = "form-control w-120", Value = report.DocumentReferred, autocomplete = "off" } })</td>
+                            @foreach (var classification in Model.listclassification.Where(x => x.classificationID == report.classificationId))
+                            {
+                                <td>@Html.DropDownListFor(model => model.listpcrreport[i].classificationId, new SelectList(ViewBag.classification, "classificationID", "classificationName", classification.classificationID), new { @class = "form-control w-120" })</td>
+                                break;
+                            }
+                            <td>
+                                @Html.DropDownListFor(model => model.listpcrreport[i].responsibility, new SelectList(ViewBag.user, "UserName", "FullName", report.responsibility), "Select", new { @class = "form-control w-120" })
+
+                            </td>
+                            <td>@Html.EditorFor(model => model.listpcrreport[i].PlannedClosureDate, new { htmlAttributes = new { @class = "form-control w-120 date-picker", Value = report.PlannedClosureDate.ToString("dd-MMM-yyyy"),  autocomplete = "off", @readonly = "readonly" } })</td>
+                            <td>
+
+                                @Html.EditorFor(model => model.listpcrreport[i].ActualClosureDate, new { htmlAttributes = new { @class = "form-control w-120 date-picker", Value = date, autocomplete = "off",  @readonly = "readonly" } })
+
+                               
+                            </td>
+
+                            <td>
+                                @Html.HiddenFor(model => model.listpcrreport[i].CorrectionDone, new { htmlAttributes = new { @class = "form-control w-120", Value = report.CorrectionDone, autocomplete = "off", @readonly = "readonly" } })
+                                @report.CorrectionDone
+                            </td>
+                            <td>
+                                @Html.HiddenFor(model => model.listpcrreport[i].RootCauseAnanlysis, new { htmlAttributes = new { @class = "form-control w-120", Value = report.RootCauseAnanlysis, autocomplete = "off", @readonly = "readonly" } })
+                                @report.RootCauseAnanlysis
+                            </td>
+                            <td>
+                                @Html.HiddenFor(model => model.listpcrreport[i].PlannedCorrectionAction, new { htmlAttributes = new { @class = "form-control w-120", Value = report.PlannedCorrectionAction, autocomplete = "off", @readonly = "readonly" } })
+                                @report.PlannedCorrectionAction
+                            </td>
+
+                            @foreach (var status in Model.listschedulestatus.Where(x => x.scheduleStatusID == report.statusID))
+                            {
+                                <td>@Html.DropDownListFor(model => model.listpcrreport[i].statusID, new SelectList(ViewBag.schedulestatus, "scheduleStatusID", "scheduleStatusName", status.scheduleStatusID), new { @class = "form-control w-120" })</td>
+                                break;
+                            }
+
+                        </tr>
+                        i++;
+
+                    }
+                }
+            </table>
+
+            <p style="text-align: left"> <font color="Red">@ViewBag.msg</font>  <font color="Red" style=" font-weight: bold">@ViewBag.statusmsg</font></p>
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        </div>
+        <ul class="set_btn">
+            <li>
+                <input type="submit" value="Submit" formaction=@Url.Action("showPRCReport") class="btn btn-success" />
+            </li>
+            <li>
+                <input type="submit" value="Closed" formaction=@Url.Action("closedAudit") class="btn btn-primary" />
+            </li>
+            <li>
+                @Html.ActionLink("Cancel", "AuditorDashboard", "PCRCheckList", null, new { @class = "btn btn-danger" })
+            </li>
+            <li>
+              
+                    @if (Request.UrlReferrer != null)
+                    {
+                        <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                            Back
+
+                        </a>
+                    }
+            </li>
+        </ul>
+    }
+    <script src="@Url.ContentAbsUrl("~/Scripts/ReportDate.js")"></script>
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryval")
+

@@ -1,0 +1,283 @@
+﻿
+@{
+    ViewBag.Title = "MetricObjectiveIndex";
+}
+
+@model IEnumerable<clover.qms.model.MetricObjective>
+@using clover.qms.web.Models;
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Metric Objective</title>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+
+        /*.hide{
+            display:none !important;
+        }*/
+
+        .fresh-table a {
+            color: #2CA8FF !important;
+        }
+
+        body {
+            font-size: 13px !important;
+        }
+
+        #fresh-table td {
+            text-align:left;
+        }
+    </style>
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong> @TempData["msg"]</strong>
+        </div>
+    }
+
+    <div class="fresh-table toolbar-color-green">
+        <div class="toolbar" style="display: -webkit-inline-box;">
+            <a href="#" class="btn btn-default" style="color:#fff !important;margin-right: 350px;" onclick=insert();>Add</a>
+            <h5 style="color:white !important;opacity:0.8;">Metric Objective</h5>
+        </div>
+
+        <table id="fresh-table" class="table">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+                    <th>Sr No.</th>
+                    <th data-field="plcid">LifeCycle/Function </th>
+                    <th data-field="Iso">ISO</th>
+                    <th data-field="metricname"> Metric Name</th>
+                    <th data-field="measurementfrequency"> Measurement Frequency</th>
+                    <th data-field="mesurement_method"> Measurement Method</th>
+                    <th data-field="datasource"> Datasource</th>
+                    <th data-field="achievementexpected">Achievement Expected</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                        item.lifecycle = ViewBag.PLC;
+                        item.frequency = ViewBag.listfrequency;
+                        item.lstIso = ViewBag.listIso;
+                                <tr>
+                                    <td>@srNo</td>
+
+                                    @foreach (var lifecycle1 in item.lifecycle.Where(x => x.lifecycleID == item.plcid))
+                                    {
+                                        <td>
+                                            @lifecycle1.lifecycleName
+                                        </td>
+                                    }
+
+                                    @foreach (var iso in item.lstIso.Where(x => x.isoId == item.isoId))
+                                    {
+                                        <td>@iso.isoName</td>
+                                    }
+
+                                    <td>
+                                        @item.metricname
+                                    </td>
+
+                                    @foreach (var frequncy in item.frequency.Where(x => x.frequencyId == item.measurementfrequency))
+                                    {
+                                        <td>
+                                            @frequncy.frequencyName
+                                        </td>
+                                    }
+                                    <td>@item.mesurement_method</td>
+                                    <td>@item.datasource</td>
+                                    <td>@item.achievementexpected</td>
+                                    
+                                    <td>
+                                        <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Update(@item.metricid);>
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a rel="tooltip" title="Details" class="table-action remove" href="#" onclick=Details(@item.metricid);>
+                                            <span class="glyphicon glyphicon-th-list"></span>
+                                        </a>
+                                        <a rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@item.metricid);>
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                        srNo++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+        });
+    });
+
+    function insert() {
+
+        var url = '@Url.Content("~/")' + "MetricObjective/MetricObjectiveInsert/";
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+
+                $('#contentBody').html(response);
+
+                $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function Update(ID) {
+
+        var url = '@Url.Content("~/")' + "MetricObjective/MetricObjectiveUpdate/";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                'metricid': ID
+            },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                // alert("success");
+                $('#contentBody').html(response);
+                $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            },
+            failure: function (response) {
+
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function Details(ID) {
+
+        var url = '@Url.Content("~/")' + "MetricObjective/MetricObjectiveDetails/";
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'metricId': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+    function Delete(ID) {
+
+        var url = '@Url.Content("~/")' + "MetricObjective/MetricObjectiveDelete";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { 'metricid': ID },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+
+                $('#contentBody').html(response);
+                $('#myModal').modal({ backdrop: 'static', keyboard: false })
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function goBack() {
+            window.history.back();
+        }
+</script>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,256 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<!DOCTYPE html>
+<style>
+    .con-right {
+        text-align: right;
+    }
+
+    .mt-20 {
+        margin-top: 20px;
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+</style>
+<html>
+<head>
+    <script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+</head>
+
+<body>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        Model.listpcrreport = ViewBag.report;
+        Model.listScheduleDump = ViewBag.id;
+        <div class="row mt-20">
+            <div class="col-sm-2 con-right"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+            <div class="col-sm-3">
+                <input type="text" value="@ViewBag.startdate" class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="startdate" id="dateStart" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+
+                @Html.ValidationMessage("startdate", "", new { @style = "color:red" })
+            </div>
+            <div class="col-sm-2 con-right"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+            <div class="col-sm-3">
+                <input class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="enddate" id="dateEnd" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+
+                @Html.ValidationMessage("enddate", "", new { @style = "color:red" })
+                <div><font color="Red">@ViewBag.msg</font></div>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Apply Filter" formaction=@Url.Action("DateWiseAudit") class="btn btn-success form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 ">
+                <br>
+                <h3 style="text-align:center;color:#00239B">PCR Schedule</h3>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="form-horizontal table-responsive" align="center">
+
+                <table id="AuditorTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr bgcolor='#D3D3D3'>
+
+                            <th>Sr.No</th>
+                            <th>Project Name</th>
+                            <th>Project Lifecycle</th>
+                            <th>Technology</th>
+                            <th>Location</th>
+                            <th>Type of project</th>
+                            <th>Auditee</th>
+                            <th>Planned Date</th>
+                            <th>Actual Date</th>
+                            <th>Auditor</th>
+                            <th>Status</th>
+                            <th>PCR Checklist</th>
+                            <th>PCR Report</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{var srNo = 1;
+                            var ID = ViewBag.id;
+
+                            foreach (var pcrSchedule in Model.listPcrSchedule)
+                            {
+
+                                <tr height="30">
+
+                                    <td>@srNo</td>
+
+                                    @foreach (var item in Model.listProjectMaster.Where(x => x.PID == pcrSchedule.PID))
+                                    {
+                                        <td>
+                                            @item.ProjectName
+                                        </td>
+                                        <td>
+                                            @foreach (var lifeCycle in Model.listLifeCycle.Where(x => x.lifecycleID == item.lifecycleID))
+                                            {
+                                                @lifeCycle.lifecycleName
+                                                break;
+                                            }
+                                        </td>
+                                        <td>
+                                            @foreach (var technology in Model.listTechnology.Where(x => x.technologyID == item.technologyID))
+
+                                            {
+                                                @technology.technologyName
+                                                break;
+                                            }
+                                        </td>
+                                        <td>
+                                            @foreach (var region in Model.listRegion.Where(x => x.regionID == item.regionID))
+                                            {
+                                                @region.regionName
+                                                break;
+                                            }
+                                        </td>
+                                        <td>
+                                            @foreach (var projectType in Model.listProjectType.Where(x => x.pTypeID == item.pTypeID))
+                                            {
+                                                @projectType.pTypeName
+                                                break;
+                                            }
+                                        </td>
+
+                                        <td style="align-content:center">
+                                            @foreach (var users in Model.listusers.Where(x => x.UserName == item.managerName))
+                                            {
+
+                                                @users.FirstName
+                                                break;
+                                            }
+                                        </td>
+                                        break;
+                                    }
+                                    <td>
+                                        @pcrSchedule.PlannedDate.Value.ToString("dd-MMM-yyyy")
+
+                                    </td>
+                                    <td>
+                                        @{string date = Convert.ToDateTime(@pcrSchedule.ActualDate).ToString("dd-MMM-yyyy");
+                                        }
+                                        @if (date == "01-Jan-0001")
+                                        {
+                                            date = null;
+                                        }
+                                        @date
+                                    </td>
+
+                                    <td>
+                                        @foreach (var auditor in Model.listAuditor.Where(x => x.AuditorId == pcrSchedule.AuditorId))
+                                        {
+
+                                            @auditor.EmpName
+                                            break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @pcrSchedule.ProjectStatus
+                                    </td>
+
+                                    <td>
+                                        @foreach (var item in Model.listScheduleDump)
+                                        {
+                                            if (item.PCRScheduleID.Equals(pcrSchedule.PCRScheduleID))
+                                            {
+                                                <a href="#" onclick=Insert(@pcrSchedule.PCRScheduleID);>Update</a>
+                                                break;
+                                            }
+                                        }
+                                        @foreach (var report in Model.listpcrreport)
+                                        {
+                                            if (report.scheduleID.Equals(pcrSchedule.PCRScheduleID))
+                                            {
+                                                <a href=@Url.Action("CheckListScheduleIDWise", "PCRCheckList" , new { PcrScheduleId=@pcrSchedule.PCRScheduleID})>Submitted</a>
+
+                                                break;
+                                            }
+
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var report in Model.listpcrreport)
+                                        {
+                                            if (report.scheduleID.Equals(pcrSchedule.PCRScheduleID))
+                                            {
+                                                <a href=@Url.Action("showPRCReport", "PCRCheckList" , new { sheduleID=@pcrSchedule.PCRScheduleID})>Audit Report</a>
+
+                                                break;
+                                            }
+
+                                        }
+                                    </td>
+                                </tr>
+                                srNo++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+</body>
+
+</html>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">Checklist</h3>
+            </div>
+            <div class="modal-body" id="contentBody1">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#AuditorTable").DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false })
+    });
+    function Insert(ID) {
+
+        var url = '@Url.Content("~/")' + "PCRCheckList/PCRCheckListInsert/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'SID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody1').html(response);
+                    $('#myModal1').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+</script>
+@Scripts.Render("~/bundles/jqueryval")

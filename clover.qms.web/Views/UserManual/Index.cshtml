@@ -1,0 +1,260 @@
+﻿@using System.Web.Optimization;
+@using clover.qms.web.Models;
+@model IEnumerable<clover.qms.model.UserManual>
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+
+        #fresh-table td {
+            text-align: center;
+        }
+    </style>
+
+    <!-- Style -->
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @TempData["msg"]
+        </div>
+    }
+    <h3 style="text-align:center;color:#00239B;font-size:20px">User Manual</h3>
+    <div class="fresh-table toolbar-color-green">
+        <div class="toolbar" style="display: -webkit-inline-box;">
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="#" class="btn btn-default" style="color:#fff !important;margin-right: 350px;" onclick=Add();>Add</a>
+            }
+
+        </div>
+        <table id="fresh-table" class="table">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+                    <th>Sr No.</th>
+                    <th>VERSION NO</th>
+                    <th>NAME</th>
+                    <th>Release Date</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                        @*var s = item.FilePath.Substring(item.FilePath.LastIndexOf('/'));*@
+
+                        <tr>
+                            <td style="text-align:center">
+                                @srNo
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.VersionNo)
+                            </td>
+                            <td style="text-align:center">
+                                @Html.DisplayFor(modelItem => item.DocumentName)
+                            </td>
+                            <td style="text-align:center">
+                                @* @Html.DisplayFor(modelItem => item.ReleaseDate)*@
+                                @item.ReleaseDate.ToString("dd/MMM/yyyy")
+                            </td>
+                            <td style="text-align:center">
+                                <a style="color:#2CA8FF" rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Update(@item.UserManualID);>
+
+                                    <span class="glyphicon glyphicon-pencil"></span>
+
+                                </a>
+                                <a style="color:#2CA8FF" rel="tooltip" title="Details" class="table-action remove" href="#" onclick=Details(@item.UserManualID);>
+
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </a>
+                                <a style="color:#2CA8FF" rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@item.UserManualID);>
+
+
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+
+                                <a style="color:#2CA8FF" rel="tooltip" title="Download" class="table-action remove" download="" href="@Url.ContentAbsUrl(@item.FilePath)">
+                                    @*href="@Url.ContentAbsUrl(" /userupload/" + s)">*@
+
+
+                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                </a>
+
+                            </td>
+                        </tr>
+                        srNo++;
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: true,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+
+
+        });
+
+    });
+
+
+    function Add() {
+
+         var url = '@Url.Content("~/")' + "UserManual/Create/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+      function Update(ID) {
+
+          var url = '@Url.Content("~/")' + "UserManual/Edit/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'id': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                   // alert("success");
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    function Details(ID) {
+
+        var url = '@Url.Content("~/")' + "UserManual/Details/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'id': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        function Delete(ID) {
+
+            var url = '@Url.Content("~/")' + "UserManual/Delete/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { 'id': ID },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+    function goBack() {
+            window.history.back();
+        }
+
+</script>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

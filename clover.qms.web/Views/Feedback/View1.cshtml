@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Quality Management System</title>
+    <link rel="shortcut icon" href="~/Images/clover.png">
+</head>
+<body>
+  @if(TempData["filled"].Equals("1"))
+            {
+                <script>
+                    alert("Form already filled!");
+                </script>
+            }
+    <div class="jumbotron text-center">
+        <br>
+        <br>
+        <p style="text-align:center;color:#81CB32;font-size:larger">You have successfully filled the form.</p>
+        <p style="text-align:center;color:#81CB32;font-size:larger">Thank You!</p>
+
+       
+    </div>
+</body>
+</html>

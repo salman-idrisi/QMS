@@ -1,0 +1,247 @@
+﻿@model IEnumerable<clover.qms.model.MetricFrequency>
+@using clover.qms.web.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+
+        #fresh-table th, #fresh-table td {
+            text-align: left !important;
+        }
+    </style>
+
+    <!-- Style -->
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @TempData["msg"]
+        </div>
+    }
+    <div class="fresh-table toolbar-color-green">
+        <div class="toolbar" style="display: -webkit-inline-box;">
+            <a href="#" class="btn btn-default" onclick=Insert(); style="margin-right: 400px;">Add</a>
+            <h5 style="color:white !important;opacity:0.8;">Metric Frequency</h5>
+        </div>
+        
+        <table id="fresh-table" class="table">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+                    <th>Sr No.</th>
+                    <th data-field="frequencyName">Frequency Name</th>
+
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @srNo
+                            </td>
+                            <td>
+                                @item.frequencyName
+                            </td>
+
+                            <td>
+                                <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Update(@item.frequencyId);>
+
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a rel="tooltip" title="Details" class="table-action remove" href="#" onclick=Details(@item.frequencyId);>
+
+
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </a>
+                                <a rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@item.frequencyId);>
+
+
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+
+                            </td>
+                        </tr>
+                        srNo++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: false,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+
+
+        });
+
+    });
+
+    function Update(ID) {
+        var url = '@Url.Content("~/")' + "MetricFrequency/MetricFrequencyUpdate/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'frequencyid': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                   // alert("success");
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+    function Insert() {
+
+
+        var url = '@Url.Content("~/")' + "MetricFrequency/MetricFrequencyInsert";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+
+        function Details(ID) {
+
+            var url = '@Url.Content("~/")' + "MetricFrequency/MetricFrequencyDetails/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'frequencyid': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+     function Delete(ID) {
+
+         var url = '@Url.Content("~/")' + "MetricFrequency/MetricFrequencyDelete";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { 'frequencyid': ID },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+              });
+    }
+    function goBack() {
+            window.history.back();
+        }
+
+</script>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

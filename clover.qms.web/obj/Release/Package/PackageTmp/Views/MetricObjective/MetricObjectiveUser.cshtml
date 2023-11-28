@@ -1,0 +1,315 @@
+﻿@model clover.qms.model.MetricObjViewModel
+@using clover.qms.web.Models;
+
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+@Scripts.Render("~/bundles/jqueryval")
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.4/css/fixedColumns.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.3.3/css/fixedColumns.dataTables.min.css" />
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.3.3/js/dataTables.fixedColumns.min.js"></script>
+<script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBoxMetricValidation.js")"></script>
+
+<style>
+    /*body {
+            margin-top: 50PX;
+        }*/
+
+    .w-120 {
+        width: 120px;
+        overflow: auto;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+
+
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #ff0000;
+        text-align: left;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+
+    .view {
+        margin: auto;
+        width: 100%;
+    }
+
+    .wrapper {
+        position: relative;
+        overflow: auto;
+        border: 1px solid black;
+        white-space: nowrap;
+    }
+
+    .sticky-col {
+        position: -webkit-sticky;
+        position: sticky;
+        background-color: white !important;
+    }
+
+    .fifth-col {
+        width: 50px;
+        min-width: 50px;
+        max-width: 50px;
+        left: 0px;
+    }
+
+    .first-col {
+        width: 100px;
+        min-width: 100px;
+        max-width: 100px;
+        left: 50px;
+    }
+
+    .second-col {
+        width: 150px;
+        min-width: 100px;
+        max-width: 150px;
+        left: 150px;
+    }
+
+    .third-col {
+        width: 200px;
+        min-width: 100px;
+        max-width: 200px;
+        left: 200px;
+    }
+
+    .fourth-col {
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;
+        left: 300px;
+    }
+
+    th, td {
+        white-space: nowrap;
+    }
+</style>
+
+<style>
+    .disable {
+        pointer-events: none;
+    }
+
+    @@media (min-width: 992px) {
+        .container {
+            width: 100%;
+        }
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong> @TempData["msg"]</strong>
+        </div>
+    }
+
+    <div class="container">
+        <div class="form-horizontal table-responsive">
+            <div class="view">
+                @*    <div class="wrapper">*@
+                <div>
+                    <table id="AuditorTable" class="table table-striped stripe row-border order-column">
+                        <thead>
+                            <tr bgcolor='#D3D3D3'>
+                                <th class="sticky-col fifth-col" style="background: #a9b2b8 !important;">
+                                    <input class="check-box" id="CheckAll" name="assignChkBx" type="checkbox" />
+                                </th>
+                                <th class="sticky-col first-col" style="background: #a9b2b8 !important;">Sr.No</th>
+                                <th class="sticky-col second-col" style="background: #a9b2b8 !important;">Project Name</th>
+                                <th class="sticky-col third-col" style="background: #a9b2b8 !important;">Lifecycle / Function</th>
+                                <th class="sticky-col fourth-col" style="background: #a9b2b8 !important;">Metric Name</th>
+                                <th>ISO</th>
+                                <th>Measurement Method</th>
+                                <th>Measurement Frequency</th>
+                                <th>DataSource</th>
+                                <th>Achievment Expected</th>
+
+                                @foreach (var item in ViewBag.months)
+                                {
+                                    <th>@item</th>
+                                    <th>Achievement Fulfilled</th>
+                                    <th>RCA-@item </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.pm.Count > 0)
+                            {
+                                var srno = 1;
+                                var i = 0;
+
+                                foreach (var item in Model.pm)
+                                {
+                                    item.lifecycle = ViewBag.listLifeCycle;
+                                    ViewBag.life = item.lifecycleID;
+
+                                    Model.lstaddmetricvalue = ViewBag.lstmetrciVal;
+
+                                    var val = Model.lstmetricobj.Where(x => x.plcid == ViewBag.life).ToList().Count;
+                                    {
+                                        foreach (var item1 in Model.lstmetricobj.Where(x => x.plcid == ViewBag.life))
+                                        {
+                                            <tr>
+                                                <td class="sticky-col fifth-col text-center">
+                                                    <input class="check-box cehck" id="assignChkBx_@item1.metricid" name="assignChkBx" type="checkbox" value="@item1.metricid" onclick="ValidateDDL1(this);" />
+                                                </td>
+                                                <td class="sticky-col first-col text-center">@srno</td>
+                                                <td class="sticky-col second-col text-center">
+                                                    @item.ProjectName
+                                                </td>
+
+                                                @foreach (var lifecycle in item.lifecycle.Where(x => x.lifecycleID == ViewBag.life))
+                                                {
+                                                    <td class="sticky-col third-col text-center">
+                                                        @lifecycle.lifecycleName
+                                                    </td>
+                                                }
+
+                                                <td class="sticky-col fourth-col">
+                                                    @item1.metricname
+                                                </td>
+
+                                                <td>@item1.isoName</td>
+
+                                                <td>@item1.mesurement_method </td>
+
+                                                <td>
+                                                    @foreach (var frequency in Model.lstfrequency.Where(x => x.frequencyId == item1.measurementfrequency))
+                                                    {
+                                                        @frequency.frequencyName
+                                                    }
+                                                </td>
+
+                                                <td>
+                                                    @item1.datasource
+                                                </td>
+
+                                                <td>
+                                                    @item1.achievementexpected
+                                                </td>
+
+                                                @foreach (var item2 in ViewBag.months)
+                                                {
+                                                    @Html.HiddenFor(model => model.lstmetricvalue[i].lifecycleId, new { Value = ViewBag.life })
+                                                    @Html.HiddenFor(model => model.lstmetricvalue[i].PID, new { Value = item.PID })
+                                                    @Html.HiddenFor(model => model.lstmetricvalue[i].metricId, new { Value = item1.metricid })
+                                                    <td>
+                                                        @{var count = Model.lstaddmetricvalue.Where(x => x.PID == item.PID).Where(x => x.metricId == item1.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item2).ToList().Count;
+                                                            string metric_value = "";
+                                                            if (count > 0)
+                                                            {
+                                                                metric_value = Model.lstaddmetricvalue.Where(x => x.PID == item.PID).Where(x => x.metricId == item1.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item2).Select(x => x.metric_value).FirstOrDefault();
+                                                            }
+                                                            @(
+                                                count ==0 ? @Html.EditorFor(model => model.lstmetricvalue[i].metric_value, new { htmlAttributes = new { @class = "form-control w-120", Value = "", autocomplete = "off" } }) : @Html.EditorFor(model => model.lstmetricvalue[i].metric_value, new { htmlAttributes = new { @class = "form-control w-120", Value = @metric_value, autocomplete = "off", @readonly = "readonly" } })
+                                             )
+                                                            @Html.LabelFor(model => model.lstmetricvalue[i].metric_value, metric_value, new { @style = "display:none" });
+                                                        }
+                                                    </td>
+
+                                                    <td class="drop">
+                                                        @{ var statusId = Convert.ToInt32(@Model.lstaddmetricvalue.Where(x => x.PID == item.PID).Where(x => x.metricId == item1.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item2).Select(x => x.StatusID).FirstOrDefault());
+                                                            @(statusId != 0 ? @Html.DropDownListFor(model => model.lstaddmetricvalue[i].StatusID, new SelectList(ViewBag.status, "statusID", "statusName", statusId), "Select", new
+                                                  { @class = "select disable", onchange = "ValidateDDL(this)" }) : @Html.DropDownListFor(model => model.lstaddmetricvalue[i].StatusID, new SelectList(ViewBag.status, "statusID", "statusName"), "Select", new { @class = "select", onchange = "ValidateDDL(this)" }))
+
+                                                            string StatusValue = "";
+
+                                                            switch (statusId)
+                                                            {
+                                                                case 1:
+                                                                    StatusValue = "Yes";
+                                                                    break;
+                                                                case 2:
+                                                                    StatusValue = "No";
+                                                                    break;
+                                                                case 3:
+                                                                    StatusValue = "N/A";
+                                                                    break;
+                                                            }
+
+                                                            @Html.LabelFor(model => model.lstaddmetricvalue[i].StatusID, StatusValue, new { @style = "display:none" });
+                                                        }
+                                                        <br />
+                                                        @Html.ValidationMessageFor(model => model.lstaddmetricvalue[i].StatusID, "Please select achievement fulfilled", new { @class = "text-danger" })
+                                                    </td>
+
+                                                    <td>
+                                                        @{var countrca = Model.lstaddmetricvalue.Where(x => x.PID == item.PID).Where(x => x.metricId == item1.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item2).ToList().Count;
+                                                            string rca_value = "";
+                                                            if (countrca > 0)
+                                                            {
+                                                                rca_value = Model.lstaddmetricvalue.Where(x => x.PID == item.PID).Where(x => x.metricId == item1.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item2).Select(x => x.rca).FirstOrDefault();
+                                                            }
+                                                            @(countrca == 0 ? @Html.EditorFor(model => model.lstmetricvalue[i].rca, new { htmlAttributes = new { @class = "form-control w-120", Value = "", autocomplete = "off" } }) : @Html.EditorFor(model => model.lstmetricvalue[i].rca, new { htmlAttributes = new { @class = "form-control w-120", Value = @rca_value, autocomplete = "off", @readonly = "readonly" } }))
+                                                            @Html.LabelFor(model => model.lstmetricvalue[i].rca, rca_value, new { @style = "display:none" });
+                                                        }
+                                                    </td>
+                                                    @Html.HiddenFor(model => model.lstmetricvalue[i].metricdate, new { Value = item2 })
+                                                    @Html.HiddenFor(model => model.lstmetricvalue[i].user_id, new { Value = TempData["Username"] })
+                                                    i++;
+                                                }
+                                            </tr>
+                                            srno++;
+                                        }
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="set_btn">
+        <li>
+            <div class="col-md-12">
+                <center>
+                    <input type="submit" value="Save" id="btn" formaction=@Url.Action("Metric_Obj_Value_insert") class="btn btn-success" />
+                </center>
+            </div>
+        </li>
+    </ul>
+}
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+
+@*<script src="@Url.ContentAbsUrl("~/Scripts/Validation.js")"></script>*@
+
+

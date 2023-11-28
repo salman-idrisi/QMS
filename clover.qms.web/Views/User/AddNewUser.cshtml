@@ -1,0 +1,287 @@
+﻿@model clover.qms.model.Users
+@using clover.qms.web.Models;
+@{Layout = null; }
+<title>Quality Management System</title>
+<link rel="shortcut icon" href="~/Images/clover.png">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Login Page</title>
+    @*<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    @*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />*@
+    @*<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>*@
+
+    <link href="@Url.ContentAbsUrl("~/Content/register.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    @*<script src="~/Scripts/CheckBox.js"></script>*@
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @*<script src="@Url.Content("~/Scripts/EmployeeRegistration.js")" type="text/javascript"></script>*@
+    @*<script src="@Url.Content("~/Scripts/CheckBox.js")"></script>*@
+    @* <script src="@Url.Content("~/Scripts/EmployeeRegistration.js")"></script>*@
+
+
+
+</head>
+<body>
+
+    <div class="container-fluid" style="background:#fff; margin-bottom:25px; box-shadow: 0 10px 40px 0 rgba(0,0,0,.1); <!--box-shadow: 1px 5px 4px #d1d1d1;-->">
+        <center><img src="@Url.ContentAbsUrl("~/Images/Clover_Logo.gif")" class="img-responsive" style="border-radius:5px;"></center>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-lg-3">&nbsp;</div>
+
+            <div class="col-lg-6">
+
+
+                <div id="loginbox" style="margin-top:20px;background:#fff; border-radius:5px;">
+
+
+                    <div class="panel panel-info" style="border:none !important;">
+
+                        <div class="panel-heading" style="background:#fff !important">
+                            <div class="panel-title">
+
+                                <center>
+                                    <img src="@Url.ContentAbsUrl("~/Images/Qms_logo.gif")" width="122px" height="42px" class="img-responsive" />
+                                </center>
+                            </div>
+
+                        </div>
+                        @if (ViewBag.error != null)
+                        {
+                            <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+                                @ViewBag.error
+                            </div>
+                        }
+
+                        <div style="background:#114a85 !important; font-weight:bold; color:#fff;  padding:13px; border-radius: 50px;  margin: 13px 13px 0px 13px; text-align:center;">
+                            <div class="panel-title"><span class="glyphicon glyphicon-user"></span> &nbsp;Sign Up</div>
+
+                        </div>
+                        @using (Html.BeginForm("AddNewUser", "User", FormMethod.Post, new { @class = "form-inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <div class="panel-body">
+
+                                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                                @Html.HiddenFor(model => model.UserId, new { @Value = "0" })
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control txt_width", onkeypress = "return lettersOnly(event);", id = "FirstName", autocomplete = "off", maxlength = 15, placeholder = "First Name", } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "error" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control txt_width", onkeypress = "return lettersOnly(event);", autocomplete = "off", maxlength = 15, placeholder = "Last Name", } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "error" })
+                                        </div>
+
+                                    </div>
+
+                                    @*<div class="col-md-6">
+
+                                            <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control date-picker txt_width", autocomplete = "off", placeholder = "Date Of Birth" } })
+                                                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "error" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                                @Html.EditorFor(model => model.UserAddress, new { htmlAttributes = new { @class = "form-control txt_width", autocomplete = "off", maxlength = 50, placeholder = "Address" } })
+                                                @Html.ValidationMessageFor(model => model.UserAddress, "", new { @class = "error" })
+                                            </div>
+                                        </div>*@
+
+                                    @*<div class="col-md-6">
+
+                                            <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control txt_width", id = "mobileNo", onchange = "CheckMobileNumberAvailability()", onkeypress = "return NumbersOnly(event);", autocomplete = "off", maxlength = 10, placeholder = "Mobile Number" } })
+                                                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "error" })
+                                                <p id="MobileStatus" />
+                                            </div>
+
+                                        </div>*@
+
+                                    <div class="col-md-6">
+
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control txt_width", id = "username", onchange = "CheckUserNameAvailability()", autocomplete = "off", maxlength = 15, placeholder = "Employee ID", onkeypress = "return RestrictSpace(event);" } })
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error" })
+                                            <p id="UserNameStatus" />
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control txt_width", autocomplete = "off", maxlength = 15, placeholder = "Password", onkeypress = "return RestrictSpace(event);" } })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control txt_width", onchange = "CheckEmailAvailability()", id = "EmailID", autocomplete = "off", placeholder = "Email ID", onkeypress = "return RestrictSpace(event);" } })
+                                            @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "error" })
+                                            <p id="EmailStatus" />
+                                        </div>
+
+                                    </div>
+
+                                    @*<div class="col-md-6">*@
+                                    @*<div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.EditorFor(model => model.Departmentname, new { htmlAttributes = new { @class = "form-control txt_width", id = "departmentname", onchange = "CheckUserNameAvailability()", autocomplete = "off", maxlength = 15, placeholder = "Department Name", onkeypress = "return RestrictSpace(event);" } })
+                                            @Html.ValidationMessageFor(model => model.Departmentname, "", new { @class = "error" })
+                                            <p id="Departmentstatus" />
+                                        </div>*@
+
+                                    <div class="col-md-6">
+                                        @*<p><h7 style="font-weight: bold"></h7><lable style="font-weight: bold;">Department Name</lable></p>*@
+                                        <div style="margin-bottom: 10px; width:100%;" class="input-group">
+                                            @Html.DropDownListFor(m => m.DepartmentID, new SelectList(ViewBag.department, "QmsDepartmentID", "QmsDepartmentName"), "Select Department Name", new { @class = "form-control txt_width" })
+
+                                            @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(model => model.ResetPasswordCode, new { @Value = "0" })
+                                <ul class="set_btn">
+                                    <li>  <input id="input" type="submit" class="btn btn-success" style="border-radius: 50px; background:#81CB32 !important; border:none; padding:10px 40px; font-size:16px; font-weight:bold;" value="Sign Up" /></li>
+                                    <li>@Html.ActionLink("Existing User?", "Index", "QMSRepository", null, new { @class = "btn btn-success", @style = "border-radius: 50px; background:#81CB32 !important; border:none; padding:10px 40px; font-size:16px; font-weight:bold;" })</li>
+                                </ul>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function ()
+    {
+        $(".date-picker").datepicker({
+            yearRange: "-100:+0", // You can set the year range as per as your need
+            dateFormat: 'dd-M-yy',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: '0'
+        });
+    });
+    function RestrictSpace(event) {
+        if (event.keyCode == 32) {
+            event.returnValue = false;
+            return false;
+        }
+    }
+    function lettersOnly(event) {
+        if (event.keyCode == 32) {
+            event.returnValue = false;
+            return false;
+        }
+        var charCode = event.keyCode;
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8)
+
+            return true;
+        else
+            return false;
+    };
+    function NumbersOnly(event) {
+        if (event.keyCode == '9' || event.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (event.keyCode) code = event.keyCode;
+        else if (event.which) code = event.which;
+        if (event.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    };
+    //Checking EmailID already exist or not
+    function CheckEmailAvailability() {
+        debugger;
+        $.post("@Url.Action("CheckEmailAvailability", "User")",
+            {
+                EmailId: $("#EmailID").val()
+            },
+            function (data) {
+
+                if (data == 1) {
+
+                    $("#EmailStatus").html('<font color="Red">EmailID already exist.</font>');
+
+                }
+                if (data == 0) { document.getElementById("EmailStatus").innerHTML = ""; }
+
+        });
+    }
+    //Checking UserName already exist or not
+    function CheckUserNameAvailability() {
+
+        $.post("@Url.Action("CheckUserNameAvailability", "User")",
+    {
+        name: $("#username").val()
+    },
+            function (data) {
+                if (data == 1) {
+
+                    $("#UserNameStatus").html('<font color="Red">Username already exist.</font>');
+
+                }
+                if (data == 0) { document.getElementById("UserNameStatus").innerHTML = ""; }
+            });
+    }
+    //Checking Mobile number already exist or not
+    function CheckMobileNumberAvailability() {
+        $.post("@Url.Action("CheckMobileNOAvailability", "User")",
+    {
+        number: $("#mobileNo").val()
+    },
+    function (data) {
+        if (data > 0) {
+            $('#MobileStatus').delay().fadeOut(2000, function (data) {
+                $("#MobileStatus").load(location.href + "#MobileStatus");
+            });
+            $("#mobileNo").val("");
+            $("#MobileStatus").html('<font color="Red">Mobile number already exist.</font>');
+          }
+    });
+    }
+
+</script>
+@Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,166 @@
+﻿
+@model clover.qms.model.PCRViewModel
+
+<!DOCTYPE html>
+<style>
+    body {
+        margin-top: 50px;
+    }
+
+    .div2 {
+        margin-top: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    .modal-header {
+        background-color: #83CB1E;
+    }
+
+    .container .body-content {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .modal-content {
+        width: 1200px;
+        vertical-align: middle;
+        margin-top: 10%;
+        margin-left: 12%;
+    }
+
+    .error {
+        color: red;
+    }
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        /*background-color: #FF0000;*/
+    }
+
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="@(Url.Content("~/Scripts/jquery-1.10.2.min.js"))"></script>
+    <script src="@(Url.Content("~/Scripts/jquery.validate.min.js"))"></script>
+    <script src="@(Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js"))"></script>
+</head>
+<body style="margin-top:50px">
+    @using (Html.BeginForm("PCRCheckListDetails", "PCRCheckList", FormMethod.Post, new { name = "myForm" }))
+
+    {
+        @Html.AntiForgeryToken()
+
+        Model.listparameter = ViewBag.parameter;
+        Model.listquestion = ViewBag.question;
+        Model.lifecycle = ViewBag.lifecycleid;
+        <div>
+            <h3 style="color:darkred" align="center">PCR Checklist</h3>
+            <a href=@Url.Action("PreviousMonthsRecords", "PCRCheckList", new { PcrScheduleId = @ViewBag.pid}) class="btn btn-warning">Previous months Records</a>
+        </div>
+        <div class="form-horizontal" style="padding-top:20px">
+
+            <table id="=tbl" border="1">
+
+
+                @{ var i = 0; var count = 1; var rows = 0; string divId = null;
+
+                    foreach (var item in Model.listparameter.Where(x => x.lifecycleID == Model.lifecycle))
+                    {
+                        rows = 0;
+                        divId = item.parameterName;
+                        divId = divId.Replace(" ", "");
+
+                        <tr :center>
+                            <th colspan="5" style="background-color:#ADD8E6;text-align:center">
+                                Area:
+                                @item.parameterName
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="background-color:#D3D3D3;text-align:center">Sr.No</th>
+                            <th style="background-color:#D3D3D3;text-align:center">Description</th>
+                            <th style="background-color:#D3D3D3;text-align:center;width:100px">Y/N/NA</th>
+                            <th style="background-color:#D3D3D3;text-align:center">Observation</th>
+                            <th style="background-color:#D3D3D3;text-align:center">%age Compliance</th>
+                        </tr>
+
+                        foreach (var item1 in Model.listquestion.Where(x => x.parameterID == item.parameterID))
+                        {
+                            var TotalQuestions = Model.listquestion.Where(x => x.parameterID == item.parameterID);
+                            int rowsCount = TotalQuestions.Count();
+
+                            rows++;
+                            <tr>
+                                @Html.HiddenFor(model => model.listPcrCheckList[i].scheduleID, new { Value = ViewBag.scheduleid })
+                                @Html.HiddenFor(model => model.listPcrCheckList[i].areaID, new { Value = @item.parameterID })
+                                <td>@count</td>
+                                <td style="text-align:left;padding-left:5px">
+                                    @item1.description
+                                    @Html.HiddenFor(model => model.listPcrCheckList[i].questionID, new { Value = item1.questionID })
+
+                                </td>
+                                <td>
+                                    <div>
+                                        @Html.DropDownListFor(m => m.listPcrCheckList[i].statusID, new SelectList(ViewBag.status, "statusID", "statusName"), "select", new { @id = @divId, required = "required" })
+                                        @Html.ValidationMessageFor(m => m.listPcrCheckList[i].statusID, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.listPcrCheckList[i].observation, new { htmlAttributes = new { autocomplete = "off", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.listPcrCheckList[i].observation, "", new { @class = "text-danger" })
+
+                                </td>
+                                @if (@rows == 1)
+                                {
+                                    <td rowspan="@(rowsCount)" class="@(divId)">
+                                    </td>
+                                }
+                            </tr>
+                            i++;
+                            count++;
+                        }
+                    }
+
+                }
+
+            </table>
+            <div class="div2">
+                <center>
+                    <input type="submit" value="Save As Draft" formaction="@Url.Action("SaveAsDraft")" formnovalidate="formnovalidate" class="btn btn-info" />
+                    @*<input type="submit" value="Check Calculation" formaction="@Url.Action("PCRCheckListCalculation")" formnovalidate="formnovalidate" class="btn btn-success" />*@
+                    <input type="submit" value="Submit" formaction="@Url.Action("PCRCheckListDetails")" class="btn btn-success" />
+                    <input type="submit" value="Cancel" formaction="@Url.Action("AuditorDashboard","PCRCheckList")" formnovalidate="formnovalidate" class="btn btn-danger" />
+                </center>
+            </div>
+        </div>
+
+    }
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/CheckBox.js"></script>
+</body>
+</html>

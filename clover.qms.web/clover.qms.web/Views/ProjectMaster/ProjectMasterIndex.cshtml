@@ -1,0 +1,353 @@
+﻿@model IEnumerable<clover.qms.model.ProjectMaster>
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <style>
+        .modal-header {
+            background-color: #83CB1E;
+        }
+    </style>
+
+    <!-- Style -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/demo.css" rel="stylesheet" />
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+
+
+
+    <!-- Fonts and icons -->
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
+</head>
+<body>
+    <div class="fresh-table toolbar-color-green">
+        <div class="toolbar">
+            <a href="#" class="btn btn-default" onclick=insert();>Add</a>
+            <a href="#" class="btn btn-default" onclick=goBack();>Home</a>
+
+        </div>
+        <table id="fresh-table" class="table">
+            <thead>
+
+            <th data-field="accountname">Account Name</th>
+            <th data-field="projectname">Project Name</th>
+            <th data-field="technology">Technology</th>
+            <th data-field="lifecycle">Project Life Cycle</th>
+            <th data-field="managername">Project Manager</th>
+            <th data-field="tlname_1">Project TL/SPOC</th>
+            <th data-field="tlname_2">Project TL/SPOC</th>
+            <th data-field="region">Location</th>
+            <th data-field="deliverymanagername">Delivery Manager</th>
+            <th data-field="deleverymanagerhead">Delivery Head</th>
+            <th data-field="startdate">Start Date</th>
+            <th data-field="enddate">End Date</th>
+            <th data-field="teamsize">Team Size</th>
+            <th data-field="plannedeffort">Planned Effort(Mandays)</th>
+            <th data-field="billingtype">Billing Type</th>
+            <th data-field="sqa">SQA</th>
+            <th data-field="status">Status</th>
+            <th>Actions</th>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    item.technology = ViewBag.PT;
+                    item.lifecycle = ViewBag.PLC;
+                    item.users = ViewBag.user;
+                    item.region = ViewBag.PR;
+                    item.pStatus = ViewBag.PStatus;
+                    <tr>
+                        <td>
+                            @item.AccountName
+                        </td>
+                        <td>
+                            @item.ProjectName
+                        </td>
+                        @foreach (var technology in item.technology.Where(x => x.technologyID == item.technologyID))
+                        {
+                            <td>
+                                @technology.technologyName
+                            </td>
+
+                        }
+                        @foreach (var lifecycle in item.lifecycle.Where(x => x.lifecycleID == item.lifecycleID))
+                        {
+                            <td>
+                                @lifecycle.lifecycleName
+                            </td>
+
+                        }
+                        @foreach (var user in item.users.Where(x => x.UserName == item.managerName))
+                        {
+                            string name = user.FirstName + " " + user.LastName;
+                            <td>
+                                @name
+                            </td>
+
+                        }
+                        @if (item.tlName_1 == "")
+                        {
+                            string name = "-";
+                            <td style="text-align:center">@name</td>
+                        }
+                        else
+                        {
+                            foreach (var user in item.users.Where(x => x.UserName == item.tlName_1))
+                            {
+                                string name = user.FirstName + " " + user.LastName;
+                                <td>
+                                    @name
+                                </td>
+
+                            }
+
+                        }
+                        @if (item.tlName_2 == "")
+                        {
+                            string name = "-";
+                            <td style="text-align:center">@name</td>
+                        }
+                        else
+                        {
+                            foreach (var user in item.users.Where(x => x.UserName == item.tlName_2))
+                            {
+                                string name = user.FirstName + " " + user.LastName;
+                                <td>
+                                    @name
+                                </td>
+
+                            }
+
+                        }
+                        @foreach (var region in item.region.Where(x => x.regionID == item.regionID))
+                        {
+                            <td>
+                                @region.regionName
+                            </td>
+
+                        }
+                        <td>
+                            @item.deliverymanagerName
+                        </td>
+                        <td>
+                            @item.deliveryheadName
+                        </td>
+                        <td>
+                            @item.startdate.ToString("dd/MMM/yyyy")
+                        </td>
+                        <td>
+                            @item.enddate.ToString("dd/MMM/yyyy")
+                        </td>
+                        @if (item.teamSize == 0)
+                        {
+                            string name = "-";
+                            <td style="text-align:center">@name</td>
+                        }
+                        else
+                        {
+                            <td>@item.teamSize</td>
+                        }
+                        @if (item.plannedEffort == 0)
+                        {
+                            string name = "-";
+                            <td style="text-align:center">@name</td>
+                        }
+                        else
+                        {
+                            <td>@item.plannedEffort</td>
+                        }
+                        @if (item.billingType == "")
+                        {
+                            string name = "-";
+                            <td style="text-align:center">@name</td>
+                        }
+                        else
+                        {
+                            <td>@item.billingType</td>
+                        }
+                        @if (item.SQA == "")
+                        {
+                            string name = "-";
+                            <td style="text-align:center">@name</td>
+                        }
+                        else
+                        {
+                            <td>@item.SQA</td>
+                        }
+                        @foreach (var status in item.pStatus.Where(x => x.statusID == item.statusID))
+                        {
+                            <td>
+                                @status.statusName
+                            </td>
+                            break;
+                        }
+                        <td>
+                            <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Update(@item.PID);>
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a rel="tooltip" title="Details" class="table-action remove" href="#" onclick=Details(@item.PID);>
+
+                                <i class="fa fa-th"></i>
+                            </a>
+                            <a rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@item.PID);>
+
+                                <i class="fa fa-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: true,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+
+
+        });
+
+    });
+        function insert() {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterInsert/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function Update(ID) {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterUpdate/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'PID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    function Details(ID) {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterDetails/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'PID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        function Delete(ID) {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterDelete";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { 'PID': ID },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+    function goBack() {
+            window.history.back();
+        }
+
+</script>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

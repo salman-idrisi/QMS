@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Chart>
+  <ChartAreas>
+    <ChartArea Name="Default">
+      <AxisX>
+        <MajorGrid Enabled="false"></MajorGrid>
+      </AxisX>
+    </ChartArea>
+  </ChartAreas>
+  <Series>
+    <Series Name="Compliance" IsValueShownAsLabel="true"></Series>
+  </Series>
+</Chart>

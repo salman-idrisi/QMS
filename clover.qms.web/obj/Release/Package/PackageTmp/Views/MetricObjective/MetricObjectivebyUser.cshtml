@@ -1,0 +1,162 @@
+﻿@using clover.qms.web.Models;
+
+<html>
+<head>
+    <style>
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/bootstrap-datepicker.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+</head>
+<body>
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 style="text-align:center;color:#00239B">Metric Objective</h3>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong> @TempData["msg"]</strong>
+        </div>
+    }
+
+    <div class="row mt-20">
+        <div class="col-sm-2"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control date-picker" required data-format="dd/MM/yyyy hh:mm:ss" data-bv-date-message="Please enter Valid Date " readonly="readonly" name="startdate" id="dateStart" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+            <div><p id="validationSDate" /></div>
+        </div>
+        <div class="col-sm-2"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="enddate" id="dateEnd" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+            <div><p id="validationDate" /></div>
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" value="Fill Metric Objective " id="btn" class="btn btn-success form-control" />
+        </div>
+    </div>
+
+    <div id="divPartialView" class="row"></div>
+
+    @*Added by Bhushan on 13-10-2021 for Export to Excel*@
+    @using (Html.BeginForm("Export", "MetricObjective", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="GridHtml" />
+        <center>
+            @*<input type="submit" value="Save" id="btnSave" formaction=@Url.Action("Metric_Obj_Value_insert") class="btn btn-success" />*@
+            <input type="submit" id="btnExport" class="btn btn-primary collapsed text-center" style="margin-top:10px;" value="Export" />
+        </center>
+    }
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+                $("input[name='GridHtml']").val($("#divPartialView").html());
+            });
+        });
+    </script>
+
+    <script>
+    $(document).ready(function () {
+        $('#btnExport').hide();
+        $('#btnSave').hide();
+
+        $('#btn').on('click', function () {
+            var startdate = $("#dateStart").val();
+            var enddate = $('#dateEnd').val();
+            if (startdate == '' || enddate == '') {
+                $('#validationSDate').html('<font color="Red">The start date required</font>');
+                $('#validationDate').html('<font color="Red">The end date required</font>');
+            }
+            else if (startdate != '' && enddate != '') {
+                $('#validationDate').html('');
+                $('#validationSDate').html('');
+                if (Date.parse(startdate) > Date.parse(enddate)) {
+                    $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                    $("#dateEnd").val('');
+                }
+                else {
+                    var url = '@Url.Content("~/")' + "MetricObjective/MetricObjectiveUser";
+
+                    $.ajax({
+
+                        type: "Get",
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: { Startdate: startdate, Enddate: enddate },
+                        //  data:"{'Startdate': startdate, 'Enddate': enddate }",
+                        dataType: 'html',
+                        success: function (data) {
+                            //alert("success")
+                            //$('#partialView').html(response);
+                            $("#divPartialView").html(data);
+                            $('#btnExport').show();
+                            $('#btnSave').show();
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                        //        });
+
+                        //    });
+                        //});
+                    });
+                }
+            }
+
+        });
+
+        $('#dateStart').change(function () {
+
+            $('#validationSDate').html('');
+
+        });
+        $('#dateEnd').change(function () {
+
+
+            $('#validationDate').html('');
+        });
+    });
+    </script>
+    @* End *@
+
+</body>
+</html>
+@Scripts.Render("~/bundles/jqueryval")
+
+
+

@@ -1,0 +1,152 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+
+<!DOCTYPE html>
+<style>
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+
+    .pagination {
+        display: inline-flex;
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate {
+        text-align: center;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                <h3 style="color:#00239B" align="center">Projects</h3>
+            </div>
+            <div class="form-horizontal table-responsive" align="center">
+                <table id="tblPcrScheduleDetails" class="table table-bordered">
+                    <thead>
+
+                        <tr bgcolor='#D3D3D3'>
+                            <th><input type="checkbox" id="OneCheckAll" /> Select All</th>
+                            <th>Sr No.</th>
+                            <th>Project List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{var srNo = 1;
+
+
+                            foreach (var project in Model.listProjectMaster)
+                            {
+                                <tr>
+                                    <td>
+                                        <input class="check-box" id="assignChkBx" name="assignChkBx" type="checkbox" value="@project.PID" />
+                                    </td>
+                                    <td>
+                                        @srNo
+                                    </td>
+                                    <td>
+                                        @project.ProjectName
+                                    </td>
+                                </tr>
+                                srNo++;
+                            }
+
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+            @*<br />*@
+            <ul class="set_btn">
+                @{
+                    var Pcrschedule = ViewBag.PcrSchedule.Count;
+
+                    if (Pcrschedule > 0)
+                    {
+
+                        <li>
+                            <input type="button" class="btn btn-primary" onclick="ShowPcrSchedule()" value="Continue PcrSchedule" />
+                        </li>
+
+                    }
+                }
+
+
+                <li>
+                    <input data-url="@Url.Action("PCRSchedule","PCRSchedule")" class="btn btn-success" id="checkSubmit" readonly="readonly" value="Submit Selected " />
+                </li>
+            </ul>
+            @*</center>*@
+        }
+    </div>
+</body>
+
+</html>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">PCR Scheduling</h3>
+            </div>
+            <div class="modal-body" id="contentBody">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+<script>
+    //$(document).ready(function () {
+    //    $("#tblPcrScheduleDetails").DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false })
+    //});
+          function ShowPcrSchedule() {
+        var url = '@Url.Content("~/")' + "PCRSchedule/PCRScheduleDraft/";
+        $.ajax({
+            type: "GET",
+url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+
+                $('#contentBody').html(response);
+                $('#myModal').modal({ backdrop: 'static', keyboard: false })
+
+
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+            });
+    }
+
+</script>

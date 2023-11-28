@@ -1,0 +1,231 @@
+﻿@model clover.qms.model.PCRViewModel
+@using clover.qms.web.Models;
+<style>
+
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        opacity: 1 !important;
+    }
+</style>
+<html>
+<head>
+    @*<link href="@Url.ContentAbsUrl("~/Content/bootstrap.min.css")" rel="stylesheet" />*@
+
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            var Report = ViewBag.PcrScheduleReport.Count; var totalApplicable = 0; var totalReviewed = 0; var totalPCI = 0M;
+            var totalCoverage = 0; var avgCoverage = 0M; var avgPCI = 0M;
+
+
+            if (Report > 0)
+            {
+
+                <div>
+                    <h3 style="text-align:center;color:#00239B">Overall MIS Report</h3>
+                </div>
+                <div class="form-horizontal table-responsive" align="center">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <td colspan="2"> <p style="text-align:left"><b>Date:</b>@ViewBag.startDate to @ViewBag.endDate</p></td>
+                            <td colspan="3"> <p style="text-align:left"><b>Report Date:</b>@ViewBag.CurrentDate</p></td>
+                        </tr>
+
+                        <tr style="background-color:#D3D3D3">
+                            <th>LifeCycle</th>
+                            <th>#Applicable</th>
+                            <th>#Reviewed</th>
+                            <th>#PCI</th>
+                            <th>#Coverage</th>
+                        </tr>
+                        <tbody>
+
+                            @{ var i = 0;
+                                foreach (var lifecycle in Model.listLifeCycle)
+                                {
+                                    {
+                                        var applicable = 0; var reviewed = 0;
+
+                                        <tr>
+                                            <td>
+                                                <a href="#" onclick=ProjectsAsPerLifeCycle(@lifecycle.lifecycleID);>@lifecycle.lifecycleName</a>
+                                            </td>
+
+                                            @foreach (var PcrSchedule in Model.listPcrSchedule.Where(m => m.Lifecycle == lifecycle.lifecycleName))
+                                            {
+                                                <td>
+                                                    @PcrSchedule.PCRScheduleID
+                                                </td>
+                                                applicable = @PcrSchedule.PCRScheduleID;
+                                                totalApplicable += @PcrSchedule.PCRScheduleID;
+                                                <td>
+                                                    @foreach (var PcrCheckList in Model.listPcrCheckList.Where(m => m.lifecycle == lifecycle.lifecycleName))
+                                                    {
+
+                                                        @PcrCheckList.scheduleID
+                                                        reviewed = (int)@PcrCheckList.scheduleID;
+                                                        totalReviewed += (int)@PcrCheckList.scheduleID;
+                                                        break;
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @foreach (var compliance in Model.listcompliance.Where(m => m.Lifecycle == lifecycle.lifecycleName))
+                                                    {
+
+                                                        @compliance.compliancePCI
+                                                        totalPCI += (decimal)compliance.compliancePCI;
+                                                    }
+                                                </td>
+
+                                                var result = (reviewed / (decimal)applicable) * 100;
+                                                totalCoverage += (int)@result;
+                                                <td>
+                                                    @result.ToString("0.00")%
+
+                                                </td>
+                                            }
+                                        </tr>
+                                        i++;
+                                    }
+
+                                }
+                                avgCoverage = (decimal)totalCoverage / i;
+                                avgPCI = (decimal)totalPCI / i;
+                            }
+                        </tbody>
+                        <tfoot style="background-color:#D3D3D3;font-weight:bold">
+                            <tr>
+                                <td>Total</td>
+                                <td>@totalApplicable</td>
+                                <td>@totalReviewed</td>
+                                <td>
+                                    @if (avgPCI == 0)
+                                    {
+                                        var PCI = "NA";
+                                        @PCI;
+                                    }
+                                    else
+                                    {
+                                        @avgPCI.ToString("0.00")
+                                    }
+                                </td>
+                                <td>
+                                    @if (avgCoverage == 0)
+                                    {
+                                        var Coverage = "NA";
+                                        @Coverage;
+                                    }
+                                    else
+                                    {
+                                        @avgCoverage.ToString("0.00")
+                                    }
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <ul class="set_btn">
+                    <li>@Html.ActionLink("New Report", "Index", "MISReport", null, new { @class = "btn btn-success" })</li>
+                    <li>
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                                Back
+
+                            </a>
+                        }
+                    </li>
+                </ul>
+                @*<div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div>*@<div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div><div style="margin:0 auto;width:22%;margin-top:10px">
+                </div>
+            }
+            else
+            {
+                <h3 style="text-align:center">No data found</h3>
+                <ul class="set_btn">
+                    <li>
+                        @Html.ActionLink("New Report", "Index", "MISReport", null, new { @class = "btn btn-success" })
+                    </li>
+                    <li>
+                        @if (Request.UrlReferrer != null)
+                        {
+                            <a class="btn btn-success" onclick="history.go(-1); return false;" href="#">
+                                Back
+
+                            </a>
+                        }
+                    </li>
+
+                </ul>
+            }
+        }
+    </div>
+</body>
+
+</html>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        Modal content
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center;color:#00239B;font-size:20px">MIS Report</h3>
+            </div>
+            <div class="modal-body" id="contentBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function ProjectsAsPerLifeCycle(ID) {
+        var url = '@Url.Content("~/")' + "MISReport/ProjectsAsPerlifeCycle/";
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        'lifeCycleId': ID
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+
+                        $('#contentBody').html(response);
+                        $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                    },
+                    failure: function (response) {
+
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+    }
+
+</script>
+

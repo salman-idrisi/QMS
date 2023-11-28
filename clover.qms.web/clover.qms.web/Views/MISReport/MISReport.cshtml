@@ -1,0 +1,213 @@
+﻿@model clover.qms.model.PCRViewModel
+@*@{ Layout = null;}*@
+<style>
+    body {
+        margin-top: 70PX;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 5%;
+    }
+
+    .close {
+        float: right !important;
+        margin-right: 20px !important;
+        margin-top: 10px !important;
+        background-color: #ff1a1a !important;
+        border-radius: 15px !important;
+        width: 30px !important;
+        /*height: 30px !important;*/
+        opacity: 1 !important;
+    }
+
+    .modal-content {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        margin-left: 0%;
+        width: 1200px;
+        margin-right: 10%;
+    }
+    /*.table-bordered {
+            border: 1px solid black;*/
+
+    table {
+        empty-cells: show;
+    }
+
+    .table, th, td {
+        border: 1px solid black;
+        border-color: black;
+    }
+</style>
+<html>
+<body style="margin-top:50PX" ;>
+    @using (Html.BeginForm())
+    {
+
+        var Report = ViewBag.PcrScheduleReport.Count; var totalApplicable = 0; var totalReviewed = 0; var totalPCI = 0M;
+        var totalCoverage = 0; var avgCoverage = 0M; var avgPCI = 0M;
+
+
+        if (Report > 0)
+        {
+
+            <div class="row">
+                <h4 style="text-align:center;color:darkred">Overall MIS Report</h4>
+                <h4><b>Date:</b>@ViewBag.startDate To @ViewBag.endDate</h4>
+                <h4><b>Report Date:</b>@ViewBag.CurrentDate</h4>
+                @*<h4>@TempData["StartDate"] To @TempData["endDate"]</h4>*@
+
+                <table class="table" style="empty-cells: show;">
+                    <thead>
+
+                        <tr bgcolor='#D3D3D3'>
+                            <th style="width:33%">LifeCycle</th>
+                            <th style="width:33%">#Applicable</th>
+                            <th style="width: 33%">#Reviewed</th>
+                            <th style="width:33%">#PCI</th>
+                            <th style="width:33%">#Coverage</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @{ var i = 0;
+                            foreach (var lifecycle in Model.listLifeCycle)
+                            {
+                                //count++;
+                                {
+                                    var applicable = 0; var reviewed = 0;
+
+                                    <tr>
+                                        <td>
+                                            <a href="#" onclick=ProjectsAsPerLifeCycle(@lifecycle.lifecycleID);>@lifecycle.lifecycleName</a>
+                                        </td>
+
+                                        @foreach (var PcrSchedule in Model.listPcrSchedule.Where(m => m.Lifecycle == lifecycle.lifecycleName))
+                                        {
+                                            <td>
+                                                @PcrSchedule.PCRScheduleID
+                                            </td>
+                                            applicable = @PcrSchedule.PCRScheduleID;
+                                            totalApplicable += @PcrSchedule.PCRScheduleID;
+                                            <td>
+                                                @foreach (var PcrCheckList in Model.listPcrCheckList.Where(m => m.lifecycle == lifecycle.lifecycleName))
+                                                {
+
+                                                    @PcrCheckList.scheduleID
+                                                    reviewed = (int)@PcrCheckList.scheduleID;
+                                                    totalReviewed += (int)@PcrCheckList.scheduleID;
+                                                    break;
+                                                }
+                                            </td>
+                                            <td>
+                                                @foreach (var compliance in Model.listcompliance.Where(m => m.Lifecycle == lifecycle.lifecycleName))
+                                                {
+
+                                                    @compliance.compliancePCI
+                                                    totalPCI += (decimal)compliance.compliancePCI;
+                                                }
+                                            </td>
+
+                                            var result = (reviewed / (decimal)applicable) * 100;
+                                            totalCoverage += (int)@result;
+                                            <td>
+                                                @result.ToString("0.00")%
+
+                                            </td>
+                                        }
+                                    </tr>
+                                    i++;
+                                }
+
+                            }
+                            avgCoverage = (decimal)totalCoverage / i;
+                            avgPCI = (decimal)totalPCI / i;
+                        }
+                    </tbody>
+                    <tfoot style="font-weight:bold">
+                        <tr>
+                            <td>Total</td>
+                            <td>@totalApplicable</td>
+                            <td>@totalReviewed</td>
+                            <td>
+                                @if (avgPCI == 0)
+                                {
+                                    var PCI = "NA";
+                                    @PCI;
+                                }
+                                else
+                                {
+                                    @avgPCI.ToString("0.00")
+                                }
+                            </td>
+                            <td>
+                                @if (avgCoverage == 0)
+                                {
+                                    var Coverage = "NA";
+                                    @Coverage;
+                                }
+                                else
+                                {
+                                    @avgCoverage.ToString("0.00")
+                                }
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <a href="/MISReport/Index" class="btn btn-primary">New report</a>
+            </div>
+        }
+        else
+        { <h2>No data found</h2>
+            <br />
+            <a href="/MISReport/Index" class="btn btn-primary">New report</a>}
+    }
+</body>
+
+</html>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="modal_button">&times;</span>
+            </button>
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    function ProjectsAsPerLifeCycle(ID) {
+        var url = '@Url.Content("~/")' + "MISReport/ProjectsAsPerlifeCycle/";
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        'lifeCycleId': ID
+                    },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+
+                        $('#contentBody').html(response);
+                        $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                    },
+                    failure: function (response) {
+
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+    }
+
+</script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>

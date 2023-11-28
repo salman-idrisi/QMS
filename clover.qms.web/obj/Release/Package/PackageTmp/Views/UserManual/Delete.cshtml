@@ -1,0 +1,116 @@
+﻿@model clover.qms.model.UserManual
+@{Layout = null; }
+
+<style>
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+</style>
+<button type="button" class="close" data-dismiss="modal">×</button>
+<div class="form-horizontal" align="center" style="margin-top:-10px">
+    <center> <h5 class="modal-header" style="text-align:center">Delete Manual</h5></center>
+    <hr />
+    <hr />
+    <dl class="dl-horizontal">
+
+        @*@Html.HiddenFor(model => model.UserManualID)*@
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VersionNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VersionNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreparedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreparedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApprovedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QmsStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QmsStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FilePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilePath)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <center>
+                <div class="col-md-10">
+                    <input type="submit" style="color:green; border :1px solid #83CB1E" value="Delete" class="btn btn-default" />
+                    <br />
+                    <span style="color:green">@ViewBag.Message</span>
+                </div>
+            </center>
+        </div>
+
+    }
+</div>

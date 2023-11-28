@@ -1,0 +1,132 @@
+﻿@model clover.qms.model.Users
+<title>Quality Management System</title>
+<link rel="shortcut icon" href="~/Images/clover.png">
+@{Layout = null;
+}
+<html>
+
+
+<head>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <script src="~/Scripts/Employee.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    @*<script src="~/Scripts/Employee.js"></script>*@
+    <script src="~/Scripts/login.js"></script>
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container register">
+
+
+        <div class="row">
+            <div class="col-md-3 register-left">
+              <center>  <img src="~/Images/qms.png" class="img-responsive" style="width:300px !important;"/> </center>
+                                                                                                              
+                <h3>Welcome</h3>
+                @*<p>Slogan Text!</p>*@
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("New User", "AddNewUser", "user", null, new { @class = "nav-link active" })
+                        @*<a class="nav-link" id="newuser-tab" data-toggle="tab" href="#newuser" role="tab" aria-controls="newuser" aria-selected="false">New User</a>*@
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                        <h3 class="register-heading">Login</h3>
+
+                        @*<form class="form-inline">*@
+                        @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form-inline" }))
+                        {
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div>  @Html.TextBoxFor(model => model.UserName, new { autocomplete = "off", @class = "form-control", placeholder = "Username", maxlength = 10@*, style="text-transform:uppercase"*@ })</div>
+                                        <div>@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error" })</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div>@Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", maxlength = 20 })</div>
+                                        <div>@Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })</div>
+                                    </div>
+                                </div>
+                                @*<br />*@
+                                <div @*style="padding-top:10px"*@ class="col-md-12">
+                                    <input type="submit" class="btn btn-primary" style="margin-top: 5px;" value="Login" />
+                                </div>
+                                @*<a href="#" onclick=ForgotPassword()>Forgot Password?</a>*@
+                                <div class="col-md-12">
+                                    @Html.ActionLink("Forgot Password?", "ForgotPassword", "ForgotPassword")
+                                </div>
+                                @*<br />*@
+                                @if (ViewBag.Message != null)
+                                {
+                                    <script type="text/javascript">
+                                    window.onload = function () {
+                                        alert("@ViewBag.Message");
+                                    };
+                                    </script>
+                                }
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+@*<script src="~/Scripts/bootstrap.min.js"></script>*@
+@Scripts.Render("~/bundles/jqueryval")
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+           function ForgotPassword() {
+
+               var url = '@Url.Content("~/")' + "ForgotPassword/ForgotPassword/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+</script>

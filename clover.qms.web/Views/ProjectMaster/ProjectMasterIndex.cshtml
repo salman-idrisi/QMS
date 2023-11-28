@@ -1,0 +1,390 @@
+﻿@model IEnumerable<clover.qms.model.ProjectMaster>
+@using clover.qms.web.Models;
+<html>
+<head>
+    <style>
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+
+        #fresh-table td {
+            text-align: left;
+        }
+    </style>
+
+    <!-- Style -->
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="@Url.ContentAbsUrl("~/Content/demo.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/StyleSheet1.css")" rel="stylesheet" />
+    <link href="@Url.ContentAbsUrl("~/Content/all.css")" rel="stylesheet" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/bootstrap-table.min.js")"></script>
+
+
+
+</head>
+<body>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @TempData["msg"]
+        </div>
+
+    }
+    <div class="fresh-table toolbar-color-green">
+        <div class="toolbar" style="display: -webkit-inline-box;">
+            <a href="#" class="btn btn-default" style="color:#fff !important;margin-right: 350px;" onclick=insert();>Add</a>
+
+            <h5 style="color:white !important;opacity:0.8;">Project Master</h5>
+        </div>
+        <table id="fresh-table" class="table">
+            <thead>
+                <tr bgcolor='#D3D3D3'>
+                    <th>Sr No.</th>
+                    <th data-field="accountname">Account Name</th>
+                    <th data-field="projectname">Project Name</th>
+                    <th data-field="technology">Technology</th>
+                    <th data-field="lifecycle">Project Life Cycle</th>
+                    <th data-field="managername">Project Manager</th>
+                    <th data-field="tlname_1">Project TL/SPOC</th>
+                    <th data-field="tlname_2">Project TL/SPOC</th>
+                    <th data-field="region">Location</th>
+                    <th data-field="deliverymanagername">Delivery Manager</th>
+                    <th data-field="deleverymanagerhead">Delivery Head</th>
+                    <th data-field="startdate">Start Date</th>
+                    <th data-field="enddate">End Date</th>
+                    <th data-field="teamsize">Team Size</th>
+                    <th data-field="plannedeffort">Planned Effort(Mandays)</th>
+                    <th data-field="billingtype">Billing Type</th>
+                    <th data-field="sqa">SQA</th>
+                    <th data-field="status">Status</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var srNo = 1;
+                    foreach (var item in Model)
+                    {
+                        item.technology = ViewBag.PT;
+                        item.lifecycle = ViewBag.PLC;
+                        item.users = ViewBag.user;
+                        item.region = ViewBag.PR;
+                        item.pStatus = ViewBag.PStatus;
+                        <tr>
+                            <td>@srNo</td>
+                            <td>
+                                @item.AccountName
+                            </td>
+                            <td>
+                                @item.ProjectName
+                            </td>
+                            @foreach (var technology in item.technology.Where(x => x.technologyID == item.technologyID))
+                            {
+                                <td>
+                                    @technology.technologyName
+                                </td>
+
+                            }
+                            @foreach (var lifecycle in item.lifecycle.Where(x => x.lifecycleID == item.lifecycleID))
+                            {
+                                <td>
+                                    @lifecycle.lifecycleName
+                                </td>
+
+                            }
+                            @foreach (var user in item.users.Where(x => x.UserName == item.managerName))
+                            {
+                                string name = user.FirstName + " " + user.LastName;
+                                <td>
+                                    @name
+                                </td>
+
+                            }
+                            @if (item.tlName_1 == "")
+                            {
+                                string name = "-";
+                                <td style="text-align:center">@name</td>
+                            }
+                            else
+                            {
+                                foreach (var user in item.users.Where(x => x.UserName == item.tlName_1))
+                                {
+                                    string name = user.FirstName + " " + user.LastName;
+                                    <td>
+                                        @name
+                                    </td>
+                                    break;
+                                }
+
+                            }
+                            @if (item.tlName_2 == "")
+                            {
+                                string name = "-";
+                                <td style="text-align:center">@name</td>
+                            }
+                            else
+                            {
+                                foreach (var user in item.users.Where(x => x.UserName == item.tlName_2))
+                                {
+                                    string name = user.FirstName + " " + user.LastName;
+                                    <td>
+                                        @name
+                                    </td>
+                                    break;
+
+                                }
+
+                            }
+                            @foreach (var region in item.region.Where(x => x.regionID == item.regionID))
+                            {
+                                <td>
+                                    @region.regionName
+                                </td>
+
+                            }
+                            <td>
+                                @item.deliverymanagerName
+                            </td>
+                            <td>
+                                @item.deliveryheadName
+                            </td>
+                            <td>
+                                @item.startdate.ToString("dd/MMM/yyyy")
+                            </td>
+                            <td>
+                                @item.enddate.ToString("dd/MMM/yyyy")
+                            </td>
+                            @if (item.teamSize == 0)
+                            {
+                                string name = "-";
+                                <td style="text-align:center">@name</td>
+                            }
+                            else
+                            {
+                                <td>@item.teamSize</td>
+                            }
+                            @if (item.plannedEffort == 0)
+                            {
+                                string name = "-";
+                                <td style="text-align:center">@name</td>
+                            }
+                            else
+                            {
+                                <td>@item.plannedEffort</td>
+                            }
+                            @if (item.billingType == "")
+                            {
+                                string name = "-";
+                                <td style="text-align:center">@name</td>
+                            }
+                            else
+                            {
+                                <td>@item.billingType</td>
+                            }
+                            @if (item.SQA == "")
+                            {
+                                string name = "-";
+                                <td style="text-align:center">@name</td>
+                            }
+                            else
+                            {
+                                <td>@item.SQA</td>
+                            }
+                            @foreach (var status in item.pStatus.Where(x => x.statusID == item.statusID))
+                            {
+                                <td>
+                                    @status.statusName
+                                </td>
+                                break;
+                            }
+                            <td>
+                                <a rel="tooltip" title="Edit" class="table-action edit" href="#" onclick=Update(@item.PID);>
+
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a rel="tooltip" title="Details" class="table-action remove" href="#" onclick=Details(@item.PID);>
+
+
+                                    <span class="glyphicon glyphicon-th-list"></span>
+                                </a>
+                                <a rel="tooltip" title="Remove" class="table-action remove" href="#" onclick=Delete(@item.PID);>
+
+
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+
+                            </td>
+                        </tr>
+                        srNo++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $table = $('#fresh-table')
+        $(function () {
+            $table.bootstrapTable({
+                classes: 'table table-hover table-striped',
+                toolbar: '.toolbar',
+
+                search: true,
+                showRefresh: true,
+                showToggle: false,
+                showColumns: true,
+                pagination: true,
+                striped: true,
+                sortable: false,
+                pageSize: 8,
+                pageList: [8, 10, 25, 50, 100],
+
+                formatShowingRows: function (pageFrom, pageTo, totalRows) {
+                    return ''
+                },
+                formatRecordsPerPage: function (pageNumber) {
+                    return pageNumber + ' rows visible'
+                }
+            })
+
+
+        });
+
+    });
+        function insert() {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterInsert/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        function Update(ID) {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterUpdate/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'PID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                   // alert("success");
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    function Details(ID) {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterDetails/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'PID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+        function Delete(ID) {
+
+            var url = '@Url.Content("~/")' + "ProjectMaster/ProjectMasterDelete";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: { 'PID': ID },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+    }
+    function goBack() {
+            window.history.back();
+        }
+
+</script>
+<div
+$(document).ready(function () {
+       $('#RefreshPage').click(function () {
+           location.reload();
+       });
+   });
+     </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="model-body" id="contentBody" align="center">
+            </div>
+        </div>
+    </div>
+</div>

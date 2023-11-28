@@ -1,0 +1,122 @@
+﻿
+@model IEnumerable<clover.qms.model.AuditLog>
+@using clover.qms.web.Models
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="row mt-20">
+            <div class="col-sm-2"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="startdate" id="dateStart" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+
+                @Html.ValidationMessage("startdate", "", new { @style = "color:red" })
+            </div>
+            <div class="col-sm-2"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+            <div class="col-sm-3">
+                <input class="form-control date-picker" data-format="dd/MM/yyyy hh:mm:ss" readonly="readonly" name="enddate" id="dateEnd" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+
+                @Html.ValidationMessage("enddate", "", new { @style = "color:red" })
+                <div><p id="validationDate" /></div>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Audit History" onclick="ValidateEndDate()" class="btn btn-success form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 ">
+                <br>
+                <h3 style="text-align:center;color:#00239B">Audit History</h3>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="form-horizontal table-responsive" align="center">
+                <br>
+                <table id="Table" class="table table-bordered table-hover">
+                    <thead>
+                        <tr bgcolor='#D3D3D3'>
+
+                            <th>Sr.No</th>
+                            <th>UserID</th>
+                            <th>UserName</th>
+
+                            <th>Action</th>
+                            <th>Access Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var srNo = 1;
+                            foreach (var audit in Model)
+                            {
+                                audit.listUser = ViewBag.user;
+                                <tr height="30">
+
+
+                                    <td>@srNo</td>
+                                    <td>@audit.UserName</td>
+                                    @foreach (var user in audit.listUser.Where(x => x.UserName == audit.UserName))
+                                    {
+                                        string name = user.FirstName + " " + user.LastName;
+                                        <td>@name</td>
+                                    }
+
+                                    <td>@audit.URLAccessed</td>
+                                    <td>@audit.TimeAccessed</td>
+                                </tr>
+                                srNo++;
+
+                            }
+                        }
+                    </tbody>
+                </table>
+                <ul class="set_btn">
+                    <li>
+                        <a href="#" class="btn btn-success" id="btnExport">Export Excel</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+</body>
+</html>
+<script src="@Url.ContentAbsUrl("~/Scripts/table2excel.js")"></script>
+<script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var table = $('#Table').DataTable({ sDom: 'lrtip', "lengthChange": false, "bInfo": false });
+        $('#btnExport').on('click', function () {
+            $('<table>').append($(table.table().header()).clone()).append(table.$('tr').clone()).table2excel({
+
+                filename: "Audit History",
+                fileext: ".xls",
+
+                exclude_inputs: false
+            });
+        });
+    })
+    function ValidateEndDate() {
+        var startDate = $("#dateStart").val();
+        var endDate = $("#dateEnd").val();
+
+        if (startDate != '' && endDate != '') {
+            if (Date.parse(startDate) > Date.parse(endDate)) {
+                $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                $("#dateEnd").val('');
+
+            }
+        }
+        return false;
+    };
+</script>
+@Scripts.Render("~/bundles/jqueryval")
+

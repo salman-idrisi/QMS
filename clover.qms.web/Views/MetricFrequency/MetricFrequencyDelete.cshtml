@@ -1,0 +1,50 @@
+﻿@model clover.qms.model.MetricFrequency
+@using clover.qms.web.Models;
+@{
+    Layout = null;
+}
+
+<style>
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+    }
+
+    .btn-danger {
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+</style>
+
+<link href="~/Content/buttons.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "MetricFrequencyDelete";
+}
+
+
+<link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+<center><h4>Are you sure you want to delete this?</h4></center>
+<div>
+    <h4>MetricFrequency</h4>
+    <hr />
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <ul class="set_btn">
+            <li>
+                <input type="submit" value="Yes" class="btn btn-success" />
+            </li>
+            <li>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+            </li>
+        </ul>
+
+
+
+    }
+</div>

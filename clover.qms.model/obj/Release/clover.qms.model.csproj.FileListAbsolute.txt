@@ -1,0 +1,56 @@
+D:\QMS-project final-7 july\clover.qms.model\bin\Release\clover.qms.model.dll
+D:\QMS-project final-7 july\clover.qms.model\bin\Release\clover.qms.model.pdb
+D:\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.csprojAssemblyReference.cache
+D:\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+D:\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.dll
+D:\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.pdb
+C:\files\QMS-project final-7 july\clover.qms.model\bin\Release\clover.qms.model.dll
+C:\files\QMS-project final-7 july\clover.qms.model\bin\Release\clover.qms.model.pdb
+C:\files\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.csprojAssemblyReference.cache
+C:\files\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.dll
+C:\files\QMS-project final-7 july\clover.qms.model\obj\Release\clover.qms.model.pdb
+E:\QMS-project final-29 july\clover.qms.model\obj\Release\clover.qms.model.csprojAssemblyReference.cache
+E:\QMS-project final-29 july\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+E:\QMS-project final-29 july\clover.qms.model\obj\Release\clover.qms.model.dll
+E:\QMS-project final-29 july\clover.qms.model\obj\Release\clover.qms.model.pdb
+C:\files\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.dll
+C:\files\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.pdb
+C:\files\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csprojAssemblyReference.cache
+C:\files\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.dll
+C:\files\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.AssemblyReference.cache
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.pdb
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.dll
+D:\PQMS\SUSHILA\29_DEC_2022\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.pdb
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.pdb
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.AssemblyReference.cache
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.dll
+D:\DevCopyLatestFile\16thJan2023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.model\bin\Release\clover.qms.model.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.AssemblyReference.cache
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.model\obj\Release\clover.qms.model.pdb
+C:\KhalidSir\QMSProject\clover.qms.model\bin\Release\clover.qms.model.dll
+C:\KhalidSir\QMSProject\clover.qms.model\bin\Release\clover.qms.model.pdb
+C:\KhalidSir\QMSProject\clover.qms.model\obj\Release\clover.qms.model.csproj.AssemblyReference.cache
+C:\KhalidSir\QMSProject\clover.qms.model\obj\Release\clover.qms.model.csproj.CoreCompileInputs.cache
+C:\KhalidSir\QMSProject\clover.qms.model\obj\Release\clover.qms.model.dll
+C:\KhalidSir\QMSProject\clover.qms.model\obj\Release\clover.qms.model.pdb

@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<title>Quality Management System</title>
+<link rel="shortcut icon" href="~/Images/clover.png">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <style>
+        .navbar-nav li a:hover {
+            background-color: #81cb32 !important;
+        }
+    </style>
+    <script>
+        $(document).ready(function ($) {
+            var $msg = $('.alert-success');
+
+            var timer;
+
+            if ($msg.is(':visible')) {
+                timer = setTimeout(function () {
+                    $('.alert-success').hide(500);
+                }, 3000);
+            }
+
+            $(document).click(function () {
+                if ($msg.is(':visible')) {
+                    $msg.hide(500);
+                    clearTimeout(timer);
+                }
+            });
+
+            $("#btnUpdate").click(function (e) {
+                e.stopPropagation();
+                if ($msg.is(':hidden')) {
+                    timer = setTimeout(function () {
+                        $('.alert-success').hide(500);
+                    }, 3000);
+                }
+            });
+        });
+
+
+                        //$(".btn-success").delay(5000).slideUp(200, function () {
+                        //    $(this).alert('close');
+                        //});
+    </script>
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="container-fluid head_c">
+
+            <div class="col-md-12">
+                <ul class="list-inline mb_0">
+
+                    <li><span>Welcome:</span> <span>@Session["UserName"].ToString()</span></li>
+                    <li> <a href=@Url.Action("WelcomeDashboard", "User") class="text_c">Home</a> | @Html.ActionLink("Change Password", "ChangePassword", "ForgotPassword", null, new { @class = "text_c" })|@Html.ActionLink("Profile", "EditUser", "User", new { Id = Session["UserID"] }, new { @class = "text_c" })| <a href=@Url.Action("Logout", "User") class="text_c">Logout</a></li>
+                </ul>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="container-fluid set_bg">
+
+            <a href=@Url.Action("WelcomeDashboard", "User") class="text_c"><div class="col-md-6 col-xs-6 text_left"><img src="~/Images/Clover_Logo.gif" width="142px" height="42px"></div></a>
+            <a href=@Url.Action("WelcomeDashboard", "User") class="text_c"><div class="col-md-6 col-xs-6 text_right"><img src="~/Images/Qms_logo.gif" width="142px" height="42px"></div></a>
+
+        </div>
+
+        <div class="container-fluid paddi_0">
+
+            <!-- Navbar -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+                <div class="navbar-collapse collapse">
+
+
+                    @if (User.IsInRole("Auditor"))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "ProjectMasterIndex" ? "open" : "")">@Html.ActionLink("Project Master", "ProjectMasterIndex", "ProjectMaster")</li>
+                            <li style="font-size:15px">
+                                <a href="#">Audit Module <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-size:15px">@Html.ActionLink("Display AuditSchedule", "AuditorDashboard", "PCRCheckList")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Create AuditSchedule", "PCRScheduleDetails", "PCRSchedule")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Quality Team"))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li style="font-size:15px">
+                                <a href="#">Report <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-size:15px">@Html.ActionLink("NC Aging Report", "MISReportIndex", "NCAgingReport")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Lifecycle wise Report", "Index", "MISReport")</li>
+                                    <li style="font-size:15px">
+                                        <a href="#">Consolidated Audit Dashboard<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li style="font-size:15px">@Html.ActionLink("Audit Findings", "ConsolidatedReportIndex", "ConsolidatedReport")</li>
+                                        </ul>
+                                    </li>
+                                    <li style="font-size:15px">@Html.ActionLink("Audit Schedule Export", "ViewPCRScheduleIndex", "PCRSchedule")</li>
+                                    @*Pinky shah 26-11-2021*@
+                                    @*    <li style="font-size:15px">@Html.ActionLink("Audit Checklist Export", "AuditChecklistReport", "MISReport")</li>*@
+                                    <li style="font-size:15px">@Html.ActionLink("Metric Report", "MetricObjectiveAllUser", "MetricObjective")</li>
+                                </ul>
+
+                            </li>
+
+                        </ul>
+                    }
+                    @*Added by Rajesh 01122022*@
+                    @{
+                        List<int> LoginId = new List<int>() {4,34,35,80,81,82,83,84,85,86,87,88,89,93,94,95,99,103,105,108,111,114,117,129,133,143,155,171,228,242,251,
+                       267,268,271,275,277,280,282,285,288,291,313,316,327,361,400,197,421,438,441,452,457,461,462,464,469,471,472,473};
+                    }
+
+                    @if (User.IsInRole("Admin") || LoginId.Contains(Convert.ToInt32(Session["UserID"].ToString())))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li style="font-size:15px">
+                                <a href="#">Customer<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-size:15px">@Html.ActionLink("Customer Master", "CustomerIndex", "Customer")</li>
+                                    <li style="font-size:15px">
+                                        <a href="#">Feedback<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li style="font-size:15px">@Html.ActionLink("View Feedback", "Display", "Feedback")</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Raise Form", "FeedbackIndex", "Feedback")</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Pending Rca", "PendingRCA", "Feedback")</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+
+                    @if (User.IsInRole("Auditee") || User.IsInRole("Admin") || User.IsInRole("Quality Team")
+                        || User.IsInRole("Project Team") || User.IsInRole("Senior Mgmt") || User.IsInRole("Support Team"))
+                    {
+                        @*<div class="navbar-collapse collapse">*@
+
+                        <!-- left nav -->
+                        <ul class="nav navbar-nav">
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "AuditeeDashboard" ? "open" : "")">@Html.ActionLink("Audit", "AuditeeDashboard", "AuditeeDashboard")</li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "MetricObjectivebyUser" ? "open" : "")">@Html.ActionLink("Metric Objective", "MetricObjectivebyUser", "MetricObjective")</li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "UserManual" ? "open" : "")"> @Html.ActionLink("User Manual", "Index", "UserManual")</li>
+                            <li style="font-size:15px">
+                                <a href="#">Clover QMS<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-size:15px">
+                                        <a href="#">QMS <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li style="font-size:15px">
+                                                <a href="#">Process<span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li style="font-size:15px">
+                                                        @Html.ActionLink("Operation Process", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 6, title = "Operation Process", GeneralView = 1, ProcessId = 1 }, null)
+                                                        @Html.ActionLink("System Process", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 6, title = "System Process", GeneralView = 1, ProcessId = 2 }, null)
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li style="font-size:15px">@Html.ActionLink("Checklist", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 2, title = "Checklist", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Forms", "DisplayFormDepartment", "RepositoryAdminModule", new { GeneralView = 1 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Guidelines", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 4, title = "Guidelines", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Standard", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 7, title = "Standard", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Manual", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 5, title = "Manual", GeneralView = 1, ProcessId = 0 }, null)</li>
+                                        </ul>
+                                    </li>
+                                    <li style="font-size:15px">
+                                        <a href="#">ISMS <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li style="font-size:15px">
+                                                <a href="#">Process <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li style="font-size:15px">
+                                                        @Html.ActionLink("Operation Process", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 6, title = "Operation Process", GeneralView = 2, ProcessId = 1 }, null)
+                                                        @Html.ActionLink("System Process", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 6, title = "System Process", GeneralView = 2, ProcessId = 2 }, null)
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li style="font-size:15px">@Html.ActionLink("Checklist", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 2, title = "Checklist", GeneralView = 2, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Forms", "DisplayFormDepartment", "RepositoryAdminModule", new { GeneralView = 2 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Guidelines", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 4, title = "Guidelines", GeneralView = 2, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Standard", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 7, title = "Standard", GeneralView = 2, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Manual", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 5, title = "Manual", GeneralView = 2, ProcessId = 0 }, null)</li>
+                                        </ul>
+                                    </li>
+
+                                    @*---------*@
+                                    <li style="font-size:15px">
+                                        <a href="#">EOHS<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li style="font-size:15px">
+                                                <a href="#">Process <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li style="font-size:15px">
+                                                        @Html.ActionLink("Operation Process", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 6, title = "Operation Process", GeneralView = 3, ProcessId = 1 }, null)
+                                                        @Html.ActionLink("System Process", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 6, title = "System Process", GeneralView = 3, ProcessId = 2 }, null)
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li style="font-size:15px">@Html.ActionLink("Checklist", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 2, title = "Checklist", GeneralView = 3, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Forms", "DisplayFormDepartment", "RepositoryAdminModule", new { GeneralView = 3 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Guidelines", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 4, title = "Guidelines", GeneralView = 3, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Standard", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 7, title = "Standard", GeneralView = 3, ProcessId = 0 }, null)</li>
+                                            <li style="font-size:15px">@Html.ActionLink("Manual", "DisplayProcess", "RepositoryAdminModule", new { DocumentId = 5, title = "Manual", GeneralView = 3, ProcessId = 0 }, null)</li>
+                                        </ul>
+                                    </li>
+
+
+                                    @*----------*@
+                                </ul>
+                            </li>
+                        </ul>
+
+                        @*</div>*@<!--/.nav-collapse -->
+                    }
+
+
+                    @*   @if (User.IsInRole("Auditee") || User.IsInRole("Admin") || User.IsInRole("Quality Team")
+                        || User.IsInRole("Project Team") || User.IsInRole("Senior Mgmt") || User.IsInRole("Support Team"))*@
+                    @if ((User.IsInRole("Admin")))
+                    {
+
+                        <!-- left nav -->
+                        <ul class="nav navbar-nav" accesskey="">
+                            <li style="font-size:15px">
+                                @*<a href="#">Admin Clover Qms <span class="caret"></span></a>*@
+                                @* ADDED BY PRIYANKA D. To merger QMS AND CLOVER QMS TAB IN once *@
+
+                            </li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "SelectUserRoles" ? "open" : "")">@Html.ActionLink("Assign Roles", "SelectUserRoles", "AssignRoles")</li>
+                            <li style="font-size:15px">
+                                <a href="#">Update Data <span class="caret"></span></a>
+
+                                <ul class="dropdown-menu">
+                                    <li style="font-size:15px">@Html.ActionLink("Life Cycle", "ShowLifeCycle", "UpdateByAdminParameters")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Technology", "ShowTechnology", "UpdateByAdminParameters")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Region", "ShowRegion", "UpdateByAdminParameters")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Project Type", "ShowType", "UpdateByAdminParameters")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Qms Department", "ShowDepartment", "QMSRepository")</li>
+                                    @*<li style="font-size:15px">@Html.ActionLink("ISO", "Index", "Iso")</li>*@
+                                    <li style="font-size:15px">@Html.ActionLink("Domain", "DomainIndex", "Domain")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Classification", "classificationIndex", "classification")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("ISO", "ISOIndex", "Iso")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("CSAT", "Index", "Csat")</li>
+                                </ul>
+                            </li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "AdminPcrSchedule" ? "open" : "")">@Html.ActionLink("Update Audit Schedule", "AdminPcrSchedule", "Admin")</li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "AdminAuditClosed" ? "open" : "")">@Html.ActionLink("Audit Close", "AdminAuditClosed", "Admin")</li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "open" : "")">@Html.ActionLink("Audit History", "Index", "AuditLog")</li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "ShowDepartmentRoles" ? "open" : "")">@Html.ActionLink("Department Role", "ShowDepartmentRoles", "AssignRoles")</li>
+                            <li style="font-size:15px" class="@(ViewContext.RouteData.Values["Action"].ToString() == "ImportExcel" ? "open" : "")">@Html.ActionLink("Import Excel", "ImportExcel", "User")</li>
+                            <li style="font-size:15px">
+                                <a href="#">Update Metric Parameter<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-size:15px">@Html.ActionLink("Metric Objective", "MetricObjectiveIndex", "MetricObjective")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Metric Frequency", "MetricFrequencyIndex", "MetricFrequency")</li>
+                                    <li style="font-size:15px">@Html.ActionLink("Metric Objective Update ", "MetricObjectiveAdmin", "MetricObjective")</li>
+                                </ul>
+
+                            </li>
+                        </ul>
+                        @*</div>*@<!--/.nav-collapse -->
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="body-content">
+            @RenderBody()
+
+        </div>
+    }
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+@*<script>
+        //session end
+        var sessionTimeoutWarning = @Session.Timeout- 1;
+
+        var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+        setTimeout('SessionEnd()', sTimeout);
+
+        function SessionEnd() {
+            var url = '@Url.Content("~/")' + "User/Logout/";
+            alert("Your session is end. Please login again.")
+            window.location = url;
+        }
+    </script>*@

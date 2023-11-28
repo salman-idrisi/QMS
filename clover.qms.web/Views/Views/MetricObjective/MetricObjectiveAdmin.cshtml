@@ -1,0 +1,309 @@
+﻿@model clover.qms.model.MetricObjViewModel
+@using clover.qms.web.Models;
+
+<html>
+<head>
+    <link href="@Url.ContentAbsUrl("~/Content/buttons.css")" rel="stylesheet" />
+    <style>
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        option {
+            padding: 50px !important;
+        }
+
+        .modal-header {
+            background-color: #83CB1E;
+            color: #fff;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .form-group {
+            padding: 0px 10px !important;
+        }
+
+        .table_paddi_sec {
+            margin: 10px;
+            width: 95% !important;
+            border: none;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <script src="@Url.ContentAbsUrl("~/Scripts/CheckBox.js")"></script>
+</head>
+<body>
+    <div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 style="text-align:center;color:#00239B">Metric Objective Update </h3>
+            </div>
+        </div>
+    </div>
+
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" style="margin-top:20px">
+            @TempData["msg"]
+        </div>
+    }
+
+    <div class="row mt-20">
+        <div class="col-sm-2"> <p style="color:darkblue;font-size:18px">Start Date:</p></div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control date-picker" data-date-format='yyyy-mm-dd' readonly="readonly" name="startdate" id="dateStart" value="@Request["startdate"]" autocomplete="off" data-val="true" data-val-required="The start date is required" />
+
+            @Html.ValidationMessage("startdate", "", new { @style = "color:red" })
+            <div><p id="validationSDate" /></div>
+        </div>
+        <div class="col-sm-2"><p style="color:darkblue;font-size:18px">End Date:</p></div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control date-picker" data-date-format='yyyy-mm-dd' readonly="readonly" name="enddate" id="dateEnd" value="@Request["enddate"]" autocomplete="off" data-val="true" data-val-required="The end date is required" />
+
+            @Html.ValidationMessage("enddate", "", new { @style = "color:red" })
+            <div><p id="validationDate" /></div>
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" value="View Metric Objective " id="btn" class="btn btn-success form-control" />
+        </div>
+    </div>
+
+    <div id="divPartialView" class="form-horizontal table-responsive" align="center">
+        @if (Model.lstmetricvalue.Count > 0)
+        {
+            <table id="MetricTable" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td colspan="5"><p style="text-align:left"><b>Date:</b>@ViewBag.startDate  to @ViewBag.endDate</p></td>
+                        <td colspan="13"><p style="text-align:left"><b> Report Time:</b>@ViewBag.CurrentDate</p></td>
+                    </tr>
+                    <tr bgcolor='#D3D3D3'>
+                        <th>Sr.No</th>
+                        <th>Project Name</th>
+                        <th>Lifecycle / Function</th>
+                        <th>Auditee</th>
+                        <th>Metric Name</th>
+                        <th>Measurement Method</th>
+                        <th>Measurement Frequency</th>
+                        <th>Achievment Expected</th>
+                        <th>DataSource</th>
+
+                        @foreach (var item in ViewBag.months)
+                        {
+                            <th>@item</th>
+                            <th>RCA @item</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.pm.Count > 0)
+                    {
+                        var srno = 1;
+                        foreach (var metrciobjval in Model.pm)
+                        {
+                            foreach (var metricobj in Model.lstmetricobj.Where(x => x.plcid == metrciobjval.lifecycleID))
+                            {
+                                if (Model.lstmetricvalue.Where(x => x.metricId == metricobj.metricid).Where(x => x.PID == metrciobjval.PID).ToList().Count > 0)
+                                {
+                                    <tr>
+                                        <td>@srno</td>
+                                        @foreach (var project in Model.pm.Where(x => x.PID == metrciobjval.PID))
+                                        {
+
+                                            <td>@project.ProjectName</td>
+                                            break;
+                                        }
+
+                                        @foreach (var lifecycle in Model.listLifeCycle.Where(x => x.lifecycleID == metrciobjval.lifecycleID))
+                                        {
+
+                                            <td>@lifecycle.lifecycleName</td>
+                                            break;
+                                        }
+
+                                        @{var username = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Select(x => x.user_id).FirstOrDefault();
+
+                                            string name = "";
+                                            foreach (var user in Model.lstuser.Where(x => x.UserName == @username))
+                                            {
+                                                name = user.FirstName + " " + user.LastName;
+
+                                                break;
+                                            }
+                                            <td>  @(username == null ? " " : @name)</td>
+                                        }
+
+                                        <td>@metricobj.metricname</td>
+                                        <td>@metricobj.mesurement_method</td>
+
+                                        @foreach (var frequency in Model.lstfrequency.Where(x => x.frequencyId == metricobj.measurementfrequency))
+                                        {
+                                            <td>@frequency.frequencyName</td>
+                                            break;
+                                        }
+
+                                        <td>@metricobj.achievementexpected</td>
+                                        <td>@metricobj.datasource</td>
+
+                                        @foreach (var item in ViewBag.months)
+                                        {
+                                            <td>
+                                                @{
+                                                    string metric_value = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item).Select(x => x.metric_value).FirstOrDefault();
+                                                    int metricid_val = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item).Select(x => x.metricidvalue).FirstOrDefault();
+
+                                                    @(metric_value == null ? "-" : metric_value)
+
+                                                    if (metric_value != null)
+                                                    {
+                                                        <a rel="tooltip" title="Edit Role" class="table-action edit" href="#" onclick=Edit(@metricid_val);>
+                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                        </a>
+                                                    }
+                                                }
+
+                                            </td>
+                                            <td>
+                                                @{
+                                                    string rca_val = Model.lstmetricvalue.Where(x => x.PID == metrciobjval.PID).Where(x => x.metricId == metricobj.metricid).Where(x => x.metricdate.Value.ToString("MMM-yyyy") == item).Select(x => x.rca).FirstOrDefault();
+                                                    @(rca_val == null ? "-" : rca_val)
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                    srno++;
+                                }
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        @*else
+            {
+                <h3 style="text-align:center"> No data found</h3>
+            }*@
+        <h3 style="text-align:center"></h3>
+        <h3 style="text-align:center"></h3>
+    </div>
+
+    @using (Html.BeginForm("Export", "MetricObjective", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="GridHtml" />
+        <center><input type="submit" id="btnExport" class="btn btn-primary collapsed text-center" value="Export" /></center>
+    }
+
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+                $("input[name='GridHtml']").val($("#divPartialView").html());
+            });
+        });
+    </script>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body" id="contentBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+     function Edit(ID) {
+
+         var url = '@Url.Content("~/")' + "MetricObjective/MetricObjValUpdateAdmin/";
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'MID': ID
+                },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                    $('#contentBody').html(response);
+                    $('#myModal').modal('show');
+                },
+                failure: function (response) {
+
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
+
+
+<script>
+    $(document).ready(function () {
+        var startdate = $("#dateStart").val();
+        var enddate = $('#dateEnd').val();
+
+        if (startdate == '' && enddate == '') {
+            $('#btnExport').hide();
+        }
+        else {
+            $('#btnExport').show();
+        }
+
+        $('#btn').on('click', function () {
+            var startdate = $("#dateStart").val();
+            var enddate = $('#dateEnd').val();
+            if (startdate == '' || enddate == '') {
+                $('#validationSDate').html('<font color="Red">The start date required</font>');
+                $('#validationDate').html('<font color="Red">The end date required</font>');
+                $('#btnExport').hide();
+            }
+            else if (startdate != '' && enddate != '') {
+                $('#validationDate').html('');
+                $('#validationSDate').html('');
+                if (Date.parse(startdate) > Date.parse(enddate)) {
+                    $('#validationDate').html('<font color="Red">End date should be greater than start date</font>');
+                    $("#dateEnd").val('');
+                }
+                else {
+                    var url = '@Url.Content("~/")' + "MetricObjective/MetricPartialObjectiveAdmin";
+
+                    $.ajax({
+                        type: "Get",
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: { Startdate: startdate, Enddate: enddate },
+                        dataType: 'html',
+                        success: function (data) {
+                            $("#divPartialView").html(data);
+                            $('#btnExport').show();
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                }
+            }
+        });
+        $('#dateStart').change(function () {
+            $('#validationSDate').html('');
+        });
+        $('#dateEnd').change(function () {
+            $('#validationDate').html('');
+        });
+    });
+
+</script>
+
+
+

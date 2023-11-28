@@ -1,0 +1,76 @@
+﻿@model clover.qms.model.PCRSchedule
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+ 
+</head>
+<body>
+    <div>
+
+        @using (Html.BeginForm("PCRCheckListDetails", "PCRCheckList", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+            Model.listprojectmaster = ViewBag.schedule;
+            Model.listlifecycle = ViewBag.lifecycle;
+            <div class="form-horizontal" align="center">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="background-color:#D3D3D3;text-align:center">Project Name</th>
+                            <th style="background-color:#D3D3D3;text-align:center">Life Cycle</th>
+                            <th style="background-color:#D3D3D3;text-align:center">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @foreach (var item in Model.listprojectmaster.Where(x => x.PID == Model.PID))
+                        {
+                            <tr>
+                                <td>
+                                    @item.ProjectName
+                                </td>
+
+
+                                @foreach (var item1 in Model.listlifecycle.Where(x => x.lifecycleID == item.lifecycleID))
+                                {
+                                    <td>
+                                        @item1.lifecycleName
+                                    </td>
+                                    <td>
+                                        @{var Checklist = ViewBag.Checklist.Count;
+                                        }
+
+                                        @if (Checklist > 0)
+                                        {
+
+                                            @*@Html.ActionLink("Continue Checklist", "SaveAsDraft", "PCRCheckList", new { @class = "btn btn-primary" })*@
+                                        <a href=@Url.Action("SaveAsDraft", "PCRCheckList",  new { lcycleid = item1.lifecycleID}) class="btn btn-primary">Continue Checklist</a>
+                                        }
+
+                                        <a href=@Url.Action("PCRCheckListDetails", "PCRCheckList",  new { lcycleid = item1.lifecycleID}) class="btn btn-success">Fill Checklist</a>
+
+                                    </td>
+                                }
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+    </div>
+</body>
+</html>
+
+

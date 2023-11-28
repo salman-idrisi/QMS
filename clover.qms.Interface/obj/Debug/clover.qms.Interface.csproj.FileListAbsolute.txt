@@ -1,0 +1,189 @@
+E:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+E:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+E:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+E:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+E:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+E:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+E:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+E:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+E:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+D:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+D:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+E:\QMS-project final-30-may\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+E:\QMS-project final-1-june\QMS Project-Final\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+D:\QMS Project-Final-21-june\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\QMS Project-Final-21-june\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\QMS Project-Final-21-june\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\QMS Project-Final-21-june\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\QMS Project-Final-21-june\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+D:\QMS Project-Final-21-june\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\QMS Project-Final-21-june\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\QMS Project-Final-21-june\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\QMS Project-Final-21-june\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+D:\QMS-project final-7 july\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\QMS-project final-7 july\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\QMS-project final-7 july\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\QMS-project final-7 july\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\QMS-project final-7 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+D:\QMS-project final-7 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\QMS-project final-7 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\QMS-project final-7 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\QMS-project final-7 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+E:\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+E:\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+E:\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+E:\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+E:\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+E:\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+E:\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+E:\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+E:\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\files\QMS-project final-29 july\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\files\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+C:\files\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\files\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-29 july\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-9 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-9 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-9 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\files\QMS-project final-9 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\files\QMS-project final-9 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+C:\files\QMS-project final-9 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-9 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\files\QMS-project final-9 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-9 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-12 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-12 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-12 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\files\QMS-project final-12 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\files\QMS-project final-12 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+C:\files\QMS-project final-12 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-12 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\files\QMS-project final-12 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-12 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-13 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-13 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-13 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\files\QMS-project final-13 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\files\QMS-project final-13 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-13 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\files\QMS-project final-13 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-13 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-13 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+C:\files\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\files\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\files\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\files\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+C:\files\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\files\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\files\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\files\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\Users\adms.dotnet2\Desktop\PRODCOPY31020222\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\Priyanka\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\Priyanka\New folder\03122022\QMS 02-Dec-2022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\Sushila\QMS DocumentFinal\QMS_PROD_COPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csprojAssemblyReference.cache
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\files\05112022_CODECOPY\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\Priyanka\27dec2022\QMS_PROD_27122022\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+D:\Priyanka\19012023\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\KhalidSir\19th JAN Application\19th JAN Application\QMS-project final-18 August\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
+C:\KhalidSir\QMSProject\clover.qms.Interface\bin\Debug\clover.qms.Interface.dll
+C:\KhalidSir\QMSProject\clover.qms.Interface\bin\Debug\clover.qms.Interface.pdb
+C:\KhalidSir\QMSProject\clover.qms.Interface\bin\Debug\clover.qms.model.dll
+C:\KhalidSir\QMSProject\clover.qms.Interface\bin\Debug\clover.qms.model.pdb
+C:\KhalidSir\QMSProject\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.AssemblyReference.cache
+C:\KhalidSir\QMSProject\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CoreCompileInputs.cache
+C:\KhalidSir\QMSProject\clover.qms.Interface\obj\Debug\clover.qms.Interface.csproj.CopyComplete
+C:\KhalidSir\QMSProject\clover.qms.Interface\obj\Debug\clover.qms.Interface.dll
+C:\KhalidSir\QMSProject\clover.qms.Interface\obj\Debug\clover.qms.Interface.pdb
